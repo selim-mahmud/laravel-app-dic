@@ -1,0 +1,152 @@
+/*------------------------------------------------------------------
+[Table of contents]
+
+	- Less than 1024px
+	- Between 850px - 985px
+	- Between 768px - 850px
+	- Between 768px - 961px
+	- Less than 960px
+	- Between 620px - 768px
+	- Between 480px - 768px
+	- Less than 767px
+	- Less than 640px
+	- Less than 620px
+	- Less than 480px
+
+- Author:  Andrey Sokoltsov
+- Profile:	http://themeforest.net/user/andreysokoltsov
+
+-------------------------------------------------------------------*/
+
+/* Less than 1024px */
+@media all and (max-width: 1024px){
+	.h-logo{padding:  0;}
+	.h-second-row{padding-right: 0;}
+	.nav-container{background-color: #333;height: 100%;left: 0;margin: 0;position: fixed;top: -100%;width: 100%;z-index: 99999;overflow: auto;overflow-x: hidden;overflow-y: auto;-webkit-transition: all 0.5s ease 0s;-moz-transition: all 0.5s ease 0s;-o-transition: all 0.5s ease 0s;transition: all 0.5s ease 0s;}
+	.openMenu{overflow: hidden;}
+	.openMenu .nav-container{top: 0;}
+	.navbar-main{float: left;margin: 0;padding: 0 15px 15px;width: 100%;}
+	.navbar-main > li{padding: 0;width: 100%;}
+	.navbar-main > li > a{color: #fff;float: left;width: 100%;}
+	.navbar-main > li .dropdown-menu{background-color: #333;border-color: #333;display: block;padding: 0 0 0 25px !important;position: static;width: 100%;}
+	.navbar-main > li .dropdown-menu > li{float: left;width: 100%;}
+	.navbar-main > li .dropdown-menu > li > a{color: #fff;float: left;width: 100%;}
+	.navbar-main > li .dropdown-menu > li > a:focus,
+	.navbar-main > li .dropdown-menu > li > a:hover{background-color: transparent;text-decoration: underline;}
+	.h-menu .navbar-right li .dropdown-menu .divider{display: none;}
+	.onlyMobileMenu{display: block;}
+}
+/* Between 850px - 985px */
+@media all and (max-width: 985px) and (min-width: 850px) {
+	.members-acc .member-prof .memb-txt {min-height: 210px;}
+	.results-container .memb-txt {min-height: 175px;}
+	.listing-details-left .left-1-menu li {font-size: 12px;}
+	.nav-right-menu li {padding-left: 10px;}
+}
+/* Between 768px - 850px */
+@media all and (max-width: 850px) and (min-width: 768px) {
+	.nav-right-menu li {padding-left: 5px;}
+	.listing-details-left .left-1-menu li {font-size: 11px;}
+	.members-acc .member-prof .memb-txt {min-height: 240px;}
+	.results-container .memb-txt {min-height: 200px;}
+}
+/* Between 768px - 961px */
+@media all and (max-width: 961px) and (min-width: 768px) {
+	.listing-details-left .left-1-menu .fa {font-size: 14px; padding-right: 3px;}
+	.listing-details-left .sidebar-orange {text-align: center;}
+	.listing-details-left .business-services .business-services-menu li {padding-left: 15px;}
+}
+/* Less than 960px */
+@media all and (max-width: 960px) {
+	.p-right70 {padding-right: 50px!important;}
+	.sorts-by-results {padding: 15px 5px;}
+}
+/* Between 620px - 768px */
+@media all and (max-width: 768px) and (min-width: 620px) {
+	.sorts-by-results .col-sm-6 {float:left; width: 50%!important;}
+}
+/* Between 480px - 768px */
+@media all and (max-width: 768px) and (min-width: 480px) {
+	.members-acc .col-sm-3 {width: 50%;}
+	.br-by-ct .listing-details-left .col-sm-3 {width: 50%;}
+	.listing-details-left .left-1-menu li {padding: 5px 10px;}
+	.listing-details-left .left-1-menu .fa {padding-right: 3px;}
+	.listing-details-left .left-1-menu li {font-size: 12px;}
+}
+/* Less than 767px */
+@media all and (max-width: 767px) {
+	.home2 .br-by-ct .top-40 {margin-top: 80px!important;}
+	.make-reservation.b-radius3.b-radius3.home-reservation2 {padding-bottom: 20px;}
+	.col-sm-8.about-nav-left:before {display: none;}
+	.about-nav-right {white-space: nowrap; text-align: center;}
+	.f-newsletter-l {text-align: left;}
+	.newsletter-input {float: none; max-width: 800px; padding-right: 20px;}
+	.newsletter-bg {padding-left: 20px!important;}
+	.home-1-reserv-row2 {height: 180px;}
+	.nav-right-cont i {padding: 0 4px;}
+	.about-nav-right .nav-right-cont b{font-weight: 600;}
+	.phone-absolute, .dsp-none {display: none;}
+	.phone-features {margin-bottom: 60px; padding-top: 40px; padding-bottom: 40px;}
+	.phone-features-body .right-side-phone {margin-top: 10px;}
+	.phone-features-body .ptb60 {padding-top: 60px; padding-bottom: 60px;}
+	.results-container .col-xs-10 {padding-left: 0; padding-right: 0;}
+	.additional-filter {padding: 10px;}
+	.right-footer2 {text-align: left; float: left; margin-top: 20px; margin-bottom: 30px;}
+	.partners .width20 {width: 150px; padding: 5px;}
+	.partners .width20 img {width: 130px; height: auto;}
+	.partners {text-align: center;}
+	.pricing-main-block .main-block {margin: 0; margin-top: 20px; width: 285px;}
+	.listing-details-header .valign-table {padding-bottom: 0;}
+	.make-reservation {margin-top: 0;}
+	.list-det-ico {margin-bottom: 10px;}
+	.list-det-title {font-size: 33px;}
+	.p-right70 {padding-right: 30px!important;}
+	.raiting-review .right-side {border-right:0;}
+	.raiting-review .col-sm-5 {border-top: 1px solid #eeeeee;}
+	.members-acc .member-prof .memb-txt {min-height: 150px;}
+	.results-container .memb-txt {padding-bottom: 0;}
+	.nav-right-cont{padding-left: 0;}
+}
+/* Less than 640px */
+@media all and (max-width: 640px) {
+	.list-det-left .new-first-det li {margin-left: 0px; width: 100%;}
+	.list-det-left .new-first-det li {margin-top: 5px;}
+	.write-review {position: relative; float: left;}
+	.list-det-title {line-height: 40px;}
+	.listing-details-header .p-relative, .raiting-review-sort .el-form-1 .col-sm-6{padding-left: 0; padding-right: 0;}
+	.related-listings .memb-txt {padding: 10px;}
+	.comment-raiting div{margin-left: 5px; margin-top: 5px; margin-bottom: 0;}
+	.write-comment-raiting div, .write-comment-raiting div:first-child{margin-left: 0; margin-top: 5px; margin-bottom: 0;}
+	.sp-desc-container{padding-top: 25%;}
+	.sp-desc-container .sp-layer{position: static;}
+}
+/* Less than 620px */
+@media all and (max-width: 620px) {
+	.sorts-by-results .col-sm-6 .f-right {float: left;}
+}
+/* Less than 480px */
+@media all and (max-width: 480px) {
+	.right-banner {display: none;}
+	.results-container .col-xs-10 {width: 100%;}
+	.results-container .col-sm-9, .results-container .col-sm-3 {padding-left: 0; padding-right: 0;}
+	.partners .width20 {width: 135px;}
+	.partners .width20 img {width: 120px; height: auto;}
+	.error-orange {font-size: 80px;}
+	.error-blue { font-size: 120px;}
+	.not-found-title { font-size: 20px; margin-bottom: 30px;}
+	.right-footer2 img {width: 30px; height: auto;}
+	.list-det-left .raitings-stars{padding-left: 0!important;}
+	.list-det-title{font-size:30px;}
+	.blockquote1 {padding-left: 0;}
+	.blockquote-style1 {font-size: 20px; line-height: 25px; padding-left: 5px;}
+	.fa-3x {font-size: 2em!important;}
+	.blockquote-style-2 .blockquote1 {padding: 15px;}
+	.make-reservation {padding: 30px;}
+	.sorts-by-results {padding: 15px 5px;}
+	.members-acc .col-sm-3 {width: 100%;}
+	.inf-msg .icon_close_alt2, .inf-msg .icon_volume-high_alt, .inf-msg .icon_question_alt2, .inf-msg .icon_error-oct_alt, .inf-msg .icon_check_alt2, .inf-msg .icon_lightbulb_alt, .inf-msg .icon_lifesaver {padding: 0 4px;}
+	.font38 {font-size: 34px; line-height: 1.2em; }
+	.play-market .store-btns .top20 {margin-top: 15px;}
+	.br-by-ct .listing-details-left .col-sm-3 {width: 100%;}
+	.listing-details-main .make-reservation {margin-top: -20px;}
+}
