@@ -46,9 +46,9 @@
 									<div class="custom-select select-type4 high location">
 										<select class="chosen-select">
 											<option value="1">- Choose State -</option>
-											<option value="2">USA</option>
-											<option value="3">Ukraine</option>
-											<option value="4">France</option>
+											<option value="2">NSW</option>
+											<option value="3">VIC</option>
+											<option value="4">SA</option>
 										</select>
 									</div>
 								</div>
