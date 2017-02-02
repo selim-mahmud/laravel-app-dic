@@ -25,7 +25,7 @@ class Dic
     }
 
     public function makeUrl($path){
-        return explode("/", $this->request->path());
+        return strtolower(str_replace(' ', '-', $path));
     }
 
     public function makeUnUrl($path){
