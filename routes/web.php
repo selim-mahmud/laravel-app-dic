@@ -24,6 +24,7 @@ Route::get('user/activation/{token}',['as'=>'user.activate','uses'=> 'UserContro
 Route::get('facebook-register', array('as'=>'facebook_register', 'uses'=>'UserController@facebookRegister'));
 Route::get('facebook-login', array('as'=>'facebook_login', 'uses'=>'UserController@facebookLogin'));
 Route::get('facebook-callback', array('as'=>'facebook_callback', 'uses'=>'UserController@facebookCallback'));
+Route::get('location', array('as'=>'location', 'uses'=>'UserController@userLocation'));
 
 
 Route::group(['middleware' => ['auth']], function () {
@@ -31,7 +32,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('learner-profile', array('as'=>'learner_profile', 'uses'=>'LearnerProfileController@getProfile'));
     Route::get('logout', array('as'=>'logout', 'uses'=>'UserController@logout'));
 });
-
 
 
 

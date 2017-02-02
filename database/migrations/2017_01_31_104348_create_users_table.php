@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +13,19 @@ class CreateUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('user', function (Blueprint $table) {
-             $table->engine = 'InnoDB';
-            $table->bigIncrements('user_id');
-            $table->integer('role_id')->index()->unsigned();
+        Schema::create('users', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->integer('school_id')->index()->unsigned()->nullable();
             $table->bigInteger('facebook_id')->index()->unsigned()->nullable();
             $table->string('name', 100);
             $table->string('display_name', 100)->nullable();
             $table->string('email', 100)->unique();
             $table->string('pass_key')->nullable();
-            $table->boolean('is_active')->default(false);
+            $table->string('status', 20);
             $table->string('reset_key')->nullable();
             $table->rememberToken();
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -37,6 +36,6 @@ class CreateUserTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user');
+        Schema::dropIfExists('users');
     }
 }

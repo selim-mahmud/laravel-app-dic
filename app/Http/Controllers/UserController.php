@@ -39,6 +39,13 @@ class UserController extends Controller{
         session()->put('previous_path', General::currentPath());
     }
 
+    public function userLocation(){
+        $geoip = geoip();
+        $location = $geoip->getLocation();
+
+        dd($location->country);
+    }
+
     /**
     /* function to display and process register as learner form
     /*
