@@ -14,6 +14,11 @@ use Illuminate\View\View;
 
 class BreadCrumbComposer
 {
+    /**
+     * Holds instance of Dic
+     *
+     * @var $dic App\Helpers\Dic
+     */
     protected $dic;
 
     public function __construct(Dic $dic)
@@ -32,10 +37,21 @@ class BreadCrumbComposer
         $view->with('breadCrumbHtml', $this->getBreadCrumb());
     }
 
+    /**
+     * gets breadcrumb elements for view
+     *
+     * @return string
+     */
     protected function getBreadCrumb(){
         return $this->generateBreadCrumbHtml($this->dic->getUrlPath());
     }
 
+    /**
+     * generates html for breadcrumb
+     *
+     * @param array $pathArray
+     * @return string
+     */
     protected function generateBreadCrumbHtml(array $pathArray){
         $breadCrumbHtml = '';
         if(is_array($pathArray)){

@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 
 class Dic
 {
+    /**
+     * holds instance of laravel Http request
+     *
+     * @var $request Illuminate\Http\Request
+     */
     protected $request;
 
     public function __construct(Request $request)
@@ -20,14 +25,31 @@ class Dic
         $this->request = $request;
     }
 
+    /**
+     * returns each section of current url in an array
+     *
+     * @return array
+     */
     public function getUrlPath(){
         return explode("/", $this->request->path());
     }
 
+    /**
+     * makes a string ready for section of url
+     *
+     * @param $path
+     * @return string
+     */
     public function makeUrl($path){
         return strtolower(str_replace(' ', '-', $path));
     }
 
+    /**
+     * makes section of url capitalized space separated
+     *
+     * @param $path
+     * @return string
+     */
     public function makeUnUrl($path){
         return ucwords(str_replace('-', ' ', $path));
     }
