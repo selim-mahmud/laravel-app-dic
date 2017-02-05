@@ -877,7 +877,7 @@
 @stop
 
 @section('footer')
-    @include('partials.footer');
+    @include('partials.footer')
 @stop
 
 @push('scripts_stack')
