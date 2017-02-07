@@ -17,11 +17,19 @@ class DicTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $request = Request::create('http://driving-instructors-catalog.com.au/url/to/path');
-        $this->dic = new Dic($request);
+        $this->dic = new Dic();
     }
 
     public function testItCanGetUrl(){
-        $this->assertEquals(['url','to','path'], $this->dic->getUrlPath());
+        $request = Request::create('http://driving-instructors-catalog.com.au/url/to/path');
+        $this->assertEquals(['url','to','path'], $this->dic->getUrlPath($request));
+    }
+
+    public function testItCanMakeUrl(){
+        $this->assertEquals('url-section', $this->dic->makeUrl('url Section'));
+    }
+
+    public function testItCanMakeUnUrl(){
+        $this->assertEquals('Url Section', $this->dic->makeUnUrl('url-section'));
     }
 }

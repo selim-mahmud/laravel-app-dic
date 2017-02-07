@@ -13,24 +13,12 @@ use Illuminate\Http\Request;
 class Dic
 {
     /**
-     * holds instance of laravel Http request
-     *
-     * @var $request Illuminate\Http\Request
-     */
-    protected $request;
-
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
-
-    /**
      * returns each section of current url in an array
      *
      * @return array
      */
-    public function getUrlPath(){
-        return explode("/", $this->request->path());
+    public function getUrlPath(Request $request){
+        return explode("/", $request->path());
     }
 
     /**
