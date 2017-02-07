@@ -168,7 +168,6 @@ return [
          * Package Service Providers...
          */
         \Torann\GeoIP\GeoIPServiceProvider::class,
-
         /*
          * Application Service Providers...
          */
