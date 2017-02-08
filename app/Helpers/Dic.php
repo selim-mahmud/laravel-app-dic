@@ -12,13 +12,24 @@ use Illuminate\Http\Request;
 
 class Dic
 {
+    protected $request;
+
+    /**
+     * Dic constructor.
+     * @param Request $request
+     */
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
     /**
      * returns each section of current url in an array
      *
      * @return array
      */
-    public function getUrlPath(Request $request){
-        return explode("/", $request->path());
+    public function getUrlPath(){
+        return explode("/", $this->request->path());
     }
 
     /**

@@ -10,6 +10,7 @@
 namespace App\Http\ViewComposers;
 
 use App\Helpers\Dic;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class BreadCrumbComposer
@@ -20,6 +21,7 @@ class BreadCrumbComposer
      * @var $dic App\Helpers\Dic
      */
     protected $dic;
+    protected $request;
 
     public function __construct(Dic $dic)
     {

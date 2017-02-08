@@ -17,15 +17,13 @@ class DicTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->dic = new Dic();
+        $request = Request::create('http://driving-instructors-catalog.com.au/url/to/path');
+        $this->dic = new Dic($request);
     }
 
-    /**
-     * test getUrlPath()
-     */
     public function testItCanGetUrl(){
-        $request = Request::create('http://driving-instructors-catalog.com.au/url/to/path');
-        $this->assertEquals(['url','to','path'], $this->dic->getUrlPath($request));
+
+        $this->assertEquals(['url','to','path'], $this->dic->getUrlPath());
     }
 
     public function testItCanMakeUrl(){
@@ -34,5 +32,14 @@ class DicTest extends TestCase
 
     public function testItCanMakeUnUrl(){
         $this->assertEquals('Url Section', $this->dic->makeUnUrl('url-section'));
+    }
+
+    public function mock($class)
+    {
+        $mock = Mockery::mock($class);
+
+        $this->app->instance($class, $mock);
+
+        return $mock;
     }
 }
