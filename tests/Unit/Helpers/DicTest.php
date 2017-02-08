@@ -20,6 +20,9 @@ class DicTest extends TestCase
         $this->dic = new Dic();
     }
 
+    /**
+     * test getUrlPath()
+     */
     public function testItCanGetUrl(){
         $request = Request::create('http://driving-instructors-catalog.com.au/url/to/path');
         $this->assertEquals(['url','to','path'], $this->dic->getUrlPath($request));
