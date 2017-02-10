@@ -77,7 +77,7 @@
                                         </button>
                                         <ul style="margin-left: -108px;" class="dropdown-menu top_dropdown_menu"
                                             aria-labelledby="register">
-                                            <li><a href="{{url('register-as-school/create')}}"><span
+                                            <li><a href="{{url('register-as-school')}}"><span
                                                             class="glyphicon glyphicon-chevron-right primary_color"></span>
                                                     Register your School</a></li>
                                             <li><a href="{{url('register-as-learner')}}"><span

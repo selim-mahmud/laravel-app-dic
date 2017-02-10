@@ -2,8 +2,7 @@
 
 @section('meta')
     <title>Register as a learner - Driving Instructors Directory</title>
-    <meta name="description"
-          content="Register yourself as a learner, search our database to find your nearest driving instructors and school. Get driving lesson and write a review for your instructors">
+    <meta name="description" content="Register yourself as a learner, search our database to find your nearest driving instructors and school. Get driving lesson and write a review for your instructors">
     <meta name="keywords" content="register, driving learner, nearest driving instructors">
 @stop
 
@@ -29,11 +28,13 @@
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <h2 class="form-header black333">Register as a learner</h2>
 
-                        {!! Form::open (['method'=>'POST', 'action'=> 'UserController@store']) !!}
-                        <input type="hidden" name="registration_type" value="2"/>
+                        {!! Form::open (['method'=>'POST', 'action'=> 'UserController@postLearnerRegistration']) !!}
 
                         <div class="top20">
                             {!! Form::text('name', null, ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Your name']) !!}
+                        </div>
+                        <div class="top20">
+                            {!! Form::text('display_name', null, ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Your display name']) !!}
                         </div>
                         <div class="top20">
                             {!! Form::email('email', null, ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Your email']) !!}
@@ -42,13 +43,23 @@
                             {!! Form::password('password', ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Password']) !!}
                         </div>
                         <div class="top20">
-                            {!! Form::password('confpass', ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Confirm password']) !!}
+                            {!! Form::password('confirm_password', ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Confirm password']) !!}
                         </div>
                         <div class="top20">
                             {!! Form::submit('REGISTER', ['class'=>'submit-btn button1-1 b-radius3 right30 button-blue top20']) !!}
                         </div>
 
                         {!! Form::close() !!}
+
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
