@@ -19,48 +19,37 @@
 @stop
 
 @section('content')
-
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <h2 class="form-header black333">Register as a learner</h2>
-
                         {!! Form::open (['method'=>'POST', 'action'=> 'UserController@postLearnerRegistration']) !!}
-
                         <div class="top20">
                             {!! Form::text('name', null, ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Your name']) !!}
+                            <span class="text-danger">{{$errors->has('name')?$errors->first('name'):''}}</span>
                         </div>
                         <div class="top20">
                             {!! Form::text('display_name', null, ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Your display name']) !!}
+                            <span class="text-danger">{{$errors->has('display_name')?$errors->first('display_name'):''}}</span>
                         </div>
                         <div class="top20">
                             {!! Form::email('email', null, ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Your email']) !!}
+                            <span class="text-danger">{{$errors->has('email')?$errors->first('email'):''}}</span>
                         </div>
                         <div class="top20">
                             {!! Form::password('password', ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Password']) !!}
+                            <span class="text-danger">{{$errors->has('password')?$errors->first('password'):''}}</span>
                         </div>
                         <div class="top20">
                             {!! Form::password('confirm_password', ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Confirm password']) !!}
+                            <span class="text-danger">{{$errors->has('confirm_password')?$errors->first('confirm_password'):''}}</span>
                         </div>
                         <div class="top20">
                             {!! Form::submit('REGISTER', ['class'=>'submit-btn button1-1 b-radius3 right30 button-blue top20']) !!}
                         </div>
-
                         {!! Form::close() !!}
-
-                        @if (count($errors) > 0)
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <h2 style="margin-top: 20px;" class="centerBlock form-header black333"><span

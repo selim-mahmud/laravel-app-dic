@@ -8,11 +8,14 @@
 
 namespace App\Contracts;
 
-
 interface RegistrationContract
 {
     /**
-     * @return mixed
+     * register new user using registration form
+     *
+     * @param array $inputs
+     * @param string $userType
+     * @return bool
      */
-    public function register();
+    public function register(array $inputs, string $userType);
 }

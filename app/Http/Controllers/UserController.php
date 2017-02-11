@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationAsLearnerRequest;
-use Illuminate\Support\Facades\Request;
+use App\Services\RegistrationService;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -23,9 +23,19 @@ class UserController extends Controller
         return view('user.register_as_learner');
     }
 
-    public function postLearnerRegistration(RegistrationAsLearnerRequest $request)
+    public function postLearnerRegistration(RegistrationAsLearnerRequest $request, RegistrationService $registration)
     {
-        $inputs = $request::all();
+        $inputs = $request->all();
+        $response = $registration->RegisterAsLearner($inputs);
+        if ($response) {
+            return redirect('login')->with('alert-success', config('dic-message.registration_as_learner_success'));
+        }
+        return redirect()->back()->with('alert-danger', config('dic-message.registration_as_learner_fail'));
+    }
+
+    public function getLogin()
+    {
+        return view('user.login');
     }
 
     /**
@@ -40,13 +50,6 @@ class UserController extends Controller
         session()->put('previous_path', General::currentPath());
     }
 
-    public function userLocation()
-    {
-        $geoip = geoip();
-        $location = $geoip->getLocation();
-
-        dd($location->country);
-    }
 
     /**
      * /* function to display and process register as learner form

@@ -12,6 +12,10 @@ use App\Contracts\RegistrationContract;
 
 class RegistrationService
 {
+    const LEARNER_USER_TYPE_NAME = 'learner';
+    /**
+     * @var $registrationContract RegistrationContract
+     */
     protected $registrationContract;
 
     public function __construct(RegistrationContract $registrationContract)
@@ -19,7 +23,7 @@ class RegistrationService
         $this->registrationContract = $registrationContract;
     }
 
-    public function schoolRegistration(){
-        return $this->registrationContract->register();
+    public function RegisterAsLearner(array $inputs){
+        return $this->registrationContract->register($inputs, self::LEARNER_USER_TYPE_NAME);
     }
 }

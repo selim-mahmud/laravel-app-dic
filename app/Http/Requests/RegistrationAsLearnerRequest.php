@@ -26,8 +26,8 @@ class RegistrationAsLearnerRequest extends FormRequest
         return [
             'name' => 'required|between:3,50',
             'display_name' => 'required|between:2,50',
-            'email' => 'required|email|unique:user,email' ,
-            'password' => 'required|alpha_num|between:6,15',
+            'email' => 'required|email|unique:users,email' ,
+            'password' => 'required|between:6,15|regex:/^[ A-Za-z0-9!@#$%&_-]*$/',
             'confirm_password' => 'required|same:password',
         ];
     }
@@ -35,9 +35,7 @@ class RegistrationAsLearnerRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Name field cannot be empty.',
-            'name.between' => 'Name must be between 3 to 50 characters long.',
-            'password.alpha_num' => 'password excepts only letters, number and special characters like *, & or @.',
+            'password.regex' => 'password excepts only letters, number and some special characters.',
         ];
     }
 }
