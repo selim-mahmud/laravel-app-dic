@@ -3,13 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationAsLearnerRequest;
+use App\Http\Requests\RegistrationAsSchoolRequest;
 use App\Services\RegistrationService;
-use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function __construct()
+    /**
+     * @var RegistrationService $registrationService
+     */
+    protected $registrationService;
+
+    /**
+     * UserController constructor.
+     * @param RegistrationService $registrationService
+     */
+    public function __construct(RegistrationService $registrationService)
     {
+        $this->registrationService = $registrationService;
         //$this->middleware('guest', ['only' => ['registerAsSchool', 'registerAsLearner', 'login', 'facebookRegister', 'facebookCallback', 'findOrCreateUser']]);
     }
 
@@ -23,14 +33,46 @@ class UserController extends Controller
         return view('user.register_as_learner');
     }
 
-    public function postLearnerRegistration(RegistrationAsLearnerRequest $request, RegistrationService $registration)
+    /**
+     * process learner registration form
+     *
+     * @param RegistrationAsLearnerRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postLearnerRegistration(RegistrationAsLearnerRequest $request)
     {
         $inputs = $request->all();
-        $response = $registration->RegisterAsLearner($inputs);
+        $response = $this->registrationService->registerAsLearner($inputs);
         if ($response) {
-            return redirect('login')->with('alert-success', config('dic-message.registration_as_learner_success'));
+            return redirect('login')->with('alert-success', config('dic-message.registration_success'));
         }
-        return redirect()->back()->with('alert-danger', config('dic-message.registration_as_learner_fail'));
+        return redirect()->back()->with('alert-danger', config('dic-message.registration_fail'));
+    }
+
+    /**
+     * display school's registration form
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getSchoolRegistration()
+    {
+        return view('user.register_as_school');
+    }
+
+    /**
+     * process school registration form
+     *
+     * @param RegistrationAsLearnerRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postSchoolRegistration(RegistrationAsSchoolRequest $request)
+    {
+        $inputs = $request->all();
+        $response = $this->registrationService->registerAsSchool($inputs);
+        if ($response) {
+            return redirect('login')->with('alert-success', config('dic-message.registration_success'));
+        }
+        return redirect()->back()->with('alert-danger', config('dic-message.registration_fail'));
     }
 
     public function getLogin()

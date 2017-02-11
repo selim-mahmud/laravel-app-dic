@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('name', 100);
             $table->string('display_name', 100)->default('');
             $table->string('email', 100)->unique()->default('');
+            $table->string('user_type', 20)->default('');
             $table->string('pass_key')->default('');
             $table->string('status', 20)->default('inactive');
             $table->string('reset_key')->default('');
