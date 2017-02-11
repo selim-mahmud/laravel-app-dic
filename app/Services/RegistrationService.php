@@ -18,11 +18,21 @@ class RegistrationService
      */
     protected $registrationContract;
 
+    /**
+     * RegistrationService constructor.
+     * @param RegistrationContract $registrationContract
+     */
     public function __construct(RegistrationContract $registrationContract)
     {
         $this->registrationContract = $registrationContract;
     }
 
+    /**
+     * register user as learner
+     *
+     * @param array $inputs
+     * @return bool
+     */
     public function RegisterAsLearner(array $inputs){
         return $this->registrationContract->register($inputs, self::LEARNER_USER_TYPE_NAME);
     }

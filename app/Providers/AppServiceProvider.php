@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Contracts\RegistrationContract;
 use App\Services\Login;
 use App\Services\Registration;
+use App\User;
 use Illuminate\Support\ServiceProvider;
 use App\Contracts\LoginContract;
 
@@ -32,7 +33,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(RegistrationContract::class, function(){
-            return new Registration();
+            return new Registration(
+                new User()
+            );
         });
     }
 }
