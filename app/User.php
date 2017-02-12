@@ -29,6 +29,16 @@ class User extends Authenticatable{
     protected $hidden = ['pass_key', 'reset_key'];
 
     /**
+     * set custom password field name
+     *
+     * @return mixed
+     */
+    public function getAuthPassword()
+    {
+        return $this->pass_key;
+    }
+
+    /**
      * get the school that has this user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -12,9 +12,6 @@ use App\Contracts\RegistrationContract;
 
 class RegistrationService
 {
-    const LEARNER_USER_TYPE_NAME = 'learner';
-    const SCHOOL_USER_TYPE_NAME = 'school';
-
     /**
      * @var $registrationContract RegistrationContract
      */
@@ -36,7 +33,7 @@ class RegistrationService
      * @return bool
      */
     public function registerAsLearner(array $inputs){
-        return $this->registrationContract->register($inputs, self::LEARNER_USER_TYPE_NAME);
+        return $this->registrationContract->register($inputs, config('dic.learner_user_type_name'));
     }
 
     /**
@@ -46,6 +43,6 @@ class RegistrationService
      * @return bool
      */
     public function registerAsSchool(array $inputs){
-        return $this->registrationContract->register($inputs, self::SCHOOL_USER_TYPE_NAME);
+        return $this->registrationContract->register($inputs, config('dic.school_user_type_name'));
     }
 }

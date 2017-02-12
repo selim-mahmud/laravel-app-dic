@@ -7,6 +7,7 @@ Route::get('register-as-school', array('as' => 'register-as-school', 'uses' => '
 Route::post('register-as-school', array('as' => 'register-as-school', 'uses' => 'UserController@postSchoolRegistration'));
 Route::get('login', array('as' => 'login', 'uses' => 'UserController@getLogin'));
 Route::post('login', array('as' => 'login', 'uses' => 'UserController@postLogin'));
+Route::get('logout', array('as' => 'logout', 'uses' => 'UserController@logout'));
 
 
 

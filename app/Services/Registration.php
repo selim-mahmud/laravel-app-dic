@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\Hash;
 
 class Registration implements RegistrationContract
 {
-    const LEARNER_USER_TYPE_NAME = 'learner';
-    const SCHOOL_USER_TYPE_NAME = 'school';
-
     /**
      * @var $user User
      */
@@ -31,6 +28,7 @@ class Registration implements RegistrationContract
     /**
      * Registration constructor.
      * @param User $user
+     * @param School $school
      */
     public function __construct(User $user, School $school)
     {
@@ -43,14 +41,14 @@ class Registration implements RegistrationContract
      */
     public function register(array $inputs, string $userType)
     {
-        if (self::LEARNER_USER_TYPE_NAME === $userType) {
+        if (config('dic.learner_user_type_name') === $userType) {
             $this->user->name = $inputs['name'];
             $this->user->display_name = $inputs['display_name'];
             $this->user->email = $inputs['email'];
             $this->user->pass_key = Hash::make($inputs['password']);
         }
 
-        if (self::SCHOOL_USER_TYPE_NAME === $userType) {
+        if (config('dic.school_user_type_name') === $userType) {
             $school = $this->school::create(['name' => $inputs['school_name']]);
             $this->user->name = $inputs['name'];
             $this->user->school_id = $school->id;

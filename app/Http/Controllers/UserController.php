@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginAsEmailRequest;
 use App\Http\Requests\RegistrationAsLearnerRequest;
 use App\Http\Requests\RegistrationAsSchoolRequest;
+use App\Services\LoginService;
 use App\Services\RegistrationService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class UserController extends Controller
 {
@@ -14,13 +18,22 @@ class UserController extends Controller
     protected $registrationService;
 
     /**
+     * @var LoginService $loginService
+     */
+    protected $loginService;
+
+    /**
      * UserController constructor.
      * @param RegistrationService $registrationService
+     * @param LoginService $loginService
      */
-    public function __construct(RegistrationService $registrationService)
+    public function __construct(RegistrationService $registrationService, LoginService $loginService)
     {
         $this->registrationService = $registrationService;
-        //$this->middleware('guest', ['only' => ['registerAsSchool', 'registerAsLearner', 'login', 'facebookRegister', 'facebookCallback', 'findOrCreateUser']]);
+        $this->loginService = $loginService;
+        $this->middleware('guest', ['only' => ['getLearnerRegistration', 'postLearnerRegistration',
+            'getSchoolRegistration', 'postSchoolRegistration', 'getLogin', 'postLogin']]);
+        $this->middleware('auth', ['only' => ['logout']]);
     }
 
     /**
@@ -81,81 +94,35 @@ class UserController extends Controller
     }
 
     /**
-     * /* function to display and process register as instructor form
-     * /*
-     * /* @param
-     * /*
-     * /* @return view
-     */
-    public function registerAsSchool(Request $request)
-    {
-        session()->put('previous_path', General::currentPath());
-    }
-
-
-    /**
-     * /* function to display and process register as learner form
-     * /*
-     * /* @param
-     * /*
-     * /* @return view
-     */
-    public function registerAsLearner()
-    {
-        session()->put('previous_path', General::currentPath());
-    }
-
-    /**
-     * /* function to display and process login form
-     * /*
-     * /* @return view
-     */
-    public function login()
-    {
-        session()->put('previous_path', General::currentPath());
-        return view('user.login');
-    }
-
-    /**
-     * /* function to display and process login form
-     * /*
-     * /* @return view
-     */
-
-    public function postLogin(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        if (User::isAvailable($request->email)) {
-            return redirect()->back()->with('alert-danger', 'Invalid Email address. No account found with given email address.');
-        }
-
-        if (!User::isActive($request->email)) {
-            auth()->logout();
-            return redirect()->back()->with('alert-warning', 'The account is not active. Click the link below to resend the activation link');
-        }
-
-
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => 1])) {
-            return "Logged in with email";
-        } else {
-            return "Sorry Can't Logged In";
-        }
-
-    }
-
-    /**
-     * method to logout.
+     * logged in user using email
      *
-     * @return view
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|string
+     */
+    public function postLogin(LoginAsEmailRequest $request)
+    {
+        $inputs = $request->all();
+        list($response, $userType) = $this->loginService->loginByEmail($inputs);
+        if($response){
+            if($userType === config('dic.learner_user_type_name')){
+                return "You are logged in as learner";
+            }
+            if($userType === config('dic.school_user_type_name')){
+                return "You are logged in as school";
+            }
+        }
+        return redirect()->back()->with('alert-danger', config('dic-message.email_login_fail'));
+    }
+
+    /**
+     * logout user
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function logout()
     {
         Auth::logout();
-        return redirect('login')->with('alert-success', 'You have successfully Logged out.');
+        return redirect('login')->with('alert-success', config('dic-message.logout_success'));
     }
 
     /**
@@ -244,27 +211,6 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-
-    }
-
-    /**
-     * Show the form for register as school
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-        return view('user.register_as_school');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -348,50 +294,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
     /**
      * Return user if exists; create and return if doesn't

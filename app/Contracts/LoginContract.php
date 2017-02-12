@@ -8,11 +8,14 @@
 
 namespace App\Contracts;
 
-
 interface LoginContract
 {
     /**
-     * @return mixed
+     * login user
+     *
+     * @param array $inputs
+     * @param string $loginType
+     * @return bool
      */
-    public function login();
+    public function login(array $inputs, string $loginType);
 }

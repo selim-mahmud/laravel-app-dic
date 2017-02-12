@@ -37,36 +37,6 @@
                                         </button>
                                         <ul style="margin-left: -120px;" class="dropdown-menu top_dropdown_menu"
                                             aria-labelledby="profile">
-                                            @if(App\User::isAuthManager())
-                                                <li><a href="/manager"><span
-                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                        Dashboard</a></li>
-                                                <li><a href="/manager"><span
-                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                        View profile</a></li>
-                                                <li><a href="/manager"><span
-                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                        Edit profile</a></li>
-                                            @endif
-                                            @if(App\User::isAuthInstructor())
-                                                <li><a href="/instructor"><span
-                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                        View profile</a></li>
-                                                <li><a href="/instructor"><span
-                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                        Edit profile</a></li>
-                                            @endif
-                                            @if(App\User::isAuthLearner())
-                                                <li><a href="/manager"><span
-                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                        Dashboard</a></li>
-                                                <li><a href="{{url('learner-profile')}}"><span
-                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                        View profile</a></li>
-                                                <li><a href="/learner"><span
-                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                        Edit profile</a></li>
-                                            @endif
                                         </ul>
                                     @else
                                         <button class="btn btn-default dropdown-toggle" type="button" id="register"
@@ -85,7 +55,6 @@
                                                     Register as a Learner</a></li>
                                         </ul>
                                     @endif
-
                                 </div>
                             </div>
                         </div>
