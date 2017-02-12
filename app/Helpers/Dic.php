@@ -51,4 +51,5 @@ class Dic
     public function makeUnUrl($path){
         return ucwords(str_replace('-', ' ', $path));
     }
+
 }

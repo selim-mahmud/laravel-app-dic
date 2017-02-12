@@ -16,12 +16,9 @@ use Illuminate\View\View;
 class BreadCrumbComposer
 {
     /**
-     * Holds instance of Dic
-     *
-     * @var $dic App\Helpers\Dic
+     * @var $dic Dic
      */
     protected $dic;
-    protected $request;
 
     public function __construct(Dic $dic)
     {

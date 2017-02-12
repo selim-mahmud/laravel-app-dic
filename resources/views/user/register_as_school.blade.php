@@ -56,7 +56,7 @@
                                     class="primary_color">OR</span> register using your facebook</h2>
 
                         <a class="b-radius3 btn-social btn-fb centerBlock button-blue"
-                           href="{{url('facebook-register')}}"><span class="fa fa-facebook"></span> Register with
+                           href="{{url('facebook-auth')}}"><span class="fa fa-facebook"></span> Register with
                             Facebook</a>
                         <br/>
                         <br/>

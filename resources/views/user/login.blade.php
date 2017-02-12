@@ -48,7 +48,7 @@
                         <h2 style="margin-top: 20px;" class="centerBlock form-header black333"><span
                                     class="primary_color">OR</span> login using your facebook</h2>
                         <a class="b-radius3 btn-social btn-fb centerBlock button-blue"
-                           href="{{url('facebook-register')}}"><span class="fa fa-facebook"></span> Login with Facebook</a>
+                           href="{{url('facebook-auth')}}"><span class="fa fa-facebook"></span> Login with Facebook</a>
                         <br/>
                         <br/>
                     </div>

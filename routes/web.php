@@ -8,6 +8,10 @@ Route::post('register-as-school', array('as' => 'register-as-school', 'uses' => 
 Route::get('login', array('as' => 'login', 'uses' => 'UserController@getLogin'));
 Route::post('login', array('as' => 'login', 'uses' => 'UserController@postLogin'));
 Route::get('logout', array('as' => 'logout', 'uses' => 'UserController@logout'));
+Route::get('facebook-auth', array('as' => 'facebook-register', 'uses' => 'UserController@facebookAuth'));
+Route::get('facebook-callback', array('as' => 'facebook-callback', 'uses' => 'UserController@facebookCallback'));
+Route::get('learner-profile', array('as' => 'learner-profile', 'uses' => 'UserController@getLearnerProfile'));
+Route::get('school-profile', array('as' => 'school-profile', 'uses' => 'UserController@getSchoolProfile'));
 
 
 
