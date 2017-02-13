@@ -153,25 +153,25 @@ class UserController extends Controller
     public function facebookCallback()
     {
         $facebook_User = Socialite::driver('facebook')->user();
-        $previous_path = session()->get('previous_path');
-        if (trim($previous_path[0]) == 'register-as-learner') { // register as learner
+        $previousPath = session()->get('previous_path');
+        if (trim($previousPath[0]) == 'register-as-learner') { // register as learner
             $facebook_User->user_role = config('dic.learner_user_type_name');
-            $authUser = $this->findOrCreateUser($facebook_User);
+            $authUser = $this->registrationService->findOrCreateUser($facebook_User);
             if ($authUser) {
                 return redirect('login')->with('alert-success', config('dic-message.facebook_registration_success'));
             } else {
                 return redirect('register-as-learner')->with('alert-warning', config('dic-message.general_fail'));
             }
-        } else if (trim($previous_path[0]) == 'register-as-school') { //register as school
+        } else if (trim($previousPath[0]) == 'register-as-school') { //register as school
             $facebook_User->user_role = config('dic.school_user_type_name');
-            $authUser = $this->findOrCreateUser($facebook_User);
+            $authUser = $this->registrationService->findOrCreateUser($facebook_User);
             if ($authUser) {
                 return redirect('login')->with('alert-success', config('dic-message.facebook_registration_success'));
             } else {
                 return redirect('register-as-school')->with('alert-warning', config('dic-message.general_fail'));
             }
-        } else if (trim($previous_path[0]) == 'login') { //login
-            $authUser = $this->findOrCreateUser($facebook_User);
+        } else if (trim($previousPath[0]) == 'login') { //login
+            $authUser = $this->registrationService->findOrCreateUser($facebook_User);
             if ($authUser == 'not_registered') {
                 return redirect('login')->with('alert-warning', config('dic-message.facebook_login_not_found'));
             }
@@ -190,63 +190,6 @@ class UserController extends Controller
 
         } else {
             return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
-        }
-    }
-
-    /**
-     * Return user if exists or create and return if doesn't
-     *
-     * @param $facebookUser
-     * @return User
-     */
-    private function findOrCreateUser($facebookUser)
-    {
-        $authUser = User::where('facebook_id', $facebookUser->id)->first();
-        if ($authUser) {
-            return $authUser;
-        }
-        if (!isset($facebookUser->user_role)) {
-            return 'not_registered';
-        }
-
-        if ($facebookUser->user_role == config('dic.learner_user_type_name')) { // register as learner
-            // insert into user table
-            $authUser = User::create([
-                'name' => $facebookUser->name,
-                'display_name' => $facebookUser->name,
-                'email' => $facebookUser->email,
-                'facebook_id' => $facebookUser->id,
-                'user_type' => config('dic.learner_user_type_name'),
-                'status' => 'active'
-            ]);
-        }
-
-        if ($facebookUser->user_role == config('dic.school_user_type_name')) { // register as school
-
-            DB::beginTransaction();
-
-            // insert into school table
-            $school = School::create([
-                'name' => $facebookUser->name,
-            ]);
-
-            // insert into user table
-            $authUser = User::create([
-                'school_id' => $school->id,
-                'name' => $facebookUser->name,
-                'email' => $facebookUser->email,
-                'facebook_id' => $facebookUser->id,
-                'user_type' => config('dic.school_user_type_name'),
-                'status' => 'active'
-            ]);
-
-            DB::commit();
-        }
-
-        if ($authUser) {
-            return $authUser;
-        } else {
-            return false;
         }
     }
 
