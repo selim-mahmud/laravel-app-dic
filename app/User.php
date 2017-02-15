@@ -23,9 +23,10 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable{
+class User extends Authenticatable
+{
     protected $fillable = ['school_id', 'facebook_id', 'name', 'display_name',
-                            'email', 'user_type', 'pass_key', 'status', 'reset_key','remember_token'];
+        'email', 'user_type', 'pass_key', 'status', 'reset_key', 'remember_token'];
     protected $hidden = ['pass_key', 'reset_key'];
 
     /**
@@ -46,5 +47,31 @@ class User extends Authenticatable{
     public function school()
     {
         return $this->belongsTo('App\School');
+    }
+
+    /**
+     * check if an email exists in user table
+     *
+     * @param string $email
+     * @return bool
+     */
+    public function isEmailExists(string $email) : bool
+    {
+        return ($this::where('email', $email)->count())===1?true:false;
+    }
+
+    /**
+     * check if reset key exists in user table
+     *
+     * @param string $key
+     * @return object|bool
+     */
+    public function getResetKeyUser(string $key)
+    {
+        $user = $this::where('reset_key', $key);
+        if($user->count() === 1){
+            return $user;
+        }
+        return false;
     }
 }

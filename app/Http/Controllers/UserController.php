@@ -6,24 +6,23 @@ use App\Helpers\Dic;
 use App\Http\Requests\LoginAsEmailRequest;
 use App\Http\Requests\RegistrationAsLearnerRequest;
 use App\Http\Requests\RegistrationAsSchoolRequest;
-use App\School;
 use App\Services\LoginService;
 use App\Services\RegistrationService;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
     /**
-     * @var RegistrationService $registrationService
+     * @var $registrationService RegistrationService
      */
     protected $registrationService;
 
     /**
-     * @var LoginService $loginService
+     * @var $loginService LoginService
      */
     protected $loginService;
 
@@ -33,15 +32,22 @@ class UserController extends Controller
     protected $dic;
 
     /**
+     * @var $user User
+     */
+    protected $user;
+
+    /**
      * UserController constructor.
      * @param RegistrationService $registrationService
      * @param LoginService $loginService
      */
-    public function __construct(RegistrationService $registrationService, LoginService $loginService, Dic $dic)
+    public function __construct(RegistrationService $registrationService, LoginService $loginService,
+                                Dic $dic, User $user)
     {
         $this->registrationService = $registrationService;
         $this->loginService = $loginService;
         $this->dic = $dic;
+        $this->user = $user;
         $this->middleware('guest', ['only' => ['getLearnerRegistration', 'postLearnerRegistration',
             'getSchoolRegistration', 'postSchoolRegistration', 'getLogin', 'postLogin']]);
         $this->middleware('auth', ['only' => ['logout']]);
@@ -191,6 +197,74 @@ class UserController extends Controller
         } else {
             return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
         }
+    }
+
+    /**
+     * display reset link send form
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getPasswordReset()
+    {
+        return view('user.password_reset');
+    }
+
+    /**
+     * process reset link form
+     *
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postPasswordReset(Request $request, User $user)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+        ]);
+
+        $email = $request->get('email');
+        if ($user->isEmailExists($email)) {
+            if ($this->loginService->sendPasswordResetLink($email)) {
+                return redirect()->back()->with('alert-success', config('dic-message.reset_link_success'));
+            }
+            return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
+        }
+        return redirect()->back()->with('alert-danger', config('dic-message.reset_link_fail'));
+    }
+
+    /**
+     * display set new password form
+     *
+     * @param $key
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getNewPassword($key){
+        $customBreadcrumb = '<ol class="breadcrumb"><li><a href="/">Home</a></li><li>New Password</li></ol>';
+        return view('user.new_password', compact('key', 'customBreadcrumb'));
+    }
+
+    /**
+     * process set new password form
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postNewPassword(Request $request){
+        $this->validate($request, [
+            'password' => 'required|between:6,15|regex:/^[ A-Za-z0-9!@#$%&_-]*$/',
+            'confirm_password' => 'required|same:password',
+        ]);
+
+        if($user = $this->user->getResetKeyUser($request->get('key'))){
+            $user = $user->firstOrFail();
+            $user->pass_key = Hash::make($request->get('password'));
+            if($user->save()){
+                $user->reset_key = '';
+                $user->save();
+                return redirect('login')->with('alert-success', config('dic-message.password_reset_success'));
+            }
+        }
+        return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
     }
 
     public function getLearnerProfile()

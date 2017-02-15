@@ -10,6 +10,10 @@ Route::post('login', array('as' => 'login', 'uses' => 'UserController@postLogin'
 Route::get('logout', array('as' => 'logout', 'uses' => 'UserController@logout'));
 Route::get('facebook-auth', array('as' => 'facebook-register', 'uses' => 'UserController@facebookAuth'));
 Route::get('facebook-callback', array('as' => 'facebook-callback', 'uses' => 'UserController@facebookCallback'));
+Route::get('password-reset', array('as' => 'password-reset', 'uses' => 'UserController@getPasswordReset'));
+Route::post('password-reset', array('as' => 'password-reset', 'uses' => 'UserController@postPasswordReset'));
+Route::get('new-password/{key}', array('as' => 'new-password', 'uses' => 'UserController@getNewPassword'));
+Route::post('new-password', array('as' => 'new-password', 'uses' => 'UserController@postNewPassword'));
 Route::get('learner-profile', array('as' => 'learner-profile', 'uses' => 'UserController@getLearnerProfile'));
 Route::get('school-profile', array('as' => 'school-profile', 'uses' => 'UserController@getSchoolProfile'));
 

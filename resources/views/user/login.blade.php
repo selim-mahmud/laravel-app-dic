@@ -7,15 +7,15 @@
 @stop
 
 @section('header')
-    @include('partials.header')
+    @include('_partials.header')
 @stop
 
 @section('breadcrumb')
-    @include('partials.breadcrumb')
+    @include('_partials.breadcrumb')
 @stop
 
 @section('flash_message')
-    @include('partials.flash_message')
+    @include('_partials.flash_message')
 @stop
 
 @section('content')
@@ -42,7 +42,8 @@
                         <div class="form-group">
                             {!! Form::submit('Login', ['class'=>'submit-btn button1-1 b-radius3 right30 button-blue top20']) !!}
                         </div>
-                        {!! Form::close() !!}
+                        {!! Form::close() !!}<br />
+                        <a style="margin-top:20px;" href="{{url('password-reset')}}">Forgot password</a>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <h2 style="margin-top: 20px;" class="centerBlock form-header black333"><span
@@ -60,7 +61,7 @@
 @stop
 
 @section('footer')
-    @include('partials.footer');
+    @include('_partials.footer');
 @stop
 
 @push('scripts_stack')

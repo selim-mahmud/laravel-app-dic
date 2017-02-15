@@ -9,9 +9,9 @@
 
     <link rel="icon" type="image/x-icon" href="{{asset('img/theme/fav.png')}}"/>
 
-    @include('partials.common_styles')
+    @include('_partials.common_styles')
     {{-- Separate out the hackfiles --}}
-    @include('partials.browserhacks')
+    @include('_partials.browserhacks')
 </head>
 <body>
 
@@ -28,7 +28,7 @@
 </section>
 
 @yield('footer')
-@include('partials.common_scripts')
+@include('_partials.common_scripts')
 @stack('scripts_stack')
 
 </body>

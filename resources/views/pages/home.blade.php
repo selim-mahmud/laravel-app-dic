@@ -7,11 +7,11 @@
 @stop
 
 @section('header')
-    @include('partials.header')
+    @include('_partials.header')
 @stop
 
 @section('flash_message')
-    @include('partials.flash_message')
+    @include('_partials.flash_message')
 @stop
 
 @section('content')
@@ -877,7 +877,7 @@
 @stop
 
 @section('footer')
-    @include('partials.footer')
+    @include('_partials.footer')
 @stop
 
 @push('scripts_stack')
