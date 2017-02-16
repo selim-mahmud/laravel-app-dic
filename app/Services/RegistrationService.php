@@ -9,6 +9,7 @@
 namespace App\Services;
 
 use App\Contracts\RegistrationContract;
+use App\School;
 use App\User;
 use Illuminate\Support\Facades\DB;
 
@@ -83,7 +84,13 @@ class RegistrationService
         }
     }
 
-    public function createLearner(array $facebookUser) : array
+    /**
+     * create user as learner
+     *
+     * @param $facebookUser
+     * @return User
+     */
+    public function createLearner($facebookUser): User
     {
         return User::create([
             'name' => $facebookUser->name,
@@ -95,7 +102,13 @@ class RegistrationService
         ]);
     }
 
-    public function createSchool(array $facebookUser) : array
+    /**
+     * create user as school
+     *
+     * @param $facebookUser
+     * @return User
+     */
+    public function createSchool($facebookUser): User
     {
         DB::beginTransaction();
 

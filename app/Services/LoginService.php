@@ -64,7 +64,7 @@ class LoginService
         $user->reset_key = $key;
         if($user->save()){
             $resetLink = config('dic.password_reset_base_link').$key;
-            return Mail::to($email)->queue(new passwordReset($user, $resetLink));
+            return Mail::to($email)->queue(new PasswordReset($user, $resetLink));
         }
         return false;
     }

@@ -6,4 +6,5 @@ return [
     'email_login_name' => 'email',
     'facebook_login_name' => 'facebook',
     'password_reset_base_link' => env('APP_URL').'new-password/',
+    'account_activation_base_link' => env('APP_URL').'account-activate/',
 ];

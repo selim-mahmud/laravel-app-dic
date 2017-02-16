@@ -57,6 +57,9 @@ class Registration implements RegistrationContract
         }
         $this->user->user_type = $userType;
 
-        return $this->user->save();
+        if ($this->user->save()) {
+            return $this->user;
+        }
+        return false;
     }
 }

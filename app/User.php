@@ -14,6 +14,7 @@
 | pass_key       | varchar(255)        | NO   |     |          |
 | status         | varchar(20)         | NO   |     | inactive |
 | reset_key      | varchar(255)        | NO   |     |          |
+| activation_key | varchar(100)        | YES  |     |          |
 | remember_token | varchar(100)        | YES  |     |          |
 | created_at     | timestamp           | YES  |     | NULL     |
 | updated_at     | timestamp           | YES  |     | NULL     |

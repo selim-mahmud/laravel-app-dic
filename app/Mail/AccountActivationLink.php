@@ -8,34 +8,33 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class passwordReset extends Mailable
+class AccountActivationLink extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
-     * The user instance.
+     * The url to activate an account
      *
-     * @var $user User
+     * @var string
+     */
+    public $activationLink;
+
+    /**
+     * user model
+     *
+     * @var User
      */
     public $user;
 
     /**
-     * The unique activation key.
-     *
-     * @var $activationKey
-     */
-    public $resetLink;
-
-    /**
      * Create a new message instance.
      *
-     * @param User $user
-     * @param string $resetLink
+     * @return void
      */
-    public function __construct(User $user, string $resetLink)
+    public function __construct(User $user, string $activationLink)
     {
         $this->user = $user;
-        $this->resetLink = $resetLink;
+        $this->activationLink = $activationLink;
     }
 
     /**
@@ -45,6 +44,6 @@ class passwordReset extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.account.password_reset');
+        return $this->view('emails.account.account_activation');
     }
 }

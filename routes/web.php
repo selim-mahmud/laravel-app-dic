@@ -1,5 +1,8 @@
 <?php
 
+use App\Events\UserRegistered;
+use Illuminate\Support\Facades\Event;
+
 Route::get('/', array('as' => 'home', 'uses' => 'PageController@home'));
 Route::get('register-as-learner', array('as' => 'register_as_learner', 'uses' => 'UserController@getLearnerRegistration'));
 Route::post('register-as-learner', array('as' => 'register_as_learner', 'uses' => 'UserController@postLearnerRegistration'));
@@ -16,6 +19,10 @@ Route::get('new-password/{key}', array('as' => 'new-password', 'uses' => 'UserCo
 Route::post('new-password', array('as' => 'new-password', 'uses' => 'UserController@postNewPassword'));
 Route::get('learner-profile', array('as' => 'learner-profile', 'uses' => 'UserController@getLearnerProfile'));
 Route::get('school-profile', array('as' => 'school-profile', 'uses' => 'UserController@getSchoolProfile'));
+
+Route::get('event', function(){
+    Event::fire(new UserRegistered(2));
+});
 
 
 

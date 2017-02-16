@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('pass_key')->default('');
             $table->string('status', 20)->default('inactive');
             $table->string('reset_key')->default('');
+            $table->string('activation_key')->default('');
             $table->rememberToken()->default('');
             $table->timestamps();
         });

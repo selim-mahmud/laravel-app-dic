@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\FacebookRegistered;
 use App\Helpers\Dic;
 use App\Http\Requests\LoginAsEmailRequest;
 use App\Http\Requests\RegistrationAsLearnerRequest;
@@ -13,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
+use App\Events\UserRegistered;
+use Illuminate\Support\Facades\Event;
 
 class UserController extends Controller
 {
@@ -73,8 +76,10 @@ class UserController extends Controller
     public function postLearnerRegistration(RegistrationAsLearnerRequest $request)
     {
         $inputs = $request->all();
-        $response = $this->registrationService->registerAsLearner($inputs);
-        if ($response) {
+        $user = $this->registrationService->registerAsLearner($inputs);
+        if ($user) {
+            //send welcome and activation email
+            Event::fire(new UserRegistered($user->id));
             return redirect('login')->with('alert-success', config('dic-message.registration_success'));
         }
         return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
@@ -100,8 +105,10 @@ class UserController extends Controller
     public function postSchoolRegistration(RegistrationAsSchoolRequest $request)
     {
         $inputs = $request->all();
-        $response = $this->registrationService->registerAsSchool($inputs);
-        if ($response) {
+        $user = $this->registrationService->registerAsSchool($inputs);
+        if ($user) {
+            //send welcome and activation email
+            Event::fire(new UserRegistered($user->id));
             return redirect('login')->with('alert-success', config('dic-message.registration_success'));
         }
         return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
@@ -164,6 +171,8 @@ class UserController extends Controller
             $facebook_User->user_role = config('dic.learner_user_type_name');
             $authUser = $this->registrationService->findOrCreateUser($facebook_User);
             if ($authUser) {
+                //send welcome and activation email
+                Event::fire(new FacebookRegistered($authUser->id));
                 return redirect('login')->with('alert-success', config('dic-message.facebook_registration_success'));
             } else {
                 return redirect('register-as-learner')->with('alert-warning', config('dic-message.general_fail'));
@@ -172,6 +181,8 @@ class UserController extends Controller
             $facebook_User->user_role = config('dic.school_user_type_name');
             $authUser = $this->registrationService->findOrCreateUser($facebook_User);
             if ($authUser) {
+                //send welcome and activation email
+                Event::fire(new FacebookRegistered($authUser->id));
                 return redirect('login')->with('alert-success', config('dic-message.facebook_registration_success'));
             } else {
                 return redirect('register-as-school')->with('alert-warning', config('dic-message.general_fail'));
@@ -183,7 +194,6 @@ class UserController extends Controller
             }
             Auth::login($authUser, true);
             $user = Auth::user();
-
             if ($user) {
                 if ($user->user_type == config('dic.school_user_type_name')) {
                     return redirect()->route('school-profile', $user->school_id);
@@ -193,7 +203,6 @@ class UserController extends Controller
             } else {
                 return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
             }
-
         } else {
             return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
         }
