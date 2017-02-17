@@ -17,6 +17,7 @@ Route::get('password-reset', array('as' => 'password-reset', 'uses' => 'UserCont
 Route::post('password-reset', array('as' => 'password-reset', 'uses' => 'UserController@postPasswordReset'));
 Route::get('new-password/{key}', array('as' => 'new-password', 'uses' => 'UserController@getNewPassword'));
 Route::post('new-password', array('as' => 'new-password', 'uses' => 'UserController@postNewPassword'));
+Route::get('account-activate/{key}', array('as' => 'new-password', 'uses' => 'UserController@getAccountActivate'));
 Route::get('learner-profile', array('as' => 'learner-profile', 'uses' => 'UserController@getLearnerProfile'));
 Route::get('school-profile', array('as' => 'school-profile', 'uses' => 'UserController@getSchoolProfile'));
 

@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendAccountActivationEmail
+class SendAccountActivationEmail implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -33,7 +33,7 @@ class SendAccountActivationEmail
         $user->activation_key = $key;
         if($user->save()){
             $activationLink = config('dic.account_activation_base_link').$key;
-            Mail::to($user->email)->queue(new AccountActivationLink($user, $activationLink));
+            Mail::to($user->email)->send(new AccountActivationLink($user, $activationLink));
         }
     }
 }

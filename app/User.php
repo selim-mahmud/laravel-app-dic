@@ -75,4 +75,19 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    /**
+     * check if activation key exists in user table
+     *
+     * @param string $key
+     * @return object|bool
+     */
+    public function getActivationKeyUser(string $key)
+    {
+        $user = $this::where('activation_key', $key);
+        if($user->count() === 1){
+            return $user;
+        }
+        return false;
+    }
 }

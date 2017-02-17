@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendWelcomeEmailFacebook
+class SendWelcomeEmailFacebook implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -31,9 +31,9 @@ class SendWelcomeEmailFacebook
     {
         $user = $event->user;
         if ($user->user_type === config('dic.learner_user_type_name')) {
-            Mail::to($user->email)->queue(new LearnerRegistrationWelcome($user));
+            Mail::to($user->email)->send(new LearnerRegistrationWelcome($user));
         }else{
-            Mail::to($user->email)->queue(new SchoolRegistrationWelcome($user));
+            Mail::to($user->email)->send(new SchoolRegistrationWelcome($user));
         }
     }
 }

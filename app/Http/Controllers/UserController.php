@@ -263,7 +263,6 @@ class UserController extends Controller
             'password' => 'required|between:6,15|regex:/^[ A-Za-z0-9!@#$%&_-]*$/',
             'confirm_password' => 'required|same:password',
         ]);
-
         if($user = $this->user->getResetKeyUser($request->get('key'))){
             $user = $user->firstOrFail();
             $user->pass_key = Hash::make($request->get('password'));
@@ -274,6 +273,18 @@ class UserController extends Controller
             }
         }
         return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
+    }
+
+    public function getAccountActivate($key){
+        if($user = $this->user->getActivationKeyUser($key)){
+            $user = $user->firstOrFail();
+            $user->status = 'active';
+            $user->activation_key = '';
+            if($user->save()){
+                return redirect('login')->with('alert-success', config('dic-message.account_activation_success'));
+            }
+        }
+        return redirect('login')->with('alert-danger', config('dic-message.general_fail'));
     }
 
     public function getLearnerProfile()
