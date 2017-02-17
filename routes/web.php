@@ -21,8 +21,9 @@ Route::get('account-activate/{key}', array('as' => 'new-password', 'uses' => 'Us
 Route::get('learner-profile', array('as' => 'learner-profile', 'uses' => 'UserController@getLearnerProfile'));
 Route::get('school-profile', array('as' => 'school-profile', 'uses' => 'UserController@getSchoolProfile'));
 
-Route::get('event', function(){
-    Event::fire(new UserRegistered(2));
+Route::get('activity', function(\App\Contracts\ActivityLoggerContract $activity){
+    $activity->basicActivitySave('name', 'This is description');
+
 });
 
 

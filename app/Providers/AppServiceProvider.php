@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\ActivityLoggerContract;
 use App\Contracts\RegistrationContract;
 use App\School;
+use App\Services\ActivityLoggerService;
 use App\Services\Login;
 use App\Services\Registration;
 use App\User;
@@ -38,6 +40,10 @@ class AppServiceProvider extends ServiceProvider
                 new User(),
                 new School()
             );
+        });
+
+        $this->app->bind(ActivityLoggerContract::class, function(){
+            return new ActivityLoggerService();
         });
     }
 }
