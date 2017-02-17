@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\ActivityLoggerContract;
 use App\Events\FacebookRegistered;
 use App\Helpers\Dic;
 use App\Http\Requests\LoginAsEmailRequest;
@@ -40,17 +41,34 @@ class UserController extends Controller
     protected $user;
 
     /**
+     * @var ActivityLoggerContract
+     */
+    protected $activityLogger;
+
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
      * UserController constructor.
      * @param RegistrationService $registrationService
      * @param LoginService $loginService
+     * @param Dic $dic
+     * @param User $user
+     * @param ActivityLoggerContract $activityLogger
      */
     public function __construct(RegistrationService $registrationService, LoginService $loginService,
-                                Dic $dic, User $user)
+                                Dic $dic, User $user, ActivityLoggerContract $activityLogger,
+                                Request $request
+                )
     {
         $this->registrationService = $registrationService;
         $this->loginService = $loginService;
         $this->dic = $dic;
         $this->user = $user;
+        $this->activityLogger = $activityLogger;
+        $this->request = $request;
         $this->middleware('guest', ['only' => ['getLearnerRegistration', 'postLearnerRegistration',
             'getSchoolRegistration', 'postSchoolRegistration', 'getLogin', 'postLogin']]);
         $this->middleware('auth', ['only' => ['logout']]);
@@ -64,6 +82,11 @@ class UserController extends Controller
     public function getLearnerRegistration()
     {
         session()->put('previous_path', $this->dic->getUrlPath());
+        $this->activityLogger->basicActivitySave(
+            'learner_registration_page',
+            'Someone accessed learner registration form page.',
+            ['ip' => $this->request->ip()]
+            );
         return view('user.register_as_learner');
     }
 
@@ -80,8 +103,18 @@ class UserController extends Controller
         if ($user) {
             //send welcome and activation email
             Event::fire(new UserRegistered($user->id));
+            $this->activityLogger->basicActivitySave(
+                'learner_registration_success',
+                config('dic-message.registration_success'),
+                ['ip' => $this->request->ip()]
+            );
             return redirect('login')->with('alert-success', config('dic-message.registration_success'));
         }
+        $this->activityLogger->basicActivitySave(
+            'learner_registration_fail',
+            config('dic-message.general_fail'),
+            ['ip' => $this->request->ip()]
+        );
         return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
     }
 
@@ -93,6 +126,11 @@ class UserController extends Controller
     public function getSchoolRegistration()
     {
         session()->put('previous_path', $this->dic->getUrlPath());
+        $this->activityLogger->basicActivitySave(
+            'school_registration_page',
+            'Someone accessed school registration form page.',
+            ['ip' => $this->request->ip()]
+        );
         return view('user.register_as_school');
     }
 
@@ -109,8 +147,18 @@ class UserController extends Controller
         if ($user) {
             //send welcome and activation email
             Event::fire(new UserRegistered($user->id));
+            $this->activityLogger->basicActivitySave(
+                'school_registration_success',
+                config('dic-message.registration_success'),
+                ['ip' => $this->request->ip()]
+            );
             return redirect('login')->with('alert-success', config('dic-message.registration_success'));
         }
+        $this->activityLogger->basicActivitySave(
+            'school_registration_fail',
+            config('dic-message.general_fail'),
+            ['ip' => $this->request->ip()]
+        );
         return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
     }
 
@@ -132,12 +180,27 @@ class UserController extends Controller
         list($response, $userType) = $this->loginService->loginByEmail($inputs);
         if ($response) {
             if ($userType === config('dic.learner_user_type_name')) {
+                $this->activityLogger->basicActivitySave(
+                    'learner_email_login_success',
+                    'successfully logged in by learner',
+                    ['ip' => $this->request->ip()]
+                );
                 return "You are logged in as learner";
             }
             if ($userType === config('dic.school_user_type_name')) {
+                $this->activityLogger->basicActivitySave(
+                    'school_email_login_success',
+                    'successfully logged in by school',
+                    ['ip' => $this->request->ip()]
+                );
                 return "You are logged in as school";
             }
         }
+        $this->activityLogger->basicActivitySave(
+            'email_login_fail',
+            config('dic-message.email_login_fail'),
+            ['ip' => $this->request->ip()]
+        );
         return redirect()->back()->with('alert-danger', config('dic-message.email_login_fail'));
     }
 
@@ -225,13 +288,13 @@ class UserController extends Controller
      * @param User $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postPasswordReset(Request $request, User $user)
+    public function postPasswordReset(User $user)
     {
-        $this->validate($request, [
+        $this->validate($this->request, [
             'email' => 'required|email',
         ]);
 
-        $email = $request->get('email');
+        $email = $this->request->get('email');
         if ($user->isEmailExists($email)) {
             if ($this->loginService->sendPasswordResetLink($email)) {
                 return redirect()->back()->with('alert-success', config('dic-message.reset_link_success'));
@@ -258,20 +321,30 @@ class UserController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postNewPassword(Request $request){
-        $this->validate($request, [
+    public function postNewPassword(){
+        $this->validate($this->request, [
             'password' => 'required|between:6,15|regex:/^[ A-Za-z0-9!@#$%&_-]*$/',
             'confirm_password' => 'required|same:password',
         ]);
-        if($user = $this->user->getResetKeyUser($request->get('key'))){
+        if($user = $this->user->getResetKeyUser($this->request->get('key'))){
             $user = $user->firstOrFail();
-            $user->pass_key = Hash::make($request->get('password'));
+            $user->pass_key = Hash::make($this->request->get('password'));
             if($user->save()){
                 $user->reset_key = '';
                 $user->save();
+                $this->activityLogger->basicActivitySave(
+                    'password_reset_success',
+                    config('dic-message.password_reset_success'),
+                    ['ip' => $this->request->ip()]
+                );
                 return redirect('login')->with('alert-success', config('dic-message.password_reset_success'));
             }
         }
+        $this->activityLogger->basicActivitySave(
+            'password_reset_fail',
+            config('dic-message.general_fail'),
+            ['ip' => $this->request->ip()]
+        );
         return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
     }
 
@@ -281,9 +354,19 @@ class UserController extends Controller
             $user->status = 'active';
             $user->activation_key = '';
             if($user->save()){
+                $this->activityLogger->basicActivitySave(
+                    'account_activation_success',
+                    config('dic-message.account_activation_success'),
+                    ['ip' => $this->request->ip()]
+                );
                 return redirect('login')->with('alert-success', config('dic-message.account_activation_success'));
             }
         }
+        $this->activityLogger->basicActivitySave(
+            'account_activation_fail',
+            config('dic-message.general_fail'),
+            ['ip' => $this->request->ip()]
+        );
         return redirect('login')->with('alert-danger', config('dic-message.general_fail'));
     }
 
