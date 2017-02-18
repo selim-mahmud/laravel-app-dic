@@ -1,8 +1,5 @@
 <?php
 
-use App\Events\UserRegistered;
-use Illuminate\Support\Facades\Event;
-
 Route::get('/', array('as' => 'home', 'uses' => 'PageController@home'));
 Route::get('register-as-learner', array('as' => 'register_as_learner', 'uses' => 'UserController@getLearnerRegistration'));
 Route::post('register-as-learner', array('as' => 'register_as_learner', 'uses' => 'UserController@postLearnerRegistration'));
@@ -21,9 +18,11 @@ Route::get('account-activate/{key}', array('as' => 'new-password', 'uses' => 'Us
 Route::get('learner-profile', array('as' => 'learner-profile', 'uses' => 'UserController@getLearnerProfile'));
 Route::get('school-profile', array('as' => 'school-profile', 'uses' => 'UserController@getSchoolProfile'));
 
-Route::get('activity', function(\App\Contracts\ActivityLoggerContract $activity){
-    $activity->basicActivitySave('name', 'This is description');
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+Route::get('role', function(){
+    $role = Role::find(3);
+    $role->givePermissionTo('instructor_profile_operation');
 });
 
 
