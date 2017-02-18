@@ -187,7 +187,7 @@ class UserController extends Controller
                     'successfully logged in by learner',
                     ['ip' => $this->request->ip()]
                 );
-                return "You are logged in as learner";
+                return redirect('learner-dashboard')->with('alert-success', config('dic-message.login_success'));
             }
             if ($userType === config('dic.school_user_type_name')) {
                 $this->activityLogger->basicActivitySave(
@@ -195,7 +195,7 @@ class UserController extends Controller
                     'successfully logged in by school',
                     ['ip' => $this->request->ip()]
                 );
-                return "You are logged in as school";
+                return redirect('school-dashboard')->with('alert-success', config('dic-message.login_success'));
             }
         }
         $this->activityLogger->basicActivitySave(
@@ -261,9 +261,9 @@ class UserController extends Controller
             $user = Auth::user();
             if ($user) {
                 if ($user->user_type == config('dic.school_user_type_name')) {
-                    return redirect()->route('school-profile', $user->school_id);
+                    return redirect('school-dashboard')->with('alert-success', config('dic-message.login_success'));
                 } else {
-                    return redirect()->route('learner-profile', $user->id);
+                    return redirect('learner-dashboard')->with('alert-success', config('dic-message.login_success'));
                 }
             } else {
                 return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
@@ -372,12 +372,12 @@ class UserController extends Controller
         return redirect('login')->with('alert-danger', config('dic-message.general_fail'));
     }
 
-    public function getLearnerProfile()
+    public function getLearnerDashboard()
     {
-        return 'This is learner profile';
+        return view('learner.learner_dashboard');
     }
 
-    public function getSchoolProfile()
+    public function getSchoolDashboard()
     {
         return 'This is school profile';
     }

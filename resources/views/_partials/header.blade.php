@@ -4,17 +4,12 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <h1 style="font-size: 14px; font-weight: 600; margin:10px 0 0 0" class="text-uppercase hidden-xs">
-                        Welcome
-                        @if(Auth::check())
-                            <u><b> {{Auth::user()->display_name}} </b></u>
-                        @endif
-                        to Driving Instructors Catalog</h1>
+                        Welcome to Driving Instructors Catalog</h1>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="h-login">
+                    <div style="width: 284px;" class="h-login">
                         <div class="row">
                             <div class="col-md-4 col-sm-4 col-xs-4 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
-
                                 @if(Auth::check())
                                     <a href="{{url('logout')}}" class="btn btn-default dropdown-toggle"><i
                                                 style="margin-right:5px; font-size: 15px;"
@@ -27,35 +22,31 @@
 
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                <div class="dropdown">
                                     @if(Auth::check())
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="profile"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <i style="margin-right:5px; font-size: 15px;"
-                                               class="fa fa-user primary_color" aria-hidden="true"></i>Profile<i
-                                                    class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul style="margin-left: -120px;" class="dropdown-menu top_dropdown_menu"
-                                            aria-labelledby="profile">
-                                        </ul>
+                                        @if(Auth::user()->can(config('dic.learner_permission_name1')))
+                                            &nbsp;&nbsp;&nbsp;<a href="{{url('learner-dashboard')}}" class="btn btn-default dropdown-toggle"><i
+                                                    style="margin-right:5px; font-size: 15px;"
+                                                    class="fa fa-user primary_color" aria-hidden="true"></i>Dashboard</a>
+                                        @endif
                                     @else
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="register"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <i style="margin-right:5px; font-size: 15px;"
-                                               class="fa fa-user primary_color" aria-hidden="true"></i>Register<i
-                                                    class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul style="margin-left: -108px;" class="dropdown-menu top_dropdown_menu"
-                                            aria-labelledby="register">
-                                            <li><a href="{{url('register-as-school')}}"><span
-                                                            class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                    Register your School</a></li>
-                                            <li><a href="{{url('register-as-learner')}}"><span
-                                                            class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                    Register as a Learner</a></li>
-                                        </ul>
+                                        <div class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="register"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <i style="margin-right:5px; font-size: 15px;"
+                                                   class="fa fa-user primary_color" aria-hidden="true"></i>Register<i
+                                                        class="fa fa-angle-down"></i>
+                                            </button>
+                                            <ul style="margin-left: -108px;" class="dropdown-menu top_dropdown_menu"
+                                                aria-labelledby="register">
+                                                <li><a href="{{url('register-as-school')}}"><span
+                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
+                                                        Register your School</a></li>
+                                                <li><a href="{{url('register-as-learner')}}"><span
+                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
+                                                        Register as a Learner</a></li>
+                                            </ul>
+                                        </div>
                                     @endif
-                                </div>
                             </div>
                         </div>
 
