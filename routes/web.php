@@ -18,11 +18,12 @@ Route::get('account-activate/{key}', array('as' => 'new-password', 'uses' => 'Us
 Route::get('learner-profile', array('as' => 'learner-profile', 'uses' => 'UserController@getLearnerProfile'));
 Route::get('school-profile', array('as' => 'school-profile', 'uses' => 'UserController@getSchoolProfile'));
 
+use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 Route::get('role', function(){
-    $role = Role::find(3);
-    $role->givePermissionTo('instructor_profile_operation');
+    $user = User::find(13);
+    $user->assignRole('learner');
 });
 
 

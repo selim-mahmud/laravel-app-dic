@@ -101,6 +101,7 @@ class UserController extends Controller
         $inputs = $request->all();
         $user = $this->registrationService->registerAsLearner($inputs);
         if ($user) {
+            $user->assignRole(config('dic.default_learner_role_name'));
             //send welcome and activation email
             Event::fire(new UserRegistered($user->id));
             $this->activityLogger->basicActivitySave(
@@ -145,6 +146,7 @@ class UserController extends Controller
         $inputs = $request->all();
         $user = $this->registrationService->registerAsSchool($inputs);
         if ($user) {
+            $user->assignRole(config('dic.default_school_role_name'));
             //send welcome and activation email
             Event::fire(new UserRegistered($user->id));
             $this->activityLogger->basicActivitySave(
@@ -234,7 +236,7 @@ class UserController extends Controller
             $facebook_User->user_role = config('dic.learner_user_type_name');
             $authUser = $this->registrationService->findOrCreateUser($facebook_User);
             if ($authUser) {
-                //send welcome and activation email
+                $authUser->assignRole(config('dic.default_learner_role_name'));
                 Event::fire(new FacebookRegistered($authUser->id));
                 return redirect('login')->with('alert-success', config('dic-message.facebook_registration_success'));
             } else {
@@ -244,7 +246,7 @@ class UserController extends Controller
             $facebook_User->user_role = config('dic.school_user_type_name');
             $authUser = $this->registrationService->findOrCreateUser($facebook_User);
             if ($authUser) {
-                //send welcome and activation email
+                $authUser->assignRole(config('dic.default_school_role_name'));
                 Event::fire(new FacebookRegistered($authUser->id));
                 return redirect('login')->with('alert-success', config('dic-message.facebook_registration_success'));
             } else {

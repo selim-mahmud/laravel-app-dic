@@ -23,11 +23,14 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    use HasRoles;
+
     protected $fillable = ['school_id', 'facebook_id', 'name', 'display_name',
-        'email', 'user_type', 'pass_key', 'status', 'reset_key', 'remember_token'];
+        'email', 'user_type', 'pass_key', 'status', 'reset_key', 'activation_key', 'remember_token'];
     protected $hidden = ['pass_key', 'reset_key'];
 
     /**
