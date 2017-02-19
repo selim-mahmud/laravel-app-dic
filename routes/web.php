@@ -23,7 +23,10 @@ Route::group(['middleware' => ['auth']], function () { //for all logged in users
 });
 
 Route::group(['middleware' => ['permission:learner_profile_operation']], function () { //only for learner role
-    Route::get('learner-dashboard', array('as' => 'learner-dashboard', 'uses' => 'UserController@getLearnerDashboard'));
+    Route::get('learner', array('as' => 'learner-dashboard', 'uses' => 'UserController@getLearnerDashboard'));
+    Route::get('learner/messages', array('as' => 'learner-messages', function(){
+        return view('learner.learner_dashboard');
+    }));
 });
 
 Route::group(['middleware' => ['permission:school_profile_operation']], function () { //only for school_manager

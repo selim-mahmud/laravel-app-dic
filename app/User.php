@@ -11,6 +11,7 @@
 | display_name   | varchar(100)        | NO   |     |          |
 | user_type      | varchar(20)         | NO   |     |          |
 | email          | varchar(100)        | NO   | UNI |          |
+| profile_photo_url| varchar(255)        | NO   |     |          |
 | pass_key       | varchar(255)        | NO   |     |          |
 | status         | varchar(20)         | NO   |     | inactive |
 | reset_key      | varchar(255)        | NO   |     |          |

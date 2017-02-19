@@ -17,6 +17,10 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             '_partials.breadcrumb', 'App\Http\ViewComposers\BreadCrumbComposer'
         );
+
+        View::composer(
+            '_partials.breadcrumb_control', 'App\Http\ViewComposers\BreadCrumbControlComposer'
+        );
     }
 
     /**

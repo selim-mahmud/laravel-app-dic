@@ -14,4 +14,5 @@ return [
     'school_manager_permission_name2' => 'instructor_profile_operation',
     'default_instructor_role_name' => 'instructor',
     'instructor_permission_name1' => 'instructor_profile_operation',
+    'default_learner_profile_photo' => 'img/theme/default_avatar.jpg',
 ];

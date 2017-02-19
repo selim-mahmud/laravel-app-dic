@@ -9,6 +9,8 @@
 
     <link rel="icon" type="image/x-icon" href="{{asset('img/theme/fav.png')}}"/>
 
+    @stack('styles_stack')
+
     @include('_partials.control_styles')
     {{-- Separate out the hackfiles --}}
     @include('_partials.browserhacks')
