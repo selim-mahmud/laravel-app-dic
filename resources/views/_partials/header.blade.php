@@ -24,7 +24,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                     @if(Auth::check())
                                         @if(Auth::user()->can(config('dic.learner_permission_name1')))
-                                            &nbsp;&nbsp;&nbsp;<a href="{{url('learner-dashboard')}}" class="btn btn-default dropdown-toggle"><i
+                                            &nbsp;&nbsp;&nbsp;<a href="{{url('learner')}}" class="btn btn-default dropdown-toggle"><i
                                                     style="margin-right:5px; font-size: 15px;"
                                                     class="fa fa-user primary_color" aria-hidden="true"></i>Dashboard</a>
                                         @endif

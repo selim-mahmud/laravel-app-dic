@@ -187,7 +187,7 @@ class UserController extends Controller
                     'successfully logged in by learner',
                     ['ip' => $this->request->ip()]
                 );
-                return redirect('learner-dashboard')->with('alert-success', config('dic-message.login_success'));
+                return redirect('learner')->with('alert-success', config('dic-message.login_success'));
             }
             if ($userType === config('dic.school_user_type_name')) {
                 $this->activityLogger->basicActivitySave(
@@ -195,7 +195,7 @@ class UserController extends Controller
                     'successfully logged in by school',
                     ['ip' => $this->request->ip()]
                 );
-                return redirect('school-dashboard')->with('alert-success', config('dic-message.login_success'));
+                return redirect('school')->with('alert-success', config('dic-message.login_success'));
             }
         }
         $this->activityLogger->basicActivitySave(
@@ -261,9 +261,9 @@ class UserController extends Controller
             $user = Auth::user();
             if ($user) {
                 if ($user->user_type == config('dic.school_user_type_name')) {
-                    return redirect('school-dashboard')->with('alert-success', config('dic-message.login_success'));
+                    return redirect('school')->with('alert-success', config('dic-message.login_success'));
                 } else {
-                    return redirect('learner-dashboard')->with('alert-success', config('dic-message.login_success'));
+                    return redirect('learner')->with('alert-success', config('dic-message.login_success'));
                 }
             } else {
                 return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));

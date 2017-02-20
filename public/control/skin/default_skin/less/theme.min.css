@@ -1,4 +1,14 @@
 @charset "UTF-8";
+.text-danger{
+    display: block !important;
+    margin-top: 6px;
+    padding: 0 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    line-height: normal;
+    font-size: 0.85em;
+    color: #DE888A;
+}
 .animated-delay,
 .animated-waypoint {
     opacity: 0;
@@ -10074,7 +10084,7 @@ textarea {
 }
 
 a {
-    color: #F04D4E;
+    color: #00BFF3;
     text-decoration: none;
 }
 
@@ -27109,7 +27119,7 @@ body.sb-r-o #sidebar_right_toggle span.glyphicons {
 
 #topbar.alt {
     font-size: 13px;
-    padding: 23px 35px 23px 25px;
+    padding: 23px 35px 23px 0;
     background: transparent;
     border-bottom: 0;
 }
@@ -33530,7 +33540,7 @@ body.basic-timeline .panel-clone {
     }
 
     #topbar.alt {
-        padding: 15px 15px 10px 20px;
+        padding: 15px 15px 10px 0;
     }
 
     #topbar-dropmenu-wrapper {
@@ -33813,7 +33823,7 @@ body.basic-timeline .panel-clone {
 
 @media (max-width: 640px) {
     #topbar.alt {
-        padding: 10px 15px 10px 20px;
+        padding: 10px 15px 10px 0;
     }
 
     .wizard .steps li a {

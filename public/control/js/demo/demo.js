@@ -1,29 +1,9 @@
 'use strict';
-/*
- * http://themerex.com/
- * Copyright (c) 2015 ThemeREX;
-*/
 
-/*
- * Demo theme functions.
- * Required for Settings Pane and
- * misc functions
-*/
 var Demo = function() {
 
   // Demo AllCPForm Functions
   var runDemoForms = function() {
-
-    // Prevents directory response when submitting a demo form
-    $('.allcp-form').on('submit', function(e) {
-
-      if ($('body.basic-timeline').length || $('body.forms-validation').length) {
-        return;
-      }
-      e.preventDefault;
-      alert('Your form has submitted!');
-      return false;
-    });
 
     // give file-upload preview onclick functionality
     var fileUpload = $('.fileupload-preview');
@@ -564,7 +544,6 @@ var Demo = function() {
 
   return {
     init: function() {
-      runDemoForms();
       runDemoTopbar();
       runDemoSourceCode();
       runDemoSettings();

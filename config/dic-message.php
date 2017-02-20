@@ -12,5 +12,10 @@ return [
     'reset_link_success' => 'Please check your email for password reset link.',
     'password_reset_success' => 'You have successfully reset your password. Please login now.',
     'account_activation_success' => 'Your account has been activated successfully. Please login now.',
+    'change_learner_name_success' => 'You have changed your name successfully.',
+    'change_learner_display_name_success' => 'You have changed your display name successfully.',
+    'change_learner_email_success' => 'You have changed your email successfully. Your login email is changed accordingly.',
+    'change_password_success' => 'You have changed your password successfully.',
+    'change_photo_success' => 'You have changed your photo successfully.',
 
 ];

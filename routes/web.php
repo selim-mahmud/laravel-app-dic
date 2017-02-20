@@ -23,7 +23,12 @@ Route::group(['middleware' => ['auth']], function () { //for all logged in users
 });
 
 Route::group(['middleware' => ['permission:learner_profile_operation']], function () { //only for learner role
-    Route::get('learner', array('as' => 'learner-dashboard', 'uses' => 'UserController@getLearnerDashboard'));
+    Route::get('learner', array('as' => 'learner', 'uses' => 'UserController@getLearnerDashboard'));
+    Route::post('learner/change-photo', array('as' => 'change-photo', 'uses' => 'LearnerProfileController@postChangePhoto'));
+    Route::post('learner/change-name', array('as' => 'change-name', 'uses' => 'LearnerProfileController@postChangeName'));
+    Route::post('learner/change-display-name', array('as' => 'change-display-name', 'uses' => 'LearnerProfileController@postChangeDisplayName'));
+    Route::post('learner/change-eamil', array('as' => 'change-email', 'uses' => 'LearnerProfileController@postChangeEmail'));
+    Route::post('learner/change-password', array('as' => 'change-password', 'uses' => 'LearnerProfileController@postChangePassword'));
     Route::get('learner/messages', array('as' => 'learner-messages', function(){
         return view('learner.learner_dashboard');
     }));
@@ -33,7 +38,7 @@ Route::group(['middleware' => ['permission:school_profile_operation']], function
 });
 
 Route::group(['middleware' => ['permission:instructor_profile_operation']], function () { //for both school_manager and instructor
-    Route::get('school-dashboard', array('as' => 'school-dashboard', 'uses' => 'UserController@getSchoolDashboard'));
+    Route::get('school', array('as' => 'school', 'uses' => 'UserController@getSchoolDashboard'));
 });
 
 use App\User;

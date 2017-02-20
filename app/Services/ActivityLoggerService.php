@@ -23,4 +23,16 @@ class ActivityLoggerService implements ActivityLoggerContract
             ->withProperties($property)
             ->log($description);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function detailActivitySave(string $logName, $userModel, string $description, array $property = []): Activity
+    {
+        return activity()
+            ->useLog($logName)
+            ->causedBy($userModel)
+            ->withProperties($property)
+            ->log($description);
+    }
 }

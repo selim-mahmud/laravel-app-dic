@@ -1,12 +1,4 @@
 'use strict';
-/*
- * http://themerex.com/
- * Copyright (c) 2015 ThemeREX;
- */
-
-/*
- * Main functionality
- */
 
 var Core = function (options) {
 
@@ -1039,33 +1031,18 @@ if (jQuery("body.with-customizer").length > 0) {
     jQuery('body').append(custom_options);
 }
 
-// Hover effects on mobile
-// if (jQuery(".chute-icon-style").length > 0) {
-//   $('.chute-icon-style.taphover').on("click", function(e) {
-//       var link = $(this); //preselect the link
-//       if (link.hasClass('hover')) {
-//           $(this).not(this).removeClass("hover");
-//           return true;
-//       } else {
-//           link.addClass("hover");
-//           $(this).not(this).removeClass("hover");
-//           e.preventDefault();
-//           return false; //extra, and to make sure the function has consistent return points
-//       }
-//   });
-// }
-
-// if (jQuery(".chute-icon-style").length > 0) {
-//   $('.chute-icon-style.taphover').on("click", function(e) {
-//       var link = $(this); //preselect the link
-//       if (link.hasClass('hover')) {
-//           $(this).not(this).removeClass("hover");
-//           return true;
-//       } else {
-//           link.addClass("hover");
-//           $(this).not(this).removeClass("hover");
-//           e.preventDefault();
-//           return false; //extra, and to make sure the function has consistent return points
-//       }
-//   });
-// }
+$('.mag_modal').click(function(e){
+    e.preventDefault();
+    $.magnificPopup.open({
+        removalDelay: 500,
+        items: {
+            src: $(this).attr('href')
+        },
+        callbacks: {
+            beforeOpen: function (e) {
+                this.st.mainClass = 'mfp-zoomIn';
+            }
+        },
+        midClick: true
+    });
+});

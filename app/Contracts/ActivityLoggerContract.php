@@ -21,4 +21,15 @@ interface ActivityLoggerContract
      * @return ActivityLogger
      */
     public function basicActivitySave(string $logName, string $description, array $property): Activity;
+
+    /**
+     * logs user detail activity
+     *
+     * @param string $logName
+     * @param $userModel
+     * @param string $description
+     * @param array $property
+     * @return ActivityLogger|Activity
+     */
+    public function detailActivitySave(string $logName, $userModel, string $description, array $property): Activity;
 }

@@ -20,9 +20,11 @@
     @yield('header')
     @yield('left_sidebar')
     <section id="content_wrapper">
-        @yield('breadcrumb')
-        @yield('flash_message')
-        @yield('content')
+        <section id="content">
+            @yield('breadcrumb')
+            @yield('flash_message')
+            @yield('content')
+        </section>
         @yield('footer')
     </section>
 </div>
