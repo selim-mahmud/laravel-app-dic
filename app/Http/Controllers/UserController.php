@@ -350,6 +350,12 @@ class UserController extends Controller
         return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
     }
 
+    /**
+     * account activation page
+     *
+     * @param $key
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getAccountActivate($key){
         if($user = $this->user->getActivationKeyUser($key)){
             $user = $user->firstOrFail();
@@ -372,14 +378,24 @@ class UserController extends Controller
         return redirect('login')->with('alert-danger', config('dic-message.general_fail'));
     }
 
+    /**
+     * display learner profile page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getLearnerDashboard()
     {
         return view('learner.learner_dashboard');
     }
 
+    /**
+     * display school profile page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getSchoolDashboard()
     {
-        return 'This is school profile';
+        return view('school.school_dashboard');
     }
 
 }

@@ -7,16 +7,30 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class LearnerProfileController extends Controller
 {
-
+    /**
+     * @var Request
+     */
     protected $request;
-    protected $user;
-    protected $activityLogger;
-    protected $learner;
 
+    /**
+     * @var User
+     */
+    protected $user;
+
+    /**
+     * @var ActivityLoggerContract
+     */
+    protected $activityLogger;
+
+    /**
+     * LearnerProfileController constructor.
+     * @param Request $request
+     * @param User $user
+     * @param ActivityLoggerContract $activityLogger
+     */
     public function __construct(Request $request, User $user, ActivityLoggerContract $activityLogger)
     {
         $this->request = $request;
@@ -24,6 +38,10 @@ class LearnerProfileController extends Controller
         $this->activityLogger = $activityLogger;
     }
 
+    /**
+     * change photo
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postChangePhoto(){
         $this->validate($this->request, [
             'photo' => 'required|file|mimes:jpg,jpeg,bmp,png,gif|max:2048',
@@ -35,11 +53,21 @@ class LearnerProfileController extends Controller
             $path = $this->request->photo->storeAs(config('dic.default_avatar_path'), $photoName);
             $learner->profile_photo_url = $path;
             $learner->save();
-            return redirect('learner')->with('alert-success', config('dic-message.change_learner_name_success'));
+            $this->activityLogger->detailActivitySave(
+                'change_photo_success',
+                $learner,
+                config('dic-message.change_photo_success'),
+                ['ip' => $this->request->ip()]
+            );
+            return redirect('learner')->with('alert-success', config('dic-message.change_photo_success'));
         }
         return redirect('learner')->with('alert-danger', config('dic-message.general_fail'));
     }
 
+    /**
+     * change name
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postChangeName()
     {
         $this->validate($this->request, [
@@ -59,6 +87,10 @@ class LearnerProfileController extends Controller
         return redirect('learner')->with('alert-danger', config('dic-message.general_fail'));
     }
 
+    /**
+     * change display name
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postChangeDisplayName()
     {
         $this->validate($this->request, [
@@ -78,6 +110,10 @@ class LearnerProfileController extends Controller
         return redirect('learner')->with('alert-danger', config('dic-message.general_fail'));
     }
 
+    /**
+     * change email
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postChangeEmail()
     {
         $this->validate($this->request, [
@@ -97,6 +133,10 @@ class LearnerProfileController extends Controller
         return redirect('learner')->with('alert-danger', config('dic-message.general_fail'));
     }
 
+    /**
+     * change password
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postChangePassword(){
         $this->validate($this->request, [
             'password' => 'required|between:6,15|regex:/^[ A-Za-z0-9!@#$%&_-]*$/',

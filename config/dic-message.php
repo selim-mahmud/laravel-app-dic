@@ -17,5 +17,4 @@ return [
     'change_learner_email_success' => 'You have changed your email successfully. Your login email is changed accordingly.',
     'change_password_success' => 'You have changed your password successfully.',
     'change_photo_success' => 'You have changed your photo successfully.',
-
 ];
