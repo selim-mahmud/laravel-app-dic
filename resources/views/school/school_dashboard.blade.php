@@ -15,7 +15,7 @@
 @stop
 
 @section('left_sidebar')
-    @include('_partials.left_sidebar_learner')
+    @include('_partials.left_sidebar_school')
 @stop
 
 @section('breadcrumb')

@@ -7,3 +7,4 @@
 {{ Html::style('control/js/utility/malihu-custom-scrollbar-plugin-master/jquery.mCustomScrollbar.min.css') }}
 {{ Html::style('control/skin/default_skin/less/theme.min.css') }}
 {{ Html::style('control/allcp/forms/css/forms.css') }}
+<script src="https://use.fontawesome.com/ccfe252580.js"></script>
