@@ -35,6 +35,7 @@ Route::group(['middleware' => ['permission:learner_profile_operation']], functio
 });
 
 Route::group(['middleware' => ['permission:school_profile_operation']], function () { //only for school_manager
+    Route::get('school/profile', array('as' => 'school-profile', 'uses' => 'SchoolProfileController@getSchoolProfile'));
 });
 
 Route::group(['middleware' => ['permission:instructor_profile_operation']], function () { //for both school_manager and instructor

@@ -1,5 +1,6 @@
 {{ Html::script('control/js/jquery/jquery-1.11.3.min.js') }}
 {{ Html::script('control/js/jquery/jquery_ui/jquery-ui.min.js') }}
+{{ Html::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js') }}
 {{ Html::script('control/js/plugins/magnific/jquery.magnific-popup.js') }}
 {{ Html::script('control/js/utility/utility.js') }}
 {{ Html::script('control/js/utility/malihu-custom-scrollbar-plugin-master/jquery.mCustomScrollbar.concat.min.js') }}

@@ -8,8 +8,8 @@
                     <span class="sb-menu-icon fa fa-tachometer"></span>
                 </a>
             </li>
-            <li>
-                <a href="/">
+            <li class="{{Request::path()=='school/profile'?'active':''}}">
+                <a href="{{url('school/profile')}}">
                     <span class="sidebar-title">Profile</span>
                     <span class="sb-menu-icon fa fa-id-card-o"></span>
                 </a>

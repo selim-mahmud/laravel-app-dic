@@ -1,3 +1,4 @@
+{{ Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css') }}
 {{ Html::style('https://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic') }}
 {{ Html::style('https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700') }}
 {{ Html::style('control/fonts/icomoon/icomoon.css') }}

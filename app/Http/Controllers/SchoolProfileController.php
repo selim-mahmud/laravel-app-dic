@@ -19,9 +19,8 @@ class SchoolProfileController extends Controller{
         $this->middleware('manager', ['only' => ['getProfile']]);
     }
     
-    public function getProfile($id){
-        $school = School::find($id);
-        return view('school.school_profile', compact('school'));
+    public function getSchoolProfile(){
+        return view('school.school_profile');
     }
 
 }
