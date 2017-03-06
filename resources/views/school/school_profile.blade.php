@@ -43,8 +43,8 @@
 									  title="This could be your school logo or your own photo or any thing related."></span>
 							</td>
 							<td style="width: 65%;">
-								@if(Auth::user()->profile_photo_url)
-									<img height="70" width="80" src="{{Auth::user()->profile_photo_url}}" alt="profile photo" />
+								@if(Auth::user()->school->profile_photo_url)
+									<img height="70" width="80" src="{{asset(Auth::user()->school->profile_photo_url)}}" alt="profile photo" />
 								@else
 									<img height="80" width="80" src="{{asset(config('dic.default_learner_profile_photo'))}}" alt="profile photo" />
 								@endif
@@ -63,8 +63,8 @@
 						<tr>
 							<td>School name</td><td>
 								{{Auth::user()->school->name}}
-								&nbsp; &nbsp; <a href="#display-name-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
-								<span class="text-danger">{{$errors->has('display_name')?$errors->first('display_name'):''}}</span>
+								&nbsp; &nbsp; <a href="#school-name-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
+								<span class="text-danger">{{$errors->has('school_name')?$errors->first('school_name'):''}}</span>
 							</td>
 						</tr>
 						<tr>
@@ -91,7 +91,7 @@
 					<div id="photo-form" class="popup-basic allcp-form mfp-with-anim mfp-hide">
 						<div class="panel">
 							<div class="panel-heading"><span class="panel-title">Upload new photo</span></div>
-							{!! Form::open (['method'=>'POST', 'action'=> 'LearnerProfileController@postChangePhoto', 'files' => true]) !!}
+							{!! Form::open (['method'=>'POST', 'action'=> 'SchoolProfileController@postChangePhoto', 'files' => true]) !!}
 							<div class="panel-body ph15">
 								<div class="section row mhn10">
 									<div class="col-md-12 ph15">
@@ -115,7 +115,7 @@
 					<div id="name-form" class="popup-basic allcp-form mfp-hide">
 						<div class="panel">
 							<div class="panel-heading"><span class="panel-title">Change your name</span></div>
-							{!! Form::open (['method'=>'POST', 'action'=> 'LearnerProfileController@postChangeName']) !!}
+							{!! Form::open (['method'=>'POST', 'action'=> 'SchoolProfileController@postChangeName']) !!}
 							<div class="panel-body ph15">
 								<div class="section row mhn10">
 									<div class="col-md-12 ph15">
@@ -134,15 +134,15 @@
 							{!! Form::close() !!}
 						</div>
 					</div>
-					<div id="display-name-form" class="popup-basic allcp-form mfp-with-anim mfp-hide">
+					<div id="school-name-form" class="popup-basic allcp-form mfp-with-anim mfp-hide">
 						<div class="panel">
-							<div class="panel-heading"><span class="panel-title">Change your display name</span></div>
-							{!! Form::open (['method'=>'POST', 'action'=> 'LearnerProfileController@postChangeDisplayName']) !!}
+							<div class="panel-heading"><span class="panel-title">Change your school name</span></div>
+							{!! Form::open (['method'=>'POST', 'action'=> 'SchoolProfileController@postchangeSchoolName']) !!}
 							<div class="panel-body ph15">
 								<div class="section row mhn10">
 									<div class="col-md-12 ph15">
-										<label for="display_name" class="field">
-											{!! Form::text('display_name', null, ['class'=>'gui-input', 'placeholder'=>'Enter your display name']) !!}
+										<label for="school_name" class="field">
+											{!! Form::text('school_name', null, ['class'=>'gui-input', 'placeholder'=>'Enter your school name']) !!}
 										</label>
 									</div>
 								</div>
@@ -159,7 +159,7 @@
 					<div id="email-form" class="popup-basic allcp-form mfp-with-anim mfp-hide">
 						<div class="panel">
 							<div class="panel-heading"><span class="panel-title">Change your email</span></div>
-							{!! Form::open (['method'=>'POST', 'action'=> 'LearnerProfileController@postChangeEmail']) !!}
+							{!! Form::open (['method'=>'POST', 'action'=> 'SchoolProfileController@postChangeEmail']) !!}
 							<div class="panel-body ph15">
 								<div class="section row mhn10">
 									<div class="col-md-12 ph15">
@@ -183,7 +183,7 @@
 						<div id="password-form" class="popup-basic allcp-form mfp-with-anim mfp-hide">
 							<div class="panel">
 								<div class="panel-heading"><span class="panel-title">Change your password</span></div>
-								{!! Form::open (['method'=>'POST', 'action'=> 'LearnerProfileController@postChangePassword']) !!}
+								{!! Form::open (['method'=>'POST', 'action'=> 'SchoolProfileController@postChangePassword']) !!}
 								<div class="panel-body ph15">
 									<div class="section row mhn10">
 										<div class="col-md-12 ph15">

@@ -36,6 +36,11 @@ Route::group(['middleware' => ['permission:learner_profile_operation']], functio
 
 Route::group(['middleware' => ['permission:school_profile_operation']], function () { //only for school_manager
     Route::get('school/profile', array('as' => 'school-profile', 'uses' => 'SchoolProfileController@getSchoolProfile'));
+    Route::post('school/profile/change-photo', array('as' => 'change-photo', 'uses' => 'SchoolProfileController@postChangePhoto'));
+    Route::post('school/profile/change-name', array('as' => 'change-name', 'uses' => 'SchoolProfileController@postChangeName'));
+    Route::post('school/profile/change-school-name', array('as' => 'change-school-name', 'uses' => 'SchoolProfileController@postchangeSchoolName'));
+    Route::post('school/profile/change-eamil', array('as' => 'change-eamil', 'uses' => 'SchoolProfileController@postChangeEmail'));
+    Route::post('school/profile/change-password', array('as' => 'change-password', 'uses' => 'SchoolProfileController@postChangePassword'));
 });
 
 Route::group(['middleware' => ['permission:instructor_profile_operation']], function () { //for both school_manager and instructor
