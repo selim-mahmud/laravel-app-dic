@@ -45,6 +45,7 @@ Route::group(['middleware' => ['permission:school_profile_operation']], function
 
 Route::group(['middleware' => ['permission:instructor_profile_operation']], function () { //for both school_manager and instructor
     Route::get('school', array('as' => 'school', 'uses' => 'UserController@getSchoolDashboard'));
+    Route::resource('school/instructors', 'InstructorController');
 });
 
 use App\User;
