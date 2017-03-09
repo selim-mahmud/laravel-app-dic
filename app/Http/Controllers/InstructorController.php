@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InstructorRequest;
+use App\Instructor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InstructorController extends Controller
 {
@@ -33,22 +36,26 @@ class InstructorController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InstructorRequest $request)
     {
-        $this->validate($request, [
-            'exam_name' => 'required',
-            'title' => 'required'
+        $path = '';
+        if ($request->hasFile('photo')) {
+            $photoName = 'avatar.' . $request->photo->extension();
+            $path = $request->photo->storeAs(config('dic.instructor_avatar_path'), $photoName);
+        }
+        $instructor = Instructor::create([
+            'school_id' => Auth::user()->school_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'profile_photo_url' => $path,
+            'short_desc' => $request->short_description,
+            'long_desc' => $request->long_description,
         ]);
-
-        $subject = Subject::create([
-            'exam_id' => $request->exam_name,
-            'title' => $request->title
-        ]);
-
-        if ($subject) {
-            return redirect('/control/subject')->with('alert-success', 'You have successfully created a subject.');
+        if ($instructor) {
+            return redirect('/school/instructors')->with('alert-success', 'You have successfully added an instructor.');
         } else {
-            return redirect('/control/subject')->with('alert-warning', 'Something wrong happened creating a subject.');
+            return redirect()->back()->with('alert-warning', 'Something wrong happened, please try again later.');
         }
     }
 

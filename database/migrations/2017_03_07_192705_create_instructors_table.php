@@ -13,15 +13,16 @@ class CreateInstructorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('instructs', function (Blueprint $table) {
+        Schema::create('instructors', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('school_id')->index()->unsigned();
             $table->string('name', 100);
+            $table->string('phone', 100);
+            $table->string('email', 100);
             $table->string('profile_photo_url')->default('');
             $table->string('short_desc')->nullable();
             $table->text('long_desc')->nullable();
-            $table->string('length_of_experience', 100)->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ class CreateInstructorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('instructs');
+        Schema::dropIfExists('instructors');
     }
 }
