@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\InstructorRequest;
 use App\Instructor;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class InstructorController extends Controller
@@ -16,7 +15,7 @@ class InstructorController extends Controller
      */
     public function index()
     {
-        $instructors = [];
+        $instructors = Instructor::all();
         return view('school.instructors.index', compact('instructors'));
     }
 
@@ -33,7 +32,7 @@ class InstructorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  $request
      * @return \Illuminate\Http\Response
      */
     public function store(InstructorRequest $request)
@@ -49,8 +48,8 @@ class InstructorController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'profile_photo_url' => $path,
-            'short_desc' => $request->short_description,
-            'long_desc' => $request->long_description,
+            'short_desc' => $request->short_desc,
+            'long_desc' => $request->long_desc,
         ]);
         if ($instructor) {
             return redirect('/school/instructors')->with('alert-success', 'You have successfully added an instructor.');
@@ -67,12 +66,7 @@ class InstructorController extends Controller
      */
     public function show($id)
     {
-        $subject = Subject::find(intval($id));
-        if ($subject) {
-            return view('control.subject.single', compact('subject'));
-        }
-
-        return redirect('/control/subject')->with('alert-warning', 'Data you are looking for is not available.');
+        //
     }
 
     /**
@@ -83,44 +77,44 @@ class InstructorController extends Controller
      */
     public function edit($id)
     {
-        $subject = Subject::find(intval($id));
-        if ($subject) {
-            $exam = $subject->exam;
-            $exams_object = DB::table('exam')->select('id', 'title')->get();
-            $exams = \General::getOptionReady($exams_object, $exam);
-            return view('control.subject.update', compact('subject', 'exams', 'exam'));
+        $instructor = Instructor::find(intval($id));
+        if ($instructor) {
+            return view('school.instructors.update', compact('instructor'));
         }
-        return redirect('/control/subject')->with('alert-warning', 'Data you are looking for is not available.');
+        return redirect('/school/instructors')->with('alert-warning', 'Data you are looking for is not available.');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(InstructorRequest $request, $id)
     {
-        $this->validate($request, [
-            'exam_name' => 'required',
-            'title' => 'required'
-        ]);
-
-        $subject = Subject::find(intval($id));
-
-        if ($subject) {
-            $subject->exam_id = $request->exam_name;
-            $subject->title = $request->title;
-
-            if ($subject->save()) {
-                return redirect('/control/subject')->with('alert-success', 'You have successfully updated the subject.');
+        $instructor = Instructor::find(intval($id));
+        if ($instructor) {
+            $path = '';
+            if ($request->hasFile('photo')) {
+                $photoName = 'avatar.' . $request->photo->extension();
+                $path = $request->photo->storeAs(config('dic.instructor_avatar_path'), $photoName);
+            }
+            $instructor->name = $request->name;
+            $instructor->email = $request->email;
+            $instructor->phone = $request->phone;
+            if($path != ''){
+                $instructor->profile_photo_url = $path;
+            }
+            $instructor->short_desc = $request->short_desc;
+            $instructor->long_desc = $request->long_desc;
+            if ($instructor->save()) {
+                return redirect('/school/instructors')->with('alert-success', 'You have successfully updated the instructor.');
             } else {
-                return redirect('/control/subject')->with('alert-warning', 'Something wrong happened updating the subject.');
+                return redirect('/school/instructors')->with('alert-warning', 'Something wrong happened, please try again later.');
             }
         }
-
-        return redirect('/control/subject')->with('alert-warning', 'Data you are looking for is not available.');
+        return redirect('/school/instructors')->with('alert-warning', 'Something wrong happened, please try again later.');
     }
 
     /**
@@ -131,14 +125,14 @@ class InstructorController extends Controller
      */
     public function destroy($id)
     {
-        $subject = Subject::find(intval($id));
-        if ($subject) {
-            if ($subject->delete()) {
-                return redirect('/control/subject')->with('alert-success', 'You have successfully deleted the subject.');
+        $instructor = Instructor::find(intval($id));
+        if ($instructor) {
+            if ($instructor->delete()) {
+                return redirect('/school/instructors')->with('alert-success', 'You have successfully deleted the instructor.');
             } else {
-                return redirect('/control/subject')->with('alert-warning', 'Something wrong happened while deleting the subject.');
+                return redirect('/school/instructors')->with('alert-warning', 'Something wrong happened, please try again later.');
             }
         }
-        return redirect('/control/subject')->with('alert-warning', 'Data you are looking for is not available.');
+        return redirect('/school/instructors')->with('alert-warning', 'Something wrong happened, please try again later.');
     }
 }

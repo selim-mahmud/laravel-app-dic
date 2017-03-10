@@ -1,24 +1,39 @@
-
 @extends('layouts.control')
 
 @section('meta')
-	<title>This is the title of the page</title>
+    <title>Australian Driving Instructors Directory</title>
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+@stop
+
+@push('scripts_stack')
+
+@endpush
+
+@section('header')
+    @include('_partials.header_control')
+@stop
+
+@section('left_sidebar')
+    @include('_partials.left_sidebar_school')
+@stop
+
+@section('breadcrumb')
+    @include('_partials.breadcrumb_control')
+@stop
+
+@section('flash_message')
+    @include('_partials.control_flash_message')
 @stop
 
 @section('content')
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<div style="min-height:700px; padding:20px 0;">
-				<h1>Update the subject</h1>
-					{!! Form::model($subject, ['method' => 'PATCH', 'action' => ['SubjectController@update', $subject->id]]) !!}
+    {!! Form::model($instructor, ['method' => 'PATCH', 'action' => ['InstructorController@update', $instructor->id], 'files' => true]) !!}
 
-				        @include('control/subject/partials/_form', ['submit_text' => 'Update Subject'])
+    @include('school/instructors/partials/_form', ['heading_text' =>'Update an instructors', 'submit_text' => 'Update Instructor'])
 
-				    {!! Form::close() !!}
-
-				</div>
-			</div>
-		</div>
-	</div>
+    {!! Form::close() !!}
 @stop
+
+@push('scripts_stack')
+
+@endpush

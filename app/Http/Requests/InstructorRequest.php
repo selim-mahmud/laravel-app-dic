@@ -24,7 +24,7 @@ class InstructorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|between:3,50',
+            'name' => 'required|name|between:3,50',
             'email' => 'required|email' ,
             'phone' => 'required',
             'photo' => 'file|mimes:jpg,jpeg,bmp,png,gif|max:2048',

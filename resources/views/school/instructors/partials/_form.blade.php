@@ -26,17 +26,17 @@
 
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('short_description', 'Short description of instructor:') !!}
-            {!! Form::text('short_description', null, ['class' => 'form-control', 'placeholder' => 'Instructor\'s short description'])!!}
-            <span class="text-danger">{{$errors->first('short_description')}}</span>
+            {!! Form::label('short_desc', 'Short description of instructor:') !!}
+            {!! Form::text('short_desc', null, ['class' => 'form-control', 'placeholder' => 'Instructor\'s short description'])!!}
+            <span class="text-danger">{{$errors->first('short_desc')}}</span>
         </div>
     </div>
 
     <div class="col-md-12">
         <div class="form-group">
-            {!! Form::label('long_description', 'Long description of instructor:') !!}
-            {!! Form::textarea('long_description', null, ['class' => 'form-control', 'placeholder' => 'Instructor\'s short description'])!!}
-            <span class="text-danger">{{$errors->first('long_description')}}</span>
+            {!! Form::label('long_desc', 'Long description of instructor:') !!}
+            {!! Form::textarea('long_desc', null, ['class' => 'form-control', 'placeholder' => 'Instructor\'s short description'])!!}
+            <span class="text-danger">{{$errors->first('long_desc')}}</span>
         </div>
     </div>
 

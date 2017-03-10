@@ -11811,7 +11811,7 @@ th {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-    font: 500 15px 'Ubuntu';
+    font: 14px;
     padding: 13px 17px;
     vertical-align: middle;
     border-top: 1px solid #e5eaee;
