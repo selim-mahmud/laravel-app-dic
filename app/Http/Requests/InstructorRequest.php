@@ -27,6 +27,7 @@ class InstructorRequest extends FormRequest
             'name' => 'required|name|between:3,50',
             'email' => 'required|email' ,
             'phone' => 'required',
+            'services' => 'required|array',
             'photo' => 'file|mimes:jpg,jpeg,bmp,png,gif|max:2048',
             'short_description' => 'max:255',
             'long_description' => 'max:2048',

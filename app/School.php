@@ -32,4 +32,24 @@ class School extends Model
     {
         return $this->hasMany('App\User');
     }
+
+    /**
+     * get instructors of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function instructors()
+    {
+        return $this->hasMany('App\Instructor');
+    }
+
+    /**
+     * services of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function services()
+    {
+        return $this->belongsToMany('App\Service', 'school_has_services')->withTimestamps();;
+    }
 }

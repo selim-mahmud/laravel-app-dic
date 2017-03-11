@@ -41,20 +41,16 @@ Route::group(['middleware' => ['permission:school_profile_operation']], function
     Route::post('school/profile/change-school-name', array('as' => 'change-school-name', 'uses' => 'SchoolProfileController@postchangeSchoolName'));
     Route::post('school/profile/change-eamil', array('as' => 'change-eamil', 'uses' => 'SchoolProfileController@postChangeEmail'));
     Route::post('school/profile/change-password', array('as' => 'change-password', 'uses' => 'SchoolProfileController@postChangePassword'));
+    Route::resource('school/instructors', 'InstructorController');
+    Route::get('school/services', 'SchoolServiceController@index');
+    Route::post('school/services', 'SchoolServiceController@store');
+    Route::get('school/services/delete/{schoolId}/{serviceId}', 'SchoolServiceController@delete');
 });
 
 Route::group(['middleware' => ['permission:instructor_profile_operation']], function () { //for both school_manager and instructor
     Route::get('school', array('as' => 'school', 'uses' => 'UserController@getSchoolDashboard'));
-    Route::resource('school/instructors', 'InstructorController');
 });
 
-use App\User;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-Route::get('role', function(){
-    $user = User::find(13);
-    $user->assignRole('learner');
-});
 
 
 

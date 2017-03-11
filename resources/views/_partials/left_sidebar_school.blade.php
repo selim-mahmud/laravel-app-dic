@@ -14,6 +14,12 @@
                     <span class="sb-menu-icon fa fa-id-card-o"></span>
                 </a>
             </li>
+            <li class="{{Request::path()=='school/services'?'active':''}}">
+                <a href="{{url('school/services')}}">
+                    <span class="sidebar-title">Services</span>
+                    <span class="sb-menu-icon fa fa-diamond"></span>
+                </a>
+            </li>
             <li>
                 <a href="/">
                     <span class="sidebar-title">Service area</span>

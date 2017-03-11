@@ -26,6 +26,18 @@
 
     <div class="col-md-6">
         <div class="form-group">
+            <label for="services">Select one or more services:</label>
+                <select name="services[]" class="service_multiple form-control" id="services" multiple="multiple">
+                    @foreach($services as $service)
+                        <option {{in_array($service->id, $instructorServiceIds)?'selected':''}} value="{{$service->id}}">{{$service->name}}</option>
+                    @endforeach
+                </select>
+            <span class="text-danger">{{$errors->first('services')}}</span>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-6">
+        <div class="form-group">
             {!! Form::label('short_desc', 'Short description of instructor:') !!}
             {!! Form::text('short_desc', null, ['class' => 'form-control', 'placeholder' => 'Instructor\'s short description'])!!}
             <span class="text-danger">{{$errors->first('short_desc')}}</span>
@@ -39,7 +51,6 @@
             <span class="text-danger">{{$errors->first('long_desc')}}</span>
         </div>
     </div>
-
     <div class="col-md-6 allcp-form">
         <label class="field prepend-icon file file-fw">
             <span class="button btn-info">Upload profile photo</span>
@@ -53,5 +64,7 @@
         {!! Form::submit($submit_text, ['class'=>'btn btn-primary']) !!}
     </div>
 </div>
+
+
 
 

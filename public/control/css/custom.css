@@ -1,0 +1,8 @@
+.select2-container--default.select2-container--focus .select2-selection--multiple{
+    border:3px solid #ddd !important;
+}
+.select2-container--default .select2-selection--multiple{
+    border-radius: 0;
+    padding:8px;
+    border:3px solid #cfdce2 !important;
+}

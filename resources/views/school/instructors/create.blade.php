@@ -6,8 +6,8 @@
     <meta name="keywords" content="HTML,CSS,XML,JavaScript">
 @stop
 
-@push('scripts_stack')
-
+@push('styles_stack')
+{{ Html::style('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css') }}
 @endpush
 
 @section('header')
@@ -33,5 +33,11 @@
 @stop
 
 @push('scripts_stack')
-
+{{ Html::script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js') }}
+<script type="text/javascript">
+    $(".service_multiple").select2({
+        placeholder: 'Select one or more services'
+    });
+</script>
 @endpush
+
