@@ -51,7 +51,7 @@ class InstructorController extends Controller
      */
     public function store(InstructorRequest $request)
     {
-        $path = $this->mediaHelper->savePhoto('avatar', config('dic.instructor_avatar_path'));
+        $path = $this->mediaHelper->savePhoto('avatar', config('dic.instructor_avatar_path') . '/' . Auth::user()->school_id);
         $instructor = Instructor::create([
             'school_id' => Auth::user()->school_id,
             'name' => $request->name,
@@ -63,7 +63,7 @@ class InstructorController extends Controller
         ]);
 
         if ($instructor) {
-            foreach ($request->services as $serviceId){
+            foreach ($request->services as $serviceId) {
                 InstructorHasService::create([
                     'instructor_id' => $instructor->id,
                     'service_id' => $serviceId,
@@ -84,7 +84,7 @@ class InstructorController extends Controller
     public function show($id)
     {
         $instructor = Instructor::find(intval($id));
-        if($instructor){
+        if ($instructor) {
             $services = $instructor->services;
             return view('school.instructors.single', compact('instructor', 'services'));
         }
@@ -103,7 +103,7 @@ class InstructorController extends Controller
         $instructor = Instructor::find(intval($id));
         $instructorServices = $instructor->services;
         $instructorServiceIds = [];
-        foreach ($instructorServices as $instructorService){
+        foreach ($instructorServices as $instructorService) {
             $instructorServiceIds[] = $instructorService->pivot->service_id;
         }
         if ($instructor) {
@@ -123,18 +123,18 @@ class InstructorController extends Controller
     {
         $instructor = Instructor::find(intval($id));
         if ($instructor) {
-            $path = $this->mediaHelper->savePhoto('avatar', config('dic.instructor_avatar_path'));
+            $path = $this->mediaHelper->savePhoto('avatar', config('dic.instructor_avatar_path') . '/' . Auth::user()->school_id);
             $instructor->name = $request->name;
             $instructor->email = $request->email;
             $instructor->phone = $request->phone;
-            if($path != ''){
+            if ($path != '') {
                 $instructor->profile_photo_url = $path;
             }
             $instructor->short_desc = $request->short_desc;
             $instructor->long_desc = $request->long_desc;
             if ($instructor->save()) {
                 $instructor->services()->detach();
-                foreach ($request->services as $serviceId){
+                foreach ($request->services as $serviceId) {
                     InstructorHasService::create([
                         'instructor_id' => $instructor->id,
                         'service_id' => $serviceId,

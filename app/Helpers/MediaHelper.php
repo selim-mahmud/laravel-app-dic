@@ -28,11 +28,11 @@ class MediaHelper
      * @param $location
      * @return string
      */
-    public function savePhoto($name, $location)
+    public function savePhoto($name, $location, $paramName = 'photo')
     {
         $path = '';
-        if ($this->request->hasFile('photo')) {
-            $photoName = $name . $this->request->photo->extension();
+        if ($this->request->hasFile($paramName)) {
+            $photoName = $name .'.'. $this->request->{$paramName}->extension();
             $path = $this->request->photo->storeAs($location, $photoName);
         }
         return $path;

@@ -14,6 +14,12 @@
                     <span class="sb-menu-icon fa fa-id-card-o"></span>
                 </a>
             </li>
+            <li>
+                <a href="/">
+                    <span class="sidebar-title">Contact info</span>
+                    <span class="sb-menu-icon fa fa-location-arrow"></span>
+                </a>
+            </li>
             <li class="{{Request::path()=='school/services'?'active':''}}">
                 <a href="{{url('school/services')}}">
                     <span class="sidebar-title">Services</span>
@@ -32,8 +38,8 @@
                     <span class="sb-menu-icon fa fa-users"></span>
                 </a>
             </li>
-            <li>
-                <a href="/">
+            <li class="{{Request::path()=='school/medias'?'active':''}}">
+                <a href="{{url('school/medias')}}">
                     <span class="sidebar-title">Media upload</span>
                     <span class="sb-menu-icon fa fa-camera"></span>
                 </a>
@@ -48,12 +54,6 @@
                 <a href="/">
                     <span class="sidebar-title">Reviews</span>
                     <span class="sb-menu-icon fa fa-star-half-full"></span>
-                </a>
-            </li>
-            <li>
-                <a href="/">
-                    <span class="sidebar-title">Recommedationed by</span>
-                    <span class="sb-menu-icon fa fa-heart"></span>
                 </a>
             </li>
         </ul>

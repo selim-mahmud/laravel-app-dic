@@ -45,6 +45,16 @@ class School extends Model
     }
 
     /**
+     * get medias of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medias()
+    {
+        return $this->hasMany('App\SchoolMedias');
+    }
+
+    /**
      * services of this school
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

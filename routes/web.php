@@ -47,6 +47,9 @@ Route::group(['middleware' => ['permission:school_profile_operation']], function
     Route::get('school/services', 'SchoolServiceController@index');
     Route::post('school/services', 'SchoolServiceController@store');
     Route::get('school/services/delete/{schoolId}/{serviceId}', 'SchoolServiceController@delete');
+    Route::get('school/medias', 'SchoolMediaController@index');
+    Route::post('school/medias', 'SchoolMediaController@store');
+    Route::get('school/medias/delete/{schoolMediaId}', 'SchoolMediaController@delete');
 });
 
 Route::group(['middleware' => ['permission:instructor_profile_operation']], function () { //for both school_manager and instructor
