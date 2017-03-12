@@ -40,7 +40,8 @@ class InstructorController extends Controller
     public function create()
     {
         $services = Service::all();
-        return view('school.instructors.create', compact('services'));
+        $instructorServiceIds = [];
+        return view('school.instructors.create', compact('services', 'instructorServiceIds'));
     }
 
     /**
