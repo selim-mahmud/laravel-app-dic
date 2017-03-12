@@ -17,6 +17,8 @@ class InstructorController extends Controller
     public function __construct(MediaHelper $mediaHelper)
     {
         $this->mediaHelper = $mediaHelper;
+
+        $this->middleware('own_instructor', ['except' => ['index', 'create', 'store']]);
     }
 
     /**
@@ -82,8 +84,11 @@ class InstructorController extends Controller
     public function show($id)
     {
         $instructor = Instructor::find(intval($id));
-        $services = $instructor->services;
-        return view('school.instructors.single', compact('instructor', 'services'));
+        if($instructor){
+            $services = $instructor->services;
+            return view('school.instructors.single', compact('instructor', 'services'));
+        }
+        return redirect('/school/instructors')->with('alert-warning', 'Data you are looking for is not available.');
     }
 
     /**

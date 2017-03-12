@@ -1,5 +1,7 @@
 <?php
 
+use App\School;
+
 Route::get('/', array('as' => 'home', 'uses' => 'PageController@home'));
 Route::get('facebook-auth', array('as' => 'facebook-register', 'uses' => 'UserController@facebookAuth'));
 Route::get('facebook-callback', array('as' => 'facebook-callback', 'uses' => 'UserController@facebookCallback'));
@@ -49,6 +51,12 @@ Route::group(['middleware' => ['permission:school_profile_operation']], function
 
 Route::group(['middleware' => ['permission:instructor_profile_operation']], function () { //for both school_manager and instructor
     Route::get('school', array('as' => 'school', 'uses' => 'UserController@getSchoolDashboard'));
+});
+
+Route::get('test', function(){
+    $instructors = School::find(Auth::user()->school_id)->instructors;
+
+    dd($instructors->pluck('id')->all());
 });
 
 
