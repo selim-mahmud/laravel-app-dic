@@ -45,6 +45,11 @@ Route::group(['middleware' => ['permission:school_profile_operation']], function
     Route::post('school/profile/change-school-name', array('as' => 'change-school-name', 'uses' => 'SchoolProfileController@postchangeSchoolName'));
     Route::post('school/profile/change-eamil', array('as' => 'change-eamil', 'uses' => 'SchoolProfileController@postChangeEmail'));
     Route::post('school/profile/change-password', array('as' => 'change-password', 'uses' => 'SchoolProfileController@postChangePassword'));
+    Route::post('school/profile/change-short-description', 'SchoolProfileController@postChangeShortDescription');
+    Route::post('school/profile/change-long-description', 'SchoolProfileController@postChangeLongDescription');
+    Route::post('school/profile/change-website', 'SchoolProfileController@postChangeWebsite');
+    Route::post('school/profile/change-facebook', 'SchoolProfileController@postChangeFacebook');
+    Route::post('school/profile/change-twitter', 'SchoolProfileController@postChangeTwitter');
     Route::resource('school/instructors', 'InstructorController');
     Route::get('school/services', 'SchoolServiceController@index');
     Route::post('school/services', 'SchoolServiceController@store');

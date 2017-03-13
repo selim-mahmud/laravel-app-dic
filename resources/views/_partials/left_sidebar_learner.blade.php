@@ -8,12 +8,6 @@
                     <span class="sb-menu-icon fa fa-user"></span>
                 </a>
             </li>
-            <li class="{{Request::path()=='learner/messages'?'active':''}}">
-                <a href="{{url('learner/messages')}}">
-                    <span class="sidebar-title">Messages</span>
-                    <span class="sb-menu-icon fa fa-envelope"></span>
-                </a>
-            </li>
             <li class="{{Request::path()=='learner/reviews'?'active':''}}">
                 <a href="{{url('learner/reviews')}}">
                     <span class="sidebar-title">Reviews</span>

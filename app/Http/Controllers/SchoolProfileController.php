@@ -168,4 +168,89 @@ class SchoolProfileController extends Controller
         return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
     }
 
+    /**
+     * change short description
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postChangeShortDescription()
+    {
+        $this->validate($this->request, [
+            'short_desc' => 'required|max:255'
+        ]);
+        $school = $this->school::findorfail(Auth::user()->school_id);
+        $school->short_desc = $this->request->get('short_desc');
+        if ($school->save()) {
+            return redirect('school/profile')->with('alert-success', 'Short description has been set successfully.');
+        }
+        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+    }
+
+    /**
+     * change long description
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postChangeLongDescription()
+    {
+        $this->validate($this->request, [
+            'long_desc' => 'required|max:3000'
+        ]);
+        $school = $this->school::findorfail(Auth::user()->school_id);
+        $school->long_desc = $this->request->get('long_desc');
+        if ($school->save()) {
+            return redirect('school/profile')->with('alert-success', 'Long description has been set successfully.');
+        }
+        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+    }
+
+    /**
+     * change website url
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postChangeWebsite()
+    {
+        $this->validate($this->request, [
+            'website' => 'required|URL'
+        ]);
+        $school = $this->school::findorfail(Auth::user()->school_id);
+        $school->website = $this->request->get('website');
+        if ($school->save()) {
+            return redirect('school/profile')->with('alert-success', 'Website url has been set successfully.');
+        }
+        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+    }
+
+    /**
+     * change facebook url
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postChangeFacebook()
+    {
+        $this->validate($this->request, [
+            'facebook' => 'required|URL'
+        ]);
+        $school = $this->school::findorfail(Auth::user()->school_id);
+        $school->facebook = $this->request->get('facebook');
+        if ($school->save()) {
+            return redirect('school/profile')->with('alert-success', 'Facebook url has been set successfully.');
+        }
+        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+    }
+
+    /**
+     * change twitter url
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postChangeTwitter()
+    {
+        $this->validate($this->request, [
+            'twitter' => 'required|URL'
+        ]);
+        $school = $this->school::findorfail(Auth::user()->school_id);
+        $school->twitter = $this->request->get('twitter');
+        if ($school->save()) {
+            return redirect('school/profile')->with('alert-success', 'Twitter url has been set successfully.');
+        }
+        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+    }
+
 }

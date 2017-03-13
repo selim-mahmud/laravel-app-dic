@@ -49,7 +49,7 @@
 									<img height="80" width="80" src="{{asset(config('dic.default_learner_profile_photo'))}}" alt="profile photo" />
 								@endif
 								&nbsp; &nbsp; <a href="#photo-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a>
-								<span class="text-danger">{{$errors->has('photo')?$errors->first('photo'):''}}</span>
+								<span class="text-danger">{{$errors->first('photo')}}</span>
 							</td>
 						</tr>
 						<tr>
@@ -57,21 +57,15 @@
 							<td>
 								{{Auth::user()->name}} &nbsp; &nbsp;
 								<a href="#name-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
-								<span class="text-danger">{{$errors->has('name')?$errors->first('name'):''}}</span>
+								<span class="text-danger">{{$errors->first('name')}}</span>
 							</td>
 						</tr>
-						<tr>
-							<td>School name</td><td>
-								{{Auth::user()->school->name}}
-								&nbsp; &nbsp; <a href="#school-name-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
-								<span class="text-danger">{{$errors->has('school_name')?$errors->first('school_name'):''}}</span>
-							</td>
-						</tr>
+
 						<tr>
 							<td>Email</td><td>
 								{{Auth::user()->email}}
 								&nbsp; &nbsp; <a href="#email-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
-								<span class="text-danger">{{$errors->has('email')?$errors->first('email'):''}}</span>
+								<span class="text-danger">{{$errors->first('email')}}</span>
 							</td>
 						</tr>
 						@if(Auth::user()->facebook_id === 0)
@@ -81,7 +75,49 @@
 									***************
 									&nbsp; &nbsp; <a href="#password-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
 									<span class="text-danger">{{$errors->has('password')?$errors->first('password'):''}}</span><br />
-									<span class="text-danger">{{$errors->has('confirm_password')?$errors->first('confirm_password'):''}}</span>
+									<span class="text-danger">{{$errors->first('confirm_password')}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td>School name</td><td>
+									{{Auth::user()->school->name}}
+								&nbsp; &nbsp; <a href="#school-name-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
+									<span class="text-danger">{{$errors->first('school_name')}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Short description</td><td>
+									{{Auth::user()->school->short_desc != ''?Auth::user()->school->short_desc:'No description set yet.'}}
+								&nbsp; &nbsp; <a href="#school-short-desc-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
+									<span class="text-danger">{{$errors->first('short_desc')}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Long description</td><td>
+									{{Auth::user()->school->long_desc != ''?Auth::user()->school->long_desc:'No description set yet.'}}
+									&nbsp; &nbsp; <a href="#school-long-desc-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
+									<span class="text-danger">{{$errors->first('long_desc')}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td>School website</td><td>
+									{{Auth::user()->school->website != ''?Auth::user()->school->website:'No website link set yet.'}}
+								&nbsp; &nbsp; <a href="#school-website-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
+									<span class="text-danger">{{$errors->first('website')}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td>School facebook</td><td>
+									{{Auth::user()->school->facebook != ''?Auth::user()->school->facebook:'No facebook link set yet.'}}
+								&nbsp; &nbsp; <a href="#school-facebook-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
+									<span class="text-danger">{{$errors->first('facebook')}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td>School twitter</td><td>
+									{{Auth::user()->school->twitter != ''?Auth::user()->school->twitter:'No twitter link set yet.'}}
+								&nbsp; &nbsp; <a href="#school-twitter-form" data-effect="mfp-zoomIn" class="mag_modal btn btn-xs btn-default">Change</a><br />
+									<span class="text-danger">{{$errors->first('twitter')}}</span>
 								</td>
 							</tr>
 						@endif
@@ -210,6 +246,116 @@
 							</div>
 						</div>
 					@endif
+					<div id="school-short-desc-form" class="popup-basic allcp-form mfp-hide">
+						<div class="panel">
+							<div class="panel-heading"><span class="panel-title">Change short description</span></div>
+							{!! Form::open (['method'=>'POST', 'action'=> 'SchoolProfileController@postChangeShortDescription']) !!}
+							<div class="panel-body ph15">
+								<div class="section row mhn10">
+									<div class="col-md-12 ph15">
+										<label for="name" class="field">
+											{!! Form::text('short_desc', null, ['class'=>'gui-input', 'placeholder'=>'Enter short description']) !!}
+										</label>
+									</div>
+								</div>
+								<div class="section row mhn10">
+									<div class="col-md-12 ph15">
+										<button type="submit" class="button btn-primary">Change</button>
+									</div>
+								</div>
+							</div>
+							<div class="panel-footer"></div>
+							{!! Form::close() !!}
+						</div>
+					</div>
+					<div id="school-long-desc-form" class="popup-basic allcp-form mfp-hide">
+						<div class="panel">
+							<div class="panel-heading"><span class="panel-title">Change long description</span></div>
+							{!! Form::open (['method'=>'POST', 'action'=> 'SchoolProfileController@postChangeLongDescription']) !!}
+							<div class="panel-body">
+								<div class="section row">
+									<div class="col-md-12">
+										<label for="name" class="field">
+											{!! Form::textarea('long_desc', null, ['class'=>'gui-input', 'rows'=>'6', 'placeholder'=>'Enter long description']) !!}
+										</label>
+									</div>
+								</div>
+								<div class="section row mhn10">
+									<div class="col-md-12 ph15">
+										<button type="submit" class="button btn-primary">Change</button>
+									</div>
+								</div>
+							</div>
+							<div class="panel-footer"></div>
+							{!! Form::close() !!}
+						</div>
+					</div>
+					<div id="school-website-form" class="popup-basic allcp-form mfp-hide">
+						<div class="panel">
+							<div class="panel-heading"><span class="panel-title">Change website url</span></div>
+							{!! Form::open (['method'=>'POST', 'action'=> 'SchoolProfileController@postChangeWebsite']) !!}
+							<div class="panel-body ph15">
+								<div class="section row mhn10">
+									<div class="col-md-12 ph15">
+										<label for="name" class="field">
+											{!! Form::text('website', null, ['class'=>'gui-input', 'placeholder'=>'Enter website url']) !!}
+										</label>
+									</div>
+								</div>
+								<div class="section row mhn10">
+									<div class="col-md-12 ph15">
+										<button type="submit" class="button btn-primary">Change</button>
+									</div>
+								</div>
+							</div>
+							<div class="panel-footer"></div>
+							{!! Form::close() !!}
+						</div>
+					</div>
+					<div id="school-facebook-form" class="popup-basic allcp-form mfp-hide">
+						<div class="panel">
+							<div class="panel-heading"><span class="panel-title">Change facebook url</span></div>
+							{!! Form::open (['method'=>'POST', 'action'=> 'SchoolProfileController@postChangeFacebook']) !!}
+							<div class="panel-body ph15">
+								<div class="section row mhn10">
+									<div class="col-md-12 ph15">
+										<label for="name" class="field">
+											{!! Form::text('facebook', null, ['class'=>'gui-input', 'placeholder'=>'Enter facebook url']) !!}
+										</label>
+									</div>
+								</div>
+								<div class="section row mhn10">
+									<div class="col-md-12 ph15">
+										<button type="submit" class="button btn-primary">Change</button>
+									</div>
+								</div>
+							</div>
+							<div class="panel-footer"></div>
+							{!! Form::close() !!}
+						</div>
+					</div>
+					<div id="school-twitter-form" class="popup-basic allcp-form mfp-hide">
+						<div class="panel">
+							<div class="panel-heading"><span class="panel-title">Change facebook url</span></div>
+							{!! Form::open (['method'=>'POST', 'action'=> 'SchoolProfileController@postChangeTwitter']) !!}
+							<div class="panel-body ph15">
+								<div class="section row mhn10">
+									<div class="col-md-12 ph15">
+										<label for="name" class="field">
+											{!! Form::text('twitter', null, ['class'=>'gui-input', 'placeholder'=>'Enter twitter url']) !!}
+										</label>
+									</div>
+								</div>
+								<div class="section row mhn10">
+									<div class="col-md-12 ph15">
+										<button type="submit" class="button btn-primary">Change</button>
+									</div>
+								</div>
+							</div>
+							<div class="panel-footer"></div>
+							{!! Form::close() !!}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

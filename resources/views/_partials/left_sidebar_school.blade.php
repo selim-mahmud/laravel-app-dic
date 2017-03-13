@@ -44,12 +44,6 @@
                     <span class="sb-menu-icon fa fa-camera"></span>
                 </a>
             </li>
-            <li>
-                <a href="/">
-                    <span class="sidebar-title">Messages</span>
-                    <span class="sb-menu-icon fa fa-envelope"></span>
-                </a>
-            </li>
             <li class="{{Request::path()=='school/reviews'?'active':''}}">
                 <a href="{{url('school/reviews')}}">
                     <span class="sidebar-title">Reviews</span>
