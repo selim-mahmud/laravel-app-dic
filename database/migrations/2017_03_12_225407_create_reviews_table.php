@@ -18,9 +18,10 @@ class CreateReviewsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->index()->unsigned();
             $table->integer('school_id')->index()->unsigned();
-            $table->integer('instructor_id')->index()->unsigned();
+            $table->integer('instructor_id')->index()->unsigned()->default(0);
             $table->float('rating', 2, 1);
             $table->text('comment');
+            $table->boolean('approved')->default(0);
             $table->timestamps();
         });
     }

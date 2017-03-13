@@ -55,6 +55,16 @@ class School extends Model
     }
 
     /**
+     * get reviews of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reviews()
+    {
+        return $this->hasMany('App\Review');
+    }
+
+    /**
      * services of this school
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

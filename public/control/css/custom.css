@@ -1,8 +1,24 @@
 .select2-container--default.select2-container--focus .select2-selection--multiple{
-    border:3px solid #ddd !important;
-}
+     border:3px solid #ddd !important;
+ }
 .select2-container--default .select2-selection--multiple{
     border-radius: 0;
     padding:8px;
     border:3px solid #cfdce2 !important;
+}
+
+.select2-container--default .select2-selection--single{
+    border-radius: 0;
+    padding:20px;
+    border:3px solid #cfdce2 !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0px;
+    padding-right: 20px;
+    margin-top: -15px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 10px;
 }

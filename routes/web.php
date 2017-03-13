@@ -31,6 +31,8 @@ Route::group(['middleware' => ['permission:learner_profile_operation']], functio
     Route::post('learner/change-display-name', array('as' => 'change-display-name', 'uses' => 'LearnerProfileController@postChangeDisplayName'));
     Route::post('learner/change-eamil', array('as' => 'change-email', 'uses' => 'LearnerProfileController@postChangeEmail'));
     Route::post('learner/change-password', array('as' => 'change-password', 'uses' => 'LearnerProfileController@postChangePassword'));
+    Route::get('learner/reviews', 'ReviewController@getLernerReview');
+    Route::post('learner/reviews', 'ReviewController@reviewStore');
     Route::get('learner/messages', array('as' => 'learner-messages', function(){
         return view('learner.learner_dashboard');
     }));
@@ -54,6 +56,7 @@ Route::group(['middleware' => ['permission:school_profile_operation']], function
 
 Route::group(['middleware' => ['permission:instructor_profile_operation']], function () { //for both school_manager and instructor
     Route::get('school', array('as' => 'school', 'uses' => 'UserController@getSchoolDashboard'));
+    Route::get('school/reviews', 'ReviewController@getSchoolReview');
 });
 
 Route::get('test', function(){

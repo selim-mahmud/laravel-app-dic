@@ -21,6 +21,47 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    protected $fillable = ['user_id', 'school_id', 'instructor_id', 'rating', 'comment'];
+    protected $fillable = ['user_id', 'school_id', 'instructor_id', 'rating', 'comment', 'approved'];
+
+    /**
+     * get the school that has this review
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function school()
+    {
+        return $this->belongsTo('App\School');
+    }
+
+    /**
+     * get the user that has this review
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
+     * mutator for approved field
+     *
+     * @param $value
+     * @return string
+     */
+    public function getApprovedAttribute($value)
+    {
+        switch ($value) {
+            case 0:
+                return 'Waiting for approval';
+                break;
+            case 1:
+                return 'Approved';
+                break;
+            case -1:
+                return 'Rejected';
+                break;
+        }
+    }
 
 }

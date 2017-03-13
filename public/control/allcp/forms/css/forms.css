@@ -1227,7 +1227,7 @@
   color: #CCC;
 }
 .allcp-form .rating label i {
-  font-size: 17px;
+  font-size: 23px;
   text-align: center;
   color: inherit;
 }
@@ -1245,11 +1245,11 @@
 .allcp-form .rating:hover .rating-star:hover,
 .allcp-form .rating:hover .rating-star:hover ~ .rating-star,
 .allcp-form .rating-input:checked ~ .rating-star {
-  color: #666;
+  color: #10cfbd;
 }
 .allcp-form .rating-star,
 .allcp-form .rating:hover .rating-star {
-  width: 18px;
+  width: 23px;
   float: right;
   display: block;
   cursor: pointer;

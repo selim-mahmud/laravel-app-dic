@@ -55,6 +55,16 @@ class User extends Authenticatable
     }
 
     /**
+     * get reviews of this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function reviews()
+    {
+        return $this->hasMany('App\Review');
+    }
+
+    /**
      * check if an email exists in user table
      *
      * @param string $email

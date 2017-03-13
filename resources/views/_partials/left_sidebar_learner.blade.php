@@ -14,16 +14,10 @@
                     <span class="sb-menu-icon fa fa-envelope"></span>
                 </a>
             </li>
-            <li>
-                <a href="/">
+            <li class="{{Request::path()=='learner/reviews'?'active':''}}">
+                <a href="{{url('learner/reviews')}}">
                     <span class="sidebar-title">Reviews</span>
                     <span class="sb-menu-icon fa fa-star-half-full "></span>
-                </a>
-            </li>
-            <li>
-                <a href="/">
-                    <span class="sidebar-title">Recommedations</span>
-                    <span class="sb-menu-icon fa fa-heart"></span>
                 </a>
             </li>
         </ul>

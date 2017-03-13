@@ -50,8 +50,8 @@
                     <span class="sb-menu-icon fa fa-envelope"></span>
                 </a>
             </li>
-            <li>
-                <a href="/">
+            <li class="{{Request::path()=='school/reviews'?'active':''}}">
+                <a href="{{url('school/reviews')}}">
                     <span class="sidebar-title">Reviews</span>
                     <span class="sb-menu-icon fa fa-star-half-full"></span>
                 </a>
