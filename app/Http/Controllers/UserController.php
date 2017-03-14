@@ -393,9 +393,8 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getSchoolDashboard()
+    public function getSchoolProfile()
     {
-        return view('school.school_dashboard');
+        return view('school.school_profile');
     }
-
 }

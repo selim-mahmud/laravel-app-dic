@@ -48,10 +48,7 @@ class SchoolProfileController extends Controller
         $this->activityLogger = $activityLogger;
     }
 
-    public function getSchoolProfile()
-    {
-        return view('school.school_profile');
-    }
+
 
     /**
      * change photo
