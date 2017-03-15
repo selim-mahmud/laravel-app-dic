@@ -2,7 +2,7 @@
 
 use App\School;
 
-Route::get('/', array('as' => 'home', 'uses' => 'PageController@home'));
+Route::get('/', array('as' => 'home', 'uses' => 'PageController@home'))->middleware('redirect_301');
 Route::get('facebook-auth', array('as' => 'facebook-register', 'uses' => 'UserController@facebookAuth'));
 Route::get('facebook-callback', array('as' => 'facebook-callback', 'uses' => 'UserController@facebookCallback'));
 Route::get('password-reset', array('as' => 'password-reset', 'uses' => 'UserController@getPasswordReset'));
