@@ -197,6 +197,15 @@ class UserController extends Controller
                 );
                 return redirect('school')->with('alert-success', config('dic-message.login_success'));
             }
+
+            if ($userType === config('dic.staff_user_type_name')) {
+                $this->activityLogger->basicActivitySave(
+                    'staff_email_login_success',
+                    'successfully logged in by staff',
+                    ['ip' => $this->request->ip()]
+                );
+                return redirect('admin')->with('alert-success', config('dic-message.login_success'));
+            }
         }
         $this->activityLogger->basicActivitySave(
             'email_login_fail',

@@ -63,6 +63,15 @@ Route::group(['middleware' => ['permission:instructor_profile_operation']], func
     Route::get('school/reviews', 'ReviewController@getSchoolReview');
 });
 
+Route::group(['prefix' => 'staff', 'middleware' => ['permission:all_admin_operation']], function () {
+    Route::get('/', 'StaffProfileController@index');
+    Route::post('change-photo', 'StaffProfileController@postChangePhoto');
+    Route::post('change-name', 'StaffProfileController@postChangeName');
+    Route::post('change-display-name', 'StaffProfileController@postChangeDisplayName');
+    Route::post('change-eamil', 'StaffProfileController@postChangeEmail');
+    Route::post('change-password', 'StaffProfileController@postChangePassword');
+});
+
 Route::get('test', function(){
     $instructors = School::find(Auth::user()->school_id)->instructors;
 
