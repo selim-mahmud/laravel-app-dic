@@ -21,4 +21,5 @@ return [
     'default_avatar_path' => 'user-contents/images/avatar',
     'instructor_avatar_path' => 'user-contents/images/school/instructor',
     'school_media_path' => 'user-contents/images/school/media',
+    'post_feature_image_path' => 'user-contents/images/post',
 ];

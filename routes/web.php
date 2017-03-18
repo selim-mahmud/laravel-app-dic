@@ -79,6 +79,7 @@ Route::group(['prefix' => 'staff', 'middleware' => ['permission:all_admin_operat
     Route::get('users', 'StaffUserController@index');
     Route::get('schools', 'StaffSchoolController@index');
     Route::get('schools/shadow/{id}', 'StaffSchoolController@shadow');
+    Route::resource('posts', 'StaffPostController');
 });
 
 Route::get('test', function(){

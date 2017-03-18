@@ -104,4 +104,14 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    /**
+     * get posts of this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
 }

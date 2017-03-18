@@ -23,7 +23,13 @@
             <li class="{{strpos(Request::path(), 'staff/reviews') !== false?'active':''}}">
                 <a href="{{url('staff/reviews')}}">
                     <span class="sidebar-title">Reviews</span>
-                    <span class="sb-menu-icon fa fa-star-half-full "></span>
+                    <span class="sb-menu-icon fa fa-star-half-full"></span>
+                </a>
+            </li>
+            <li class="{{strpos(Request::path(), 'staff/posts') !== false?'active':''}}">
+                <a href="{{url('staff/posts')}}">
+                    <span class="sidebar-title">Posts</span>
+                    <span class="sb-menu-icon fa fa-book"></span>
                 </a>
             </li>
         </ul>

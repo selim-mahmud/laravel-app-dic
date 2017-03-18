@@ -43,7 +43,7 @@ class SchoolMediaController extends Controller
         ]);
         if ($request->file('photo')->isValid()) {
             $path = $this->mediaHelper->savePhoto(str_random(20), config('dic.school_media_path').'/'.Auth::user()->school_id);
-            $schoolMedia = $this->schoolMedia::create([
+            $schoolMedia = $this->schoolMedia->create([
                 'school_id' => Auth::user()->school_id,
                 'media_type' => 'image',
                 'url' => $path
@@ -63,7 +63,7 @@ class SchoolMediaController extends Controller
      */
     public function delete($mediaId)
     {
-        $schoolMedia = $this->schoolMedia::find(intval($mediaId));
+        $schoolMedia = $this->schoolMedia->find(intval($mediaId));
         if(Auth::user()->school_id === $schoolMedia->school_id){
             $path = $schoolMedia->url;
             if($schoolMedia->delete()){

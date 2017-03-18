@@ -15,7 +15,8 @@
     "guzzlehttp/guzzle": "^6.2",
     "spatie/laravel-activitylog": "^1.12",
     "spatie/laravel-permission": "^1.8",
-    "pusher/pusher-php-server": "^2.6"
+    "pusher/pusher-php-server": "^2.6",
+    "intervention/image": "^2.3"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.2",
