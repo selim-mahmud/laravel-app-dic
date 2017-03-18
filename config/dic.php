@@ -13,6 +13,8 @@ return [
     'default_school_role_name' => 'school_manager',
     'school_manager_permission_name1' => 'school_profile_operation',
     'school_manager_permission_name2' => 'instructor_profile_operation',
+    'staff_permission_name1' => 'all_admin_operation',
+    'staff_permission_name2' => 'admin_operation',
     'default_instructor_role_name' => 'instructor',
     'instructor_permission_name1' => 'instructor_profile_operation',
     'default_learner_profile_photo' => 'img/theme/default_avatar.jpg',

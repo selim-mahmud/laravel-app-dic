@@ -7,7 +7,6 @@
 @stop
 
 @push('styles_stack')
-
 @endpush
 
 @section('header')
@@ -15,7 +14,7 @@
 @stop
 
 @section('left_sidebar')
-    @include('_partials.left_sidebar_school')
+    @include('_partials.left_sidebar_staff')
 @stop
 
 @section('breadcrumb')
@@ -32,34 +31,41 @@
             <br/>
             <div class="panel">
                 <div class="panel-heading">
-                    <span class="panel-title">Reviews by your learner</span>
+                    <span class="panel-title">List of all schools</span>
                 </div>
                 <div style="padding: 20px 0;" class="panel-body">
-                    @if(!$reviews->isEmpty())
+                    @if(!$schools->isEmpty())
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Learner Name</th>
-                                    <th>Rating</th>
-                                    <th>Comment</th>
-                                    <th>Status</th>
+                                    <th>id</th>
+                                    <th>Name</th>
+                                    <th>Short description</th>
+                                    <th>Long description</th>
+                                    <th>Website</th>
+                                    <th>Facebook</th>
+                                    <th>Shadow</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($reviews as $review)
+                                @foreach($schools as $school)
                                     <tr>
-                                        <td>{{$review->user->name}}</td>
-                                        <td>{{$review->rating}}</td>
-                                        <td>{{$review->comment}}</td>
-                                        <td>{{$review->approved}}</td>
+                                        <td>{{$school->id}}</td>
+                                        <td>{{$school->name}}</td>
+                                        <td>{{$school->short_desc}}</td>
+                                        <td>{{$school->long_desc}}</td>
+                                        <td>{{$school->website}}</td>
+                                        <td>{{$school->facebook}}</td>
+                                        <td><a href="{{url('staff/schools/shadow', [$school->users->first()])}}" class="btn btn-success">Shadow</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
+                            {{ $schools->links() }}
                         </div>
                     @else
-                        <h4>No one reviewed your school yet.</h4>
+                        <h4>No school found.</h4>
                     @endif
                 </div>
             </div>
@@ -67,5 +73,4 @@
     </div>
 @stop
 @push('scripts_stack')
-
 @endpush

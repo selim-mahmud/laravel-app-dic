@@ -7,7 +7,6 @@
 @stop
 
 @push('styles_stack')
-
 @endpush
 
 @section('header')
@@ -15,7 +14,7 @@
 @stop
 
 @section('left_sidebar')
-    @include('_partials.left_sidebar_school')
+    @include('_partials.left_sidebar_staff')
 @stop
 
 @section('breadcrumb')
@@ -32,34 +31,39 @@
             <br/>
             <div class="panel">
                 <div class="panel-heading">
-                    <span class="panel-title">Reviews by your learner</span>
+                    <span class="panel-title">List of all users</span>
                 </div>
                 <div style="padding: 20px 0;" class="panel-body">
-                    @if(!$reviews->isEmpty())
+                    @if(!$users->isEmpty())
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Learner Name</th>
-                                    <th>Rating</th>
-                                    <th>Comment</th>
+                                    <th>id</th>
+                                    <th>Name</th>
+                                    <th>Display name</th>
+                                    <th>Email</th>
+                                    <th>User Type</th>
                                     <th>Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($reviews as $review)
+                                @foreach($users as $user)
                                     <tr>
-                                        <td>{{$review->user->name}}</td>
-                                        <td>{{$review->rating}}</td>
-                                        <td>{{$review->comment}}</td>
-                                        <td>{{$review->approved}}</td>
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->display_name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>{{$user->user_type}}</td>
+                                        <td>{{$user->status}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
+                            {{ $users->links() }}
                         </div>
                     @else
-                        <h4>No one reviewed your school yet.</h4>
+                        <h4>No user found.</h4>
                     @endif
                 </div>
             </div>
@@ -67,5 +71,4 @@
     </div>
 @stop
 @push('scripts_stack')
-
 @endpush

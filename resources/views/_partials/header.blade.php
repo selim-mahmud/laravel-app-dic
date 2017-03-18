@@ -23,9 +23,17 @@
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                     @if(Auth::check())
-                                    &nbsp;&nbsp;&nbsp;<a href="{{Auth::user()->can(config('dic.learner_permission_name1'))?'/learner':'/school'}}" class="btn btn-default dropdown-toggle"><i
-                                                    style="margin-right:5px; font-size: 15px;"
-                                                    class="fa fa-user primary_color" aria-hidden="true"></i>Dashboard</a>
+                                    &nbsp;&nbsp;&nbsp;<a href="
+                                    @if(Auth::user()->can(config('dic.learner_permission_name1')))
+                                        {{'/learner'}}
+                                    @elseif(Auth::user()->can(config('dic.school_manager_permission_name2')))
+                                        {{'/school'}}
+                                    @elseif(Auth::user()->can(config('dic.staff_permission_name2')))
+                                        {{'/staff'}}
+                                    @endif
+                                " class="btn btn-default dropdown-toggle"><i
+                                style="margin-right:5px; font-size: 15px;"
+                                class="fa fa-user primary_color" aria-hidden="true"></i>Dashboard</a>
 
                                     @else
                                         <div class="dropdown">

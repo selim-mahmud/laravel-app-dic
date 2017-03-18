@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class StaffProfileController extends Controller
 {
-    /**
+     /**
      * @var Request
      */
     protected $request;
@@ -20,7 +20,7 @@ class StaffProfileController extends Controller
     protected $user;
 
     /**
-     * LearnerProfileController constructor.
+     * StaffProfileController constructor.
      * @param Request $request
      * @param User $user
      */
@@ -45,7 +45,7 @@ class StaffProfileController extends Controller
         ]);
 
         if ($this->request->file('photo')->isValid()) {
-            $staff = $this->user::findorfail(Auth::user()->id);
+            $staff = $this->user->findorfail(Auth::user()->id);
             $photoName = $staff->id.'.'.$this->request->photo->extension();
             $path = $this->request->photo->storeAs(config('dic.default_avatar_path'), $photoName);
             $staff->profile_photo_url = $path;
@@ -64,7 +64,7 @@ class StaffProfileController extends Controller
         $this->validate($this->request, [
             'name' => 'required|between:3,50'
         ]);
-        $staff = $this->user::findorfail(Auth::user()->id);
+        $staff = $this->user->findorfail(Auth::user()->id);
         $staff->name = $this->request->get('name');
         if($staff->save()){
             return redirect('staff')->with('alert-success', config('dic-message.change_learner_name_success'));
@@ -81,7 +81,7 @@ class StaffProfileController extends Controller
         $this->validate($this->request, [
             'display_name' => 'required|between:2,50',
         ]);
-        $staff = $this->user::findorfail(Auth::user()->id);
+        $staff = $this->user->findorfail(Auth::user()->id);
         $staff->display_name = $this->request->get('display_name');
         if($staff->save()){
             return redirect('staff')->with('alert-success', config('dic-message.change_learner_display_name_success'));
@@ -98,7 +98,7 @@ class StaffProfileController extends Controller
         $this->validate($this->request, [
             'email' => 'required|email',
         ]);
-        $staff = $this->user::findorfail(Auth::user()->id);
+        $staff = $this->user->findorfail(Auth::user()->id);
         $staff->email = $this->request->get('email');
         if($staff->save()){
             return redirect('staff')->with('alert-success', config('dic-message.change_learner_email_success'));
@@ -115,7 +115,7 @@ class StaffProfileController extends Controller
             'password' => 'required|between:6,15|regex:/^[ A-Za-z0-9!@#$%&_-]*$/',
             'confirm_password' => 'required|same:password',
         ]);
-        $staff = $this->user::findorfail(Auth::user()->id);
+        $staff = $this->user->findorfail(Auth::user()->id);
         $staff->pass_key = Hash::make($this->request->get('password'));
         if($staff->save()){
             return redirect('staff')->with('alert-success', config('dic-message.change_password_success'));

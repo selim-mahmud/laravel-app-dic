@@ -7,7 +7,6 @@
 @stop
 
 @push('styles_stack')
-
 @endpush
 
 @section('header')
@@ -15,7 +14,7 @@
 @stop
 
 @section('left_sidebar')
-    @include('_partials.left_sidebar_school')
+    @include('_partials.left_sidebar_staff')
 @stop
 
 @section('breadcrumb')
@@ -32,34 +31,49 @@
             <br/>
             <div class="panel">
                 <div class="panel-heading">
-                    <span class="panel-title">Reviews by your learner</span>
-                </div>
+                    <span class="panel-title">List of all approving reviews</span>
+                    <div class="btn-group pull-right">
+                        <a href="{{url('staff/reviews/rejected')}}" class="btn btn-danger pull-right">Rejected</a>
+                        <a href="{{url('staff/reviews/approving')}}" class="btn btn-warning pull-right">Approving</a>
+                        <a href="{{url('staff/reviews/approved')}}" class="btn btn-success pull-right">Approved</a>
+                    </div>
+                </div><div class="clearfix"></div>
                 <div style="padding: 20px 0;" class="panel-body">
                     @if(!$reviews->isEmpty())
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
+                                    <th>School Name</th>
                                     <th>Learner Name</th>
                                     <th>Rating</th>
                                     <th>Comment</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($reviews as $review)
                                     <tr>
+                                        <td>{{$review->school->name}}</td>
                                         <td>{{$review->user->name}}</td>
                                         <td>{{$review->rating}}</td>
                                         <td>{{$review->comment}}</td>
-                                        <td>{{$review->approved}}</td>
+                                        <td class="alert-warning"><div>{{$review->approved}}</div></td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="{{url('staff/reviews/reject', [$review->id])}}" class="btn btn-danger pull-right" onClick="javascript: return confirm('Are you sure to reject!');">Reject</a>
+                                                <a href="{{url('staff/reviews/approve', [$review->id])}}" class="btn btn-success pull-right" onClick="javascript: return confirm('Are you sure to approve!');">Approve</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
+                            {{ $reviews->links() }}
                         </div>
                     @else
-                        <h4>No one reviewed your school yet.</h4>
+                        <h4>No reviews found.</h4>
                     @endif
                 </div>
             </div>
@@ -67,5 +81,4 @@
     </div>
 @stop
 @push('scripts_stack')
-
 @endpush

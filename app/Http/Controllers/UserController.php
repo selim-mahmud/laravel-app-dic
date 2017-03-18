@@ -204,7 +204,7 @@ class UserController extends Controller
                     'successfully logged in by staff',
                     ['ip' => $this->request->ip()]
                 );
-                return redirect('admin')->with('alert-success', config('dic-message.login_success'));
+                return redirect('staff')->with('alert-success', config('dic-message.login_success'));
             }
         }
         $this->activityLogger->basicActivitySave(
@@ -271,8 +271,10 @@ class UserController extends Controller
             if ($user) {
                 if ($user->user_type == config('dic.school_user_type_name')) {
                     return redirect('school')->with('alert-success', config('dic-message.login_success'));
-                } else {
+                } else if($user->user_type == config('dic.learner_user_type_name')) {
                     return redirect('learner')->with('alert-success', config('dic-message.login_success'));
+                }else{
+                    return redirect('staff')->with('alert-success', config('dic-message.login_success'));
                 }
             } else {
                 return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));

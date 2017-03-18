@@ -17,6 +17,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
@@ -53,7 +54,7 @@ class Review extends Model
     {
         switch ($value) {
             case 0:
-                return 'Waiting for approval';
+                return 'Approving';
                 break;
             case 1:
                 return 'Approved';
@@ -62,6 +63,39 @@ class Review extends Model
                 return 'Rejected';
                 break;
         }
+    }
+
+    /**
+     * query scope for approved reviews
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeApproved(Builder $query) : Builder
+    {
+        return $query->where('approved', 1);
+    }
+
+    /**
+     * query scope for approving reviews
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeApproving(Builder $query) : Builder
+    {
+        return $query->where('approved', 0);
+    }
+
+    /**
+     * query scope for rejected reviews
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeRejected(Builder $query) : Builder
+    {
+        return $query->where('approved', -1);
     }
 
 }

@@ -10383,6 +10383,21 @@ mark,
     text-transform: capitalize;
 }
 
+.bg-succes{
+    color:#FFFFFF;
+    background-color: #10cfbd;
+}
+
+.bg-warning{
+    color:#FFFFFF;
+    background-color: #10cfbd;
+}
+
+.bg-fail{
+    color:#FFFFFF;
+    background-color: #10cfbd;
+}
+
 .content-header {
     text-align: center;
     margin-top: 15px;

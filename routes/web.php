@@ -70,6 +70,15 @@ Route::group(['prefix' => 'staff', 'middleware' => ['permission:all_admin_operat
     Route::post('change-display-name', 'StaffProfileController@postChangeDisplayName');
     Route::post('change-eamil', 'StaffProfileController@postChangeEmail');
     Route::post('change-password', 'StaffProfileController@postChangePassword');
+    Route::get('reviews', 'StaffReviewController@index');
+    Route::get('reviews/approved', 'StaffReviewController@approvedReviews');
+    Route::get('reviews/approving', 'StaffReviewController@approvingReviews');
+    Route::get('reviews/rejected', 'StaffReviewController@rejectedReviews');
+    Route::get('reviews/approve/{id}', 'StaffReviewController@approve');
+    Route::get('reviews/reject/{id}', 'StaffReviewController@reject');
+    Route::get('users', 'StaffUserController@index');
+    Route::get('schools', 'StaffSchoolController@index');
+    Route::get('schools/shadow/{id}', 'StaffSchoolController@shadow');
 });
 
 Route::get('test', function(){
