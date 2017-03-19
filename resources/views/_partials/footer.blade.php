@@ -49,29 +49,33 @@ Integer ac lorem sit amet est rhoncus dapi bus don cad
 						<div class="col-sm-4 f-3td top40" >
 							<h5 class="uppercase colorfff"><b class="footer-title">GET IN TOUCH</b></h5>
 							<div class="top30 p-right20 coloraaa">
-
-								<form novalidate class="el-form-2" id="">
-									<div class="row">
+								{!! Form::open(['method' => 'post', 'action' => 'PageController@sendContactUsFooter']) !!}
+								<div class="row">
 										<div class="col-sm-12 top10">
-											<input id="user-name" class="border1 borderddd form-1-style2 border1 b-radius3" required="required" placeholder="Full Name *" />
+											{!! Form::text('full_name', null, ['class' => 'border1 borderddd form-1-style2 border1 b-radius3', 'placeholder' => 'Full Name *'])!!}
+											<span class="text-danger">{{$errors->first('full_name')}}</span>
 										</div>
 										<div class="col-sm-12 top10">
-											<input id="user-email" class="border1 borderddd form-1-style2 border1 b-radius3" required="required" placeholder="Email Address *" />
+											{!! Form::text('email', null, ['class' => 'border1 borderddd form-1-style2 border1 b-radius3', 'placeholder' => 'Email Address *'])!!}
+											<span class="text-danger">{{$errors->first('email')}}</span>
 										</div>
 										<div class="col-sm-12 top10">
-											<input id="user-website" class="border1 borderddd form-1-style2 border1 b-radius3" placeholder="Website" />
+											{!! Form::text('contact_number', null, ['class' => 'border1 borderddd form-1-style2 border1 b-radius3', 'placeholder' => 'Contact number'])!!}
+											<span class="text-danger">{{$errors->first('contact_number')}}</span>
 										</div>
 										<div class="col-sm-12 top10">
-											<input id="user-subject" class="border1 borderddd form-1-style2 border1 b-radius3" placeholder="Subject" />
+											{!! Form::text('subject', null, ['class' => 'border1 borderddd form-1-style2 border1 b-radius3', 'placeholder' => 'Subject *'])!!}
+											<span class="text-danger">{{$errors->first('subject')}}</span>
 										</div>
 										<div class="col-sm-12 top10">
-											<textarea id="user-message" class="border1 borderddd form-1-style2 border1 b-radius3" placeholder="Comment *" required="required"></textarea>
-											<input type="submit" value="SUBMIT" class="submit-btn button1-1 b-radius3 right30 button-orange top10">
+											{!! Form::textarea('message', null, ['class' => 'border1 borderddd form-1-style2 border1 b-radius3', 'placeholder' => 'Your message *'])!!}
+											<span class="text-danger">{{$errors->first('message')}}</span>
+										</div>
+										<div class="col-sm-12">
+											{!! Form::submit('SUBMIT', ['class'=>'submit-btn button1-1 b-radius3 right30 button-blue top20']) !!}
 										</div>
 									</div>
-
-								</form>
-
+								{!! Form::close() !!}
 							</div>
 						</div>
 					</div>
