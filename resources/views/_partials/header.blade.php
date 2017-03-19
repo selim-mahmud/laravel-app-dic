@@ -118,8 +118,8 @@
                                     </ul>
                                 </li>
                                 <li><a href="/">Blog</a></li>
-                                <li><a href="/">About</a></li>
-                                <li><a href="/">Contact</a></li>
+                                <li><a href="{{url('about-us')}}">About</a></li>
+                                <li><a href="{{url('contact-us')}}">Contact</a></li>
                             </ul>
                         </div>
                     </nav>
