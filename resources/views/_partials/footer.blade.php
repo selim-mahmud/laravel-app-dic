@@ -4,13 +4,18 @@
 				<div class="row f-first-row newsletter" style="margin-top: 0px!important;">
 					<div style="text-align: center;" class="col-sm-6 f-newsletter-l">
 						<h3><b class="colorfff uppercase">Newsletter signup</b></h3>
-Get registered for monthly newsletter to updates
+Get registered for update from DIC
 </div>
 					<div class="col-sm-6 newsletter-bg padding0">
+						{!! Form::open(['method' => 'post', 'action' => 'PageController@subscribe']) !!}
 						<div class="newsletter-input">
-							<input class="newsletter-inpup-field width100">
-							<input type="submit" value="SIGNUP" class="newsletter-signup f-right">
+
+								<input name="signup_email" class="newsletter-inpup-field width100" placeholder="Your email">
+								<input type="submit" value="SIGNUP" class="newsletter-signup f-right">
+
 						</div>
+						{!! Form::close() !!}
+						<span class="text-danger">{{$errors->first('signup_email')}}</span>
 					</div>
 				</div>
 				<div class="row f-second-row footer">
@@ -19,12 +24,11 @@ Get registered for monthly newsletter to updates
 							<h5 class="uppercase colorfff footer-title"><b class="footer-title">About Us</b></h5>
 							<div class="footer-logo top30"><div class="no-wrap"><a class="footerLogo" href="/"><img src="{{asset('img/theme/dic_logo.png')}}" alt="Logo"></a></div></div>
 							<div class="footer-td1-txt coloraaa top30 p-right20">
-Integer ac lorem sit amet est rhoncus dapi bus don cad
-								pede acus morbi elit nunc molestie at ultrices eu eleifen
-								lorem ut dictum erat masa. Nullam tempus erat id tort
-								In hac habitasse platea dictumst.
-							</div>
-							<div class="button1-1 b-radius3 right30 button-blue top20">Read More</div>
+                                Getting a good driving instructor without reference from close mates or
+								community is really a difficult job. Driving Instructors Catalog (DIC) is a
+								brain child of a person who faced lots of trouble when he decided to have a australian driving licence.
+							</div><br />
+							<a href="{{url('about-us')}}" class="button1-1 b-radius3 right30 button-blue top20">Read More</a>
 							<div class="clearfix"></div>
 						</div>
 
