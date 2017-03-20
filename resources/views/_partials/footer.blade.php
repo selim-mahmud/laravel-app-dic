@@ -35,17 +35,14 @@ Get registered for update from DIC
 						<div class="col-sm-4 f-2td top40" >
 							<h5 class="uppercase colorfff"><b class="footer-title">important links</b></h5>
 							<ul class="list-styles left-40 top30 f-left coloraaa footer-list p-right20">
-								<li><a href="#"><i class="fa fa-chevron-right"></i>Automotive</a></li>
-								<li><a href="#"><i class="fa fa-chevron-right"></i>Humanities</a></li>
-								<li><a href="#"><i class="fa fa-chevron-right"></i>Computers</a></li>
-								<li><a href="#"><i class="fa fa-chevron-right"></i>Education</a></li>
-								<li><a href="#"><i class="fa fa-chevron-right"></i>Health / Fitness</a></li>
-							</ul>
-							<ul class="list-styles left-40 top30 f-left">
-								<li><a href="#"><i class="fa fa-chevron-right"></i>Internet Services</a></li>
-								<li><a href="#"><i class="fa fa-chevron-right"></i>Marketing</a></li>
-								<li><a href="#"><i class="fa fa-chevron-right"></i>Technology</a></li>
-								<li><a href="{{url('admin_page')}}"><i class="fa fa-chevron-right"></i>Admin Page</a></li>
+								<li><a target="_blank" href="http://www.rms.nsw.gov.au/roads/index.html"><i class="fa fa-chevron-right"></i>Roads and Maritime - NSW</a></li>
+								<li><a target="_blank" href="https://www.vicroads.vic.gov.au/licences"><i class="fa fa-chevron-right"></i>VicRoads - VIC</a></li>
+								<li><a target="_blank" href="https://www.tmr.qld.gov.au/Licensing"><i class="fa fa-chevron-right"></i>Transport & Main Roads - QLD</a></li>
+								<li><a target="_blank" href="http://www.transport.wa.gov.au/licensing/my-drivers-licence.asp"><i class="fa fa-chevron-right"></i>WA Transport</a></li>
+								<li><a target="_blank" href="https://www.sa.gov.au/topics/driving-and-transport"><i class="fa fa-chevron-right"></i>Driving & Transport - SA</a></li>
+								<li><a target="_blank" href="https://nt.gov.au/driving"><i class="fa fa-chevron-right"></i>Driving and transport - NT</a></li>
+								<li><a target="_blank" href="http://www.transport.tas.gov.au/licensing/getting-a-licence"><i class="fa fa-chevron-right"></i>TAS - Transport</a></li>
+
 							</ul>
 							<div class="clearfix"></div>
 						</div>
@@ -89,23 +86,11 @@ Get registered for update from DIC
 					<div class="m1170">
 						<div class="footer-relative">
 							<div class="col-sm-6 left-footer2">
-								&copy; {{date("Y")}} Driving Instructors Catalog - All Rights Reserved. <a href="#">Privacy Policy </a>
+								&copy; {{date("Y")}} Driving Instructors Catalog - All Rights Reserved. <a href="{{asset('privacy-policy')}}">Privacy Policy </a>
 </div>
 <div class="col-sm-6 right-footer2">
-    <a href="#">
+    <a style="margin-right:15px;" target="_blank" href="https://www.facebook.com/drivinginstructorscatalog">
         <div class="img-icons-2"><i class="fa fa-facebook">&nbsp;</i></div>
-    </a>
-    <a href="#">
-        <div class="img-icons-2"><i class="fa fa-google-plus">&nbsp;</i></div>
-    </a>
-    <a href="#">
-        <div class="img-icons-2"><i class="fa fa-twitter">&nbsp;</i></div>
-    </a>
-    <a href="#">
-        <div class="img-icons-2"><i class="fa fa-linkedin">&nbsp;</i></div>
-    </a>
-    <a href="#">
-        <div class="img-icons-2"><i class="fa fa-rss">&nbsp;</i></div>
     </a>
 </div>
 <div class="clearfix"></div>

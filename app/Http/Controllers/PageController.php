@@ -60,7 +60,7 @@ class PageController extends Controller
             'email' => $request->get('signup_email')
         ]);
 
-        if ($subscribe){
+        if ($subscribe) {
             return redirect('about-us')->with('alert-success', 'You have successfully subscribe for DIC update.');
         }
         return redirect('about-us')->with('alert-success', 'Something wrong happened, please try again later.');
@@ -73,6 +73,11 @@ class PageController extends Controller
     public function aboutUs()
     {
         return view('pages.about');
+    }
+
+    public function privacyPolicy()
+    {
+        return view('pages.privacy');
     }
 
 }

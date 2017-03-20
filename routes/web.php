@@ -8,6 +8,7 @@ Route::post('contact-us', 'PageController@sendContactUs');
 Route::post('contact-us-footer', 'PageController@sendContactUsFooter');
 Route::post('subscribe', 'PageController@subscribe');
 Route::get('about-us', 'PageController@aboutUs');
+Route::get('privacy-policy', 'PageController@privacyPolicy');
 Route::get('facebook-auth', array('as' => 'facebook-register', 'uses' => 'UserController@facebookAuth'));
 Route::get('facebook-callback', array('as' => 'facebook-callback', 'uses' => 'UserController@facebookCallback'));
 Route::get('password-reset', array('as' => 'password-reset', 'uses' => 'UserController@getPasswordReset'));
