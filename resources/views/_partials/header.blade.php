@@ -117,7 +117,7 @@
                                         <li><a href="05-category-3.html">Content Pages 3</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="/">Blog</a></li>
+                                <li><a href="{{url('blog')}}">Blog</a></li>
                                 <li><a href="{{url('about-us')}}">About</a></li>
                                 <li><a href="{{url('contact-us')}}">Contact</a></li>
                             </ul>

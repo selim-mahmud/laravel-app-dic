@@ -64,11 +64,11 @@ class StaffPostController extends Controller
      */
     public function store(PostRequest $request)
     {
-
         $post = $this->post->create([
             'category_id' => $request->category,
             'user_id' => Auth::user()->id,
             'title' => $request->title,
+            'slug' => str_slug($request->title),
             'excerpt' => $request->excerpt,
             'body' => $request->body,
             'published' => $request->published,
