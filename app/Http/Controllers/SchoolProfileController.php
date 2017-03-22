@@ -61,7 +61,7 @@ class SchoolProfileController extends Controller
         ]);
 
         if ($this->request->file('photo')->isValid()) {
-            $school = $this->school::findorfail(Auth::user()->school_id);
+            $school = $this->school->findorfail(Auth::user()->school_id);
             $photoName = $school->id . '.' . $this->request->photo->extension();
             $path = $this->request->photo->storeAs(config('dic.default_avatar_path'), $photoName);
             $school->profile_photo_url = $path;
@@ -86,7 +86,7 @@ class SchoolProfileController extends Controller
         $this->validate($this->request, [
             'name' => 'required|between:3,50'
         ]);
-        $schoolUser = $this->user::findorfail(Auth::user()->id);
+        $schoolUser = $this->user->findorfail(Auth::user()->id);
         $schoolUser->name = $this->request->get('name');
         if ($schoolUser->save()) {
             $this->activityLogger->detailActivitySave(
@@ -105,7 +105,7 @@ class SchoolProfileController extends Controller
         $this->validate($this->request, [
             'school_name' => 'required|between:3,50'
         ]);
-        $school = $this->school::findorfail(Auth::user()->school_id);
+        $school = $this->school->findorfail(Auth::user()->school_id);
         $school->name = $this->request->get('school_name');
         if ($school->save()) {
             $this->activityLogger->detailActivitySave(
@@ -128,7 +128,7 @@ class SchoolProfileController extends Controller
         $this->validate($this->request, [
             'email' => 'required|email',
         ]);
-        $schoolUser = $this->user::findorfail(Auth::user()->id);
+        $schoolUser = $this->user->findorfail(Auth::user()->id);
         $schoolUser->email = $this->request->get('email');
         if ($schoolUser->save()) {
             $this->activityLogger->detailActivitySave(
@@ -151,7 +151,7 @@ class SchoolProfileController extends Controller
             'password' => 'required|between:6,15|regex:/^[ A-Za-z0-9!@#$%&_-]*$/',
             'confirm_password' => 'required|same:password',
         ]);
-        $schoolUser = $this->user::findorfail(Auth::user()->id);
+        $schoolUser = $this->user->findorfail(Auth::user()->id);
         $schoolUser->pass_key = Hash::make($this->request->get('password'));
         if($schoolUser->save()){
             $this->activityLogger->detailActivitySave(
@@ -174,7 +174,7 @@ class SchoolProfileController extends Controller
         $this->validate($this->request, [
             'short_desc' => 'required|max:255'
         ]);
-        $school = $this->school::findorfail(Auth::user()->school_id);
+        $school = $this->school->findorfail(Auth::user()->school_id);
         $school->short_desc = $this->request->get('short_desc');
         if ($school->save()) {
             return redirect('school/profile')->with('alert-success', 'Short description has been set successfully.');
@@ -191,7 +191,7 @@ class SchoolProfileController extends Controller
         $this->validate($this->request, [
             'long_desc' => 'required|max:3000'
         ]);
-        $school = $this->school::findorfail(Auth::user()->school_id);
+        $school = $this->school->findorfail(Auth::user()->school_id);
         $school->long_desc = $this->request->get('long_desc');
         if ($school->save()) {
             return redirect('school/profile')->with('alert-success', 'Long description has been set successfully.');
@@ -208,7 +208,7 @@ class SchoolProfileController extends Controller
         $this->validate($this->request, [
             'website' => 'required|URL'
         ]);
-        $school = $this->school::findorfail(Auth::user()->school_id);
+        $school = $this->school->findorfail(Auth::user()->school_id);
         $school->website = $this->request->get('website');
         if ($school->save()) {
             return redirect('school/profile')->with('alert-success', 'Website url has been set successfully.');
@@ -225,7 +225,7 @@ class SchoolProfileController extends Controller
         $this->validate($this->request, [
             'facebook' => 'required|URL'
         ]);
-        $school = $this->school::findorfail(Auth::user()->school_id);
+        $school = $this->school->findorfail(Auth::user()->school_id);
         $school->facebook = $this->request->get('facebook');
         if ($school->save()) {
             return redirect('school/profile')->with('alert-success', 'Facebook url has been set successfully.');
@@ -242,7 +242,7 @@ class SchoolProfileController extends Controller
         $this->validate($this->request, [
             'twitter' => 'required|URL'
         ]);
-        $school = $this->school::findorfail(Auth::user()->school_id);
+        $school = $this->school->findorfail(Auth::user()->school_id);
         $school->twitter = $this->request->get('twitter');
         if ($school->save()) {
             return redirect('school/profile')->with('alert-success', 'Twitter url has been set successfully.');

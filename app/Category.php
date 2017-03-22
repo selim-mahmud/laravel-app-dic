@@ -17,4 +17,13 @@ class Category extends Model
     {
         return $this->hasMany('App\Post');
     }
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function findByName(string $name)
+    {
+        return $this->where('name', $name)->firstOrfail();
+    }
 }

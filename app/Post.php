@@ -42,6 +42,19 @@ class Post extends Model
         return $query->where('published', 'Yes');
     }
 
+    /**
+     * @param string $slug
+     * @return mixed
+     */
+    public function findBySlug(string $slug)
+    {
+        return $this->where('slug', $slug)->firstOrfail();
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->diffForHumans();
