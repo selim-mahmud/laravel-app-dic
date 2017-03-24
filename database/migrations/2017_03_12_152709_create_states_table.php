@@ -18,6 +18,7 @@ class CreateStatesTable extends Migration
             $table->increments('id');
             $table->integer('country_id')->index()->unsigned();
             $table->string('name', 100);
+            $table->string('code', 100);
             $table->timestamps();
         });
     }

@@ -66,6 +66,7 @@ Route::group(['middleware' => ['permission:school_profile_operation']], function
     Route::get('school/medias', 'SchoolMediaController@index');
     Route::post('school/medias', 'SchoolMediaController@store');
     Route::get('school/medias/delete/{schoolMediaId}', 'SchoolMediaController@delete');
+    Route::resource('school/contacts', 'SchoolContactController');
 });
 
 Route::group(['middleware' => ['permission:instructor_profile_operation']], function () { //for both school_manager and instructor
@@ -93,10 +94,19 @@ Route::group(['prefix' => 'staff', 'middleware' => ['permission:all_admin_operat
 });
 
 Route::get('test', function(){
-    $instructors = School::find(Auth::user()->school_id)->instructors;
-
-    dd($instructors->pluck('id')->all());
+    $records = DB::table('raw')->get();
+    foreach ($records as $record){
+        $stateName = $record->state;
+        $state = DB::table('states')->where('name', $stateName)->get();
+        DB::table('postcodes')->insert(
+            ['country_id' => 1, 'state_id' => $state[0]->id, 'city_id' => 0,
+                'postcode' => $record->post_code, 'suburb' => $record->suburb,
+                'lat' => $record->lat, 'lon' => $record->lon]
+        );
+    }
 });
+
+
 
 
 

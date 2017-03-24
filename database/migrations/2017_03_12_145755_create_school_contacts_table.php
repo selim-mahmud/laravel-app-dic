@@ -20,11 +20,6 @@ class CreateSchoolContactsTable extends Migration
             $table->string('email');
             $table->string('phone', 15);
             $table->string('address');
-            $table->integer('zipcode_id')->index()->unsigned();
-            $table->integer('suburb_id')->index()->unsigned();
-            $table->integer('city_id')->index()->unsigned();
-            $table->integer('state_id')->index()->unsigned();
-            $table->integer('country_id')->index()->unsigned();
             $table->timestamps();
         });
     }

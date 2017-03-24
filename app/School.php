@@ -45,6 +45,16 @@ class School extends Model
     }
 
     /**
+     * get contacts of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function contacts()
+    {
+        return $this->hasMany('App\SchoolContact');
+    }
+
+    /**
      * get medias of this school
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

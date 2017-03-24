@@ -8,9 +8,9 @@
                     <span class="sb-menu-icon fa fa-id-card-o"></span>
                 </a>
             </li>
-            <li>
-                <a href="/">
-                    <span class="sidebar-title">Contact info</span>
+            <li class="{{Request::path()=='school/contacts'?'active':''}}">
+                <a href="{{url('school/contacts')}}">
+                    <span class="sidebar-title">Contacts</span>
                     <span class="sb-menu-icon fa fa-location-arrow"></span>
                 </a>
             </li>

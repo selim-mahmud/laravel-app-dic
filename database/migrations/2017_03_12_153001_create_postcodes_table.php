@@ -19,8 +19,10 @@ class CreatePostcodesTable extends Migration
             $table->integer('country_id')->index()->unsigned();
             $table->integer('state_id')->index()->unsigned();
             $table->integer('city_id')->index()->unsigned();
-            $table->integer('suburb_id')->index()->unsigned();
-            $table->string('postcode', 6);
+            $table->string('suburb', 100)->index();
+            $table->string('postcode', 6)->index();
+            $table->string('lat', 100);
+            $table->string('lon', 100);
             $table->timestamps();
         });
     }
