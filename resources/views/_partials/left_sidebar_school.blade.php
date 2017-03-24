@@ -20,8 +20,8 @@
                     <span class="sb-menu-icon fa fa-diamond"></span>
                 </a>
             </li>
-            <li>
-                <a href="/">
+            <li class="{{strpos(Request::path(), 'school/service-area') !== false?'active':''}}">
+                <a href="{{url('school/service-area')}}">
                     <span class="sidebar-title">Service area</span>
                     <span class="sb-menu-icon fa fa-map-marker"></span>
                 </a>
