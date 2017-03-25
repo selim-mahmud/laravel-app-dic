@@ -75,6 +75,9 @@ class SchoolContactController extends Controller
     public function show($id)
     {
         $contact = $this->schoolContact->findOrfail(intval($id));
+        if($contact->school_id !== Auth::user()->school_id){
+            return redirect()->back();
+        }
         return view('school.contacts.single', compact('contact'));
 
     }
@@ -88,6 +91,9 @@ class SchoolContactController extends Controller
     public function edit($id)
     {
         $schoolContact = $this->schoolContact->findOrfail(intval($id));
+        if($schoolContact->school_id !== Auth::user()->school_id){
+            return redirect()->back();
+        }
         return view('school.contacts.update', compact('schoolContact'));
 
     }
@@ -107,6 +113,9 @@ class SchoolContactController extends Controller
             'phone' => 'required|string|max:15'
         ]);
         $contact = $this->schoolContact->findOrfail(intval($id));
+        if($contact->school_id !== Auth::user()->school_id){
+            return redirect()->back();
+        }
         $contact->address = $request->address;
         $contact->email = $request->email;
         $contact->phone = $request->phone;
@@ -125,6 +134,9 @@ class SchoolContactController extends Controller
     public function destroy($id)
     {
         $contact = $this->schoolContact->findOrfail(intval($id));
+        if($contact->school_id !== Auth::user()->school_id){
+            return redirect()->back();
+        }
         if ($contact->delete()) {
             return redirect('/school/contacts')->with('alert-success', 'You have successfully deleted the instructor.');
         }

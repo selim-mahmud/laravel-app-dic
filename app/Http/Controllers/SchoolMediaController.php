@@ -64,12 +64,13 @@ class SchoolMediaController extends Controller
     public function delete($mediaId)
     {
         $schoolMedia = $this->schoolMedia->find(intval($mediaId));
-        if(Auth::user()->school_id === $schoolMedia->school_id){
-            $path = $schoolMedia->url;
-            if($schoolMedia->delete()){
-                Storage::delete($path);
-                return redirect('/school/medias')->with('alert-success', 'You have successfully deleted the image.');
-            }
+        if($schoolMedia->school_id !== Auth::user()->school_id){
+            return redirect()->back();
+        }
+        $path = $schoolMedia->url;
+        if($schoolMedia->delete()){
+            Storage::delete($path);
+            return redirect('/school/medias')->with('alert-success', 'You have successfully deleted the image.');
         }
         return redirect('/school/medias')->with('alert-warning', 'Something wrong happened, please try again later.');
     }

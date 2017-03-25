@@ -33,7 +33,7 @@ class SchoolServiceAreaController extends Controller
     }
 
     public function getPostcodes($state_id){
-        $state = $this->state->findOrFail(intval($state_id));
+        $state = $this->state->findOrfail(intval($state_id));
         return $state->postcodes->pluck('id', 'suburb');
     }
 
@@ -71,6 +71,9 @@ class SchoolServiceAreaController extends Controller
     public function deleteServiceArea($serviceAreaId)
     {
         $schoolServiceArea = $this->schoolServiceArea->findOrfail(intval($serviceAreaId));
+        if($schoolServiceArea->school_id !== Auth::user()->school_id){
+            return redirect()->back();
+        }
         if($schoolServiceArea->delete()){
             return redirect('/school/service-area')->with('alert-success', 'You have successfully deleted the service.');
         }
