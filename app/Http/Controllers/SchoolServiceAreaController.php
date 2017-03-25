@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\School;
 use App\SchoolHasService;
+use App\SchoolServiceArea;
 use App\Service;
 use App\State;
 use Illuminate\Support\Facades\Auth;
@@ -11,10 +12,12 @@ use Illuminate\Http\Request;
 
 class SchoolServiceAreaController extends Controller
 {
+    protected $schoolServiceArea;
     protected $state;
 
-    public function __construct(State $state)
+    public function __construct(SchoolServiceArea $schoolServiceArea, State $state)
     {
+        $this->schoolServiceArea = $schoolServiceArea;
         $this->state = $state;
     }
     /**
@@ -25,7 +28,13 @@ class SchoolServiceAreaController extends Controller
     public function index()
     {
         $states = $this->state->all();
-        return view('school.service_area.index', compact('states'));
+        $schoolServiceAreas = $this->schoolServiceArea->where('school_id', Auth::user()->school_id)->get();
+        return view('school.service_area.index', compact('states', 'schoolServiceAreas'));
+    }
+
+    public function getPostcodes($state_id){
+        $state = $this->state->findOrFail(intval($state_id));
+        return $state->postcodes->pluck('id', 'suburb');
     }
 
     /**
@@ -34,37 +43,38 @@ class SchoolServiceAreaController extends Controller
      * @param  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function saveServiceArea(Request $request)
     {
         $this->validate($request, [
-            'service' => 'required|integer|min:1',
+            'state' => 'required|integer|min:1',
+            'suburb' => 'required|array',
         ]);
-        $schoolHasService = SchoolHasService::create([
-            'school_id' => Auth::user()->school_id,
-            'service_id' => $request->service,
-        ]);
-        if ($schoolHasService) {
-            return redirect('/school/services')->with('alert-success', 'You have successfully added a service.');
+        foreach ($request->suburb as $postcode_id){
+            $schoolServiceArea = $this->schoolServiceArea->create([
+                'school_id' => Auth::user()->school_id,
+                'postcode_id' => $postcode_id,
+            ]);
         }
-        return redirect('/school/services')->with('alert-warning', 'Something wrong happened, please try again later.');
+        if ($schoolServiceArea) {
+            return redirect('/school/service-area')->with('alert-success', 'You have successfully added service area.');
+        }
+        return redirect('/school/service-area')->with('alert-warning', 'Something wrong happened, please try again later.');
 
     }
 
     /**
-     * delete a service
+     * delete a service area
      *
-     * @param $schoolId
-     * @param $serviceId
+     * @param $serviceAreaId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete($schoolId, $serviceId)
+    public function deleteServiceArea($serviceAreaId)
     {
-        $school = School::find(intval($schoolId));
-        if(Auth::user()->school_id === $school->id){
-            $school->services()->detach(intval($serviceId));
-            return redirect('/school/services')->with('alert-success', 'You have successfully deleted the service.');
+        $schoolServiceArea = $this->schoolServiceArea->findOrfail(intval($serviceAreaId));
+        if($schoolServiceArea->delete()){
+            return redirect('/school/service-area')->with('alert-success', 'You have successfully deleted the service.');
         }
-        return redirect('/school/services')->with('alert-warning', 'Something wrong happened, please try again later.');
+        return redirect('/school/service-area')->with('alert-warning', 'Something wrong happened, please try again later.');
     }
 
 }

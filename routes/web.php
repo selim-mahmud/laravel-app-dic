@@ -68,6 +68,9 @@ Route::group(['middleware' => ['permission:school_profile_operation']], function
     Route::get('school/medias/delete/{schoolMediaId}', 'SchoolMediaController@delete');
     Route::resource('school/contacts', 'SchoolContactController');
     Route::get('school/service-area', 'SchoolServiceAreaController@index');
+    Route::get('school/service-area/get-postcodes/{state_id}', 'SchoolServiceAreaController@getPostcodes');
+    Route::post('school/service-area/save-service-area', 'SchoolServiceAreaController@saveServiceArea');
+    Route::get('school/service-area/delete/{area_id}', 'SchoolServiceAreaController@deleteServiceArea');
 });
 
 Route::group(['middleware' => ['permission:instructor_profile_operation']], function () { //for both school_manager and instructor

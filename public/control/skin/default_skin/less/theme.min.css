@@ -10693,34 +10693,10 @@ pre code {
 }
 
 .container {
-    margin-right: auto;
-    margin-left: auto;
+    float:left;
     padding-left: 7.5px;
     padding-right: 7.5px;
-}
-
-@media (min-width: 768px) {
-    .container {
-        width: 735px;
-    }
-}
-
-@media (min-width: 992px) {
-    .container {
-        width: 955px;
-    }
-}
-
-@media (min-width: 1140px) {
-    .container {
-        width: 1055px;
-    }
-}
-
-@media (min-width: 1400px) {
-    .container {
-        width: 1295px;
-    }
+    max-width: 1170px;
 }
 
 .container-sm {

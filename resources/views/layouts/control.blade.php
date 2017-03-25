@@ -21,9 +21,11 @@
     @yield('left_sidebar')
     <section id="content_wrapper">
         <section id="content">
-            @yield('breadcrumb')
-            @yield('flash_message')
-            @yield('content')
+            <div style="max-width:1170px;">
+                @yield('breadcrumb')
+                @yield('flash_message')
+                @yield('content')
+            </div>
         </section>
         @yield('footer')
     </section>
