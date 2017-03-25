@@ -1,15 +1,15 @@
 const { mix } = require('laravel-mix');
 
-mix.combine([
-    'public/vendor/css/theme.css',
-    'public/vendor/css/responsive.css',
-    'public/vendor/css/datepicker.css',
-    'public/vendor/css/font-style.css',
-    'public/vendor/css/chosen.css',
-    'public/vendor/css/color.css',
-    'public/vendor/css/custom.css',
-], 'public/css/main.css');
-mix.sass('resources/assets/sass/app.scss', 'public/css');
+// mix.combine([
+//     'public/vendor/css/theme.css',
+//     'public/vendor/css/responsive.css',
+//     'public/vendor/css/datepicker.css',
+//     'public/vendor/css/font-style.css',
+//     'public/vendor/css/chosen.css',
+//     'public/vendor/css/color.css',
+//     'public/vendor/css/custom.css',
+// ], 'public/css/main.css');
+// mix.sass('resources/assets/sass/app.scss', 'public/css');
 
 mix.combine([
     'public/vendor/js/jquery-1.11.3.min.js',

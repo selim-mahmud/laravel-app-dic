@@ -15,7 +15,7 @@ Get registered for update from DIC
 
 						</div>
 						{!! Form::close() !!}
-						<span class="text-danger">{{$errors->first('signup_email')}}</span>
+						<span class="text-danger">{{isset($errors)?$errors->first('signup_email'):''}}</span>
 					</div>
 				</div>
 				<div class="row f-second-row footer">
@@ -54,23 +54,23 @@ Get registered for update from DIC
 								<div class="row">
 										<div class="col-sm-12 top10">
 											{!! Form::text('full_name', null, ['class' => 'border1 borderddd form-1-style2 border1 b-radius3', 'placeholder' => 'Full Name *'])!!}
-											<span class="text-danger">{{$errors->first('full_name')}}</span>
+											<span class="text-danger">{{isset($errors)?$errors->first('full_name'):''}}</span>
 										</div>
 										<div class="col-sm-12 top10">
 											{!! Form::text('email', null, ['class' => 'border1 borderddd form-1-style2 border1 b-radius3', 'placeholder' => 'Email Address *'])!!}
-											<span class="text-danger">{{$errors->first('email')}}</span>
+											<span class="text-danger">{{isset($errors)?$errors->first('email'):''}}</span>
 										</div>
 										<div class="col-sm-12 top10">
 											{!! Form::text('contact_number', null, ['class' => 'border1 borderddd form-1-style2 border1 b-radius3', 'placeholder' => 'Contact number'])!!}
-											<span class="text-danger">{{$errors->first('contact_number')}}</span>
+											<span class="text-danger">{{isset($errors)?$errors->first('contact_number'):''}}</span>
 										</div>
 										<div class="col-sm-12 top10">
 											{!! Form::text('subject', null, ['class' => 'border1 borderddd form-1-style2 border1 b-radius3', 'placeholder' => 'Subject *'])!!}
-											<span class="text-danger">{{$errors->first('subject')}}</span>
+											<span class="text-danger">{{isset($errors)?$errors->first('subject'):''}}</span>
 										</div>
 										<div class="col-sm-12 top10">
 											{!! Form::textarea('message', null, ['class' => 'border1 borderddd form-1-style2 border1 b-radius3', 'placeholder' => 'Your message *'])!!}
-											<span class="text-danger">{{$errors->first('message')}}</span>
+											<span class="text-danger">{{isset($errors)?$errors->first('message'):''}}</span>
 										</div>
 										<div class="col-sm-12">
 											{!! Form::submit('SUBMIT', ['class'=>'submit-btn button1-1 b-radius3 right30 button-blue top20']) !!}

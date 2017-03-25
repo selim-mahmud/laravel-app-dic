@@ -25,6 +25,10 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             '_partials.post_categories', 'App\Http\ViewComposers\PostCategoriesComposer'
         );
+
+        View::composer(
+            '_partials.state_links', 'App\Http\ViewComposers\StateLinksComposer'
+        );
     }
 
     /**

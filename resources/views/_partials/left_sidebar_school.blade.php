@@ -20,12 +20,7 @@
                     <span class="sb-menu-icon fa fa-diamond"></span>
                 </a>
             </li>
-            <li class="{{strpos(Request::path(), 'school/service-area') !== false?'active':''}}">
-                <a href="{{url('school/service-area')}}">
-                    <span class="sidebar-title">Service area</span>
-                    <span class="sb-menu-icon fa fa-map-marker"></span>
-                </a>
-            </li>
+
             <li class="{{strpos(Request::path(), 'school/instructors') !== false?'active':''}}">
                 <a href="{{url('school/instructors')}}">
                     <span class="sidebar-title">Instructors</span>
@@ -36,6 +31,12 @@
                 <a href="{{url('school/medias')}}">
                     <span class="sidebar-title">Media upload</span>
                     <span class="sb-menu-icon fa fa-camera"></span>
+                </a>
+            </li>
+            <li class="{{strpos(Request::path(), 'school/service-area') !== false?'active':''}}">
+                <a href="{{url('school/service-area')}}">
+                    <span class="sidebar-title">Service area</span>
+                    <span class="sb-menu-icon fa fa-map-marker"></span>
                 </a>
             </li>
             <li class="{{Request::path()=='school/reviews'?'active':''}}">

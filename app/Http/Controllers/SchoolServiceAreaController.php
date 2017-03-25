@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\School;
-use App\SchoolHasService;
+use App\Postcode;
 use App\SchoolServiceArea;
-use App\Service;
 use App\State;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -14,11 +12,13 @@ class SchoolServiceAreaController extends Controller
 {
     protected $schoolServiceArea;
     protected $state;
+    protected $postcode;
 
-    public function __construct(SchoolServiceArea $schoolServiceArea, State $state)
+    public function __construct(SchoolServiceArea $schoolServiceArea, State $state, Postcode $postcode)
     {
         $this->schoolServiceArea = $schoolServiceArea;
         $this->state = $state;
+        $this->postcode = $postcode;
     }
     /**
      * Display a listing of the resource.
@@ -50,9 +50,13 @@ class SchoolServiceAreaController extends Controller
             'suburb' => 'required|array',
         ]);
         foreach ($request->suburb as $postcode_id){
+            $postcode = $this->postcode->findOrfail(intval($postcode_id));
             $schoolServiceArea = $this->schoolServiceArea->create([
                 'school_id' => Auth::user()->school_id,
-                'postcode_id' => $postcode_id,
+                'country_id' => $postcode->country_id,
+                'state_id' => $postcode->state_id,
+                'city_id' => $postcode->city_id,
+                'postcode_id' => $postcode->id
             ]);
         }
         if ($schoolServiceArea) {

@@ -93,9 +93,14 @@
                                        role="button" aria-haspopup="true" aria-expanded="false">Driving Instructors <i
                                                 class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="03-category-1.html">Instructors in Sydney</a></li>
-                                        <li><a href="04-category-2.html">Instructors in Melbourne</a></li>
-                                        <li><a href="05-category-3.html">Instructors in Brisbane</a></li>
+                                        <li><a href="{{url('instructors/new-south-wales')}}">Instructors in NSW</a></li>
+                                        <li><a href="{{url('instructors/victoria')}}">Instructors in VIC</a></li>
+                                        <li><a href="{{url('instructors/queensland')}}">Instructors in QLD</a></li>
+                                        <li><a href="{{url('instructors/western-australia')}}">Instructors in WA</a></li>
+                                        <li><a href="{{url('instructors/south-australia')}}">Instructors in SA</a></li>
+                                        <li><a href="{{url('instructors/australian-capital-territory')}}">Instructors in ACT</a></li>
+                                        <li><a href="{{url('instructors/northern-territory')}}">Instructors in NT</a></li>
+                                        <li><a href="{{url('instructors/tasmania')}}">Instructors in TAS</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">

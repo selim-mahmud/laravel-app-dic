@@ -17,6 +17,9 @@ class CreateSchoolServiceAreasTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('school_id')->index()->unsigned();
+            $table->integer('country_id')->index()->unsigned();
+            $table->integer('state_id')->index()->unsigned();
+            $table->integer('city_id')->index()->unsigned();
             $table->integer('postcode_id')->index()->unsigned();
             $table->timestamps();
         });

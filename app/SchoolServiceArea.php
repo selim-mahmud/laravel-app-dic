@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SchoolServiceArea extends Model
 {
-    protected $fillable = ['school_id', 'postcode_id'];
+    protected $fillable = ['school_id', 'country_id', 'state_id', 'city_id', 'postcode_id'];
 
     /**
      * get postcode of this service area

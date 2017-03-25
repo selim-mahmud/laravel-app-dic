@@ -20,6 +20,7 @@ Route::post('password-reset', array('as' => 'password-reset', 'uses' => 'UserCon
 Route::get('new-password/{key}', array('as' => 'new-password', 'uses' => 'UserController@getNewPassword'));
 Route::post('new-password', array('as' => 'new-password', 'uses' => 'UserController@postNewPassword'));
 Route::get('account-activate/{key}', array('as' => 'new-password', 'uses' => 'UserController@getAccountActivate'));
+Route::get('instructors/{state}', 'InstructorDisplayController@getStateInstructor');
 
 Route::group(['middleware' => ['guest']], function () { //for guests only
     Route::get('register-as-learner', array('as' => 'register_as_learner', 'uses' => 'UserController@getLearnerRegistration'));

@@ -72,9 +72,9 @@ class SchoolProfileController extends Controller
                 config('dic-message.change_photo_success'),
                 ['ip' => $this->request->ip()]
             );
-            return redirect('school/profile')->with('alert-success', config('dic-message.change_photo_success'));
+            return redirect('school')->with('alert-success', config('dic-message.change_photo_success'));
         }
-        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+        return redirect('school')->with('alert-danger', config('dic-message.general_fail'));
     }
 
     /**
@@ -95,9 +95,9 @@ class SchoolProfileController extends Controller
                 config('dic-message.change_learner_name_success'),
                 ['ip' => $this->request->ip()]
             );
-            return redirect('school/profile')->with('alert-success', config('dic-message.change_learner_name_success'));
+            return redirect('school')->with('alert-success', config('dic-message.change_learner_name_success'));
         }
-        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+        return redirect('school')->with('alert-danger', config('dic-message.general_fail'));
     }
 
     public function postchangeSchoolName()
@@ -114,9 +114,9 @@ class SchoolProfileController extends Controller
                 config('dic-message.change_school_name_success'),
                 ['ip' => $this->request->ip()]
             );
-            return redirect('school/profile')->with('alert-success', config('dic-message.change_school_name_success'));
+            return redirect('school')->with('alert-success', config('dic-message.change_school_name_success'));
         }
-        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+        return redirect('school')->with('alert-danger', config('dic-message.general_fail'));
     }
 
     /**
@@ -137,9 +137,9 @@ class SchoolProfileController extends Controller
                 config('dic-message.change_learner_email_success'),
                 ['ip' => $this->request->ip()]
             );
-            return redirect('school/profile')->with('alert-success', config('dic-message.change_learner_email_success'));
+            return redirect('school')->with('alert-success', config('dic-message.change_learner_email_success'));
         }
-        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+        return redirect('school')->with('alert-danger', config('dic-message.general_fail'));
     }
 
     /**
@@ -160,9 +160,9 @@ class SchoolProfileController extends Controller
                 config('dic-message.change_password_success'),
                 ['ip' => $this->request->ip()]
             );
-            return redirect('school/profile')->with('alert-success', config('dic-message.change_password_success'));
+            return redirect('school')->with('alert-success', config('dic-message.change_password_success'));
         }
-        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+        return redirect('school')->with('alert-danger', config('dic-message.general_fail'));
     }
 
     /**
@@ -177,9 +177,9 @@ class SchoolProfileController extends Controller
         $school = $this->school->findorfail(Auth::user()->school_id);
         $school->short_desc = $this->request->get('short_desc');
         if ($school->save()) {
-            return redirect('school/profile')->with('alert-success', 'Short description has been set successfully.');
+            return redirect('school')->with('alert-success', 'Short description has been set successfully.');
         }
-        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+        return redirect('school')->with('alert-danger', config('dic-message.general_fail'));
     }
 
     /**
@@ -194,9 +194,9 @@ class SchoolProfileController extends Controller
         $school = $this->school->findorfail(Auth::user()->school_id);
         $school->long_desc = $this->request->get('long_desc');
         if ($school->save()) {
-            return redirect('school/profile')->with('alert-success', 'Long description has been set successfully.');
+            return redirect('school')->with('alert-success', 'Long description has been set successfully.');
         }
-        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+        return redirect('school')->with('alert-danger', config('dic-message.general_fail'));
     }
 
     /**
@@ -211,9 +211,9 @@ class SchoolProfileController extends Controller
         $school = $this->school->findorfail(Auth::user()->school_id);
         $school->website = $this->request->get('website');
         if ($school->save()) {
-            return redirect('school/profile')->with('alert-success', 'Website url has been set successfully.');
+            return redirect('school')->with('alert-success', 'Website url has been set successfully.');
         }
-        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+        return redirect('school')->with('alert-danger', config('dic-message.general_fail'));
     }
 
     /**
@@ -228,9 +228,9 @@ class SchoolProfileController extends Controller
         $school = $this->school->findorfail(Auth::user()->school_id);
         $school->facebook = $this->request->get('facebook');
         if ($school->save()) {
-            return redirect('school/profile')->with('alert-success', 'Facebook url has been set successfully.');
+            return redirect('school')->with('alert-success', 'Facebook url has been set successfully.');
         }
-        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+        return redirect('school')->with('alert-danger', config('dic-message.general_fail'));
     }
 
     /**
@@ -245,9 +245,9 @@ class SchoolProfileController extends Controller
         $school = $this->school->findorfail(Auth::user()->school_id);
         $school->twitter = $this->request->get('twitter');
         if ($school->save()) {
-            return redirect('school/profile')->with('alert-success', 'Twitter url has been set successfully.');
+            return redirect('school')->with('alert-success', 'Twitter url has been set successfully.');
         }
-        return redirect('school/profile')->with('alert-danger', config('dic-message.general_fail'));
+        return redirect('school')->with('alert-danger', config('dic-message.general_fail'));
     }
 
 }

@@ -15,4 +15,12 @@ class State extends Model
     {
         return $this->hasMany('App\Postcode');
     }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function findByName($name){
+        return $this->where('name', $name)->firstOrfail();
+    }
 }
