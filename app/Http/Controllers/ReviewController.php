@@ -37,7 +37,7 @@ class ReviewController extends Controller
      */
     public function getLernerReview()
     {
-        $schools = $this->school::all()->pluck('name', 'id');
+        $schools = $this->school->all()->pluck('name', 'id');
         $reviews = Auth::user()->reviews;
         return view('learner.reviews.index', compact('schools', 'reviews'));
     }
@@ -53,7 +53,7 @@ class ReviewController extends Controller
             'rating' => 'required|in:1,2,3,4,5',
             'comment' => 'required|max:1000',
         ]);
-        $review = $this->review::create([
+        $review = $this->review->create([
             'user_id' => Auth::user()->id,
             'school_id' => $request->school,
             'rating' => $request->rating,
@@ -72,7 +72,7 @@ class ReviewController extends Controller
      */
     public function getSchoolReview()
     {
-        $reviews = $this->review::where(['school_id' => Auth::user()->school_id, 'approved' => 1])->get();
+        $reviews = $this->review->where(['school_id' => Auth::user()->school_id, 'approved' => 1])->get();
         return view('school.reviews.index', compact('reviews'));
     }
 }

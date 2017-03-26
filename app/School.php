@@ -81,6 +81,19 @@ class School extends Model
      */
     public function services()
     {
-        return $this->belongsToMany('App\Service', 'school_has_services')->withTimestamps();;
+        return $this->belongsToMany('App\Service', 'school_has_services')->withTimestamps();
     }
+
+    public function getApprovedReviews(){
+        return Review::where(['school_id' => $this->id, 'approved' => 1])->get();
+    }
+
+    /**
+     * @param $school
+     * @return mixed
+     */
+    public function findByName($school){
+        return $this->where('name', ucwords(str_replace('-', ' ', $school)))->firstOrfail();
+    }
+
 }

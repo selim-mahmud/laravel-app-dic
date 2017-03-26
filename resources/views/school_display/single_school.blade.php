@@ -1,4 +1,3 @@
-
 @extends('layouts.main')
 
 @section('meta')
@@ -7,21 +6,23 @@
 	<meta name="keywords" content="HTML,CSS,XML,JavaScript">
 @stop
 
+@section('header')
+	@include('_partials.header')
+@stop
+
+@section('breadcrumb')
+	@include('_partials.breadcrumb')
+@stop
+
+@section('flash_message')
+	@include('_partials.flash_message')
+@stop
+
+@php
+	use App\Helpers\Dic as Dic;
+@endphp
 
 @section('content')
-
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<ol class="breadcrumb">
-					  <li><a href="#">Home</a></li>
-					  <li><a href="#">Library</a></li>
-					  <li class="active">Data</li>
-				</ol>
-			</div>
-		</div>
-	</div>
-
 	<br />
 	<div class="listing-details-header">
 		<div class="container">
@@ -29,45 +30,46 @@
 				<div class="col-sm-12">
 					<div class="list-det-left pad25 bg_blue">
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<div class="list-det-ico">
-									<img src="{{asset('img/theme/list-det-ico.jpg')}}" alt="wd" class="b-radius3">
+									<img style="margin-top:-10px" src="{{$school->profile_photo_url?asset($school->profile_photo_url):asset(config('dic.default_learner_profile_photo'))}}" alt="{{$school->name}}" class="b-radius3">
+									<div class="clearfix"></div><br />
 								</div>
 							</div>
-							<div class="col-md-8">
-								<div class="list-det-title colorfff uppercase">
-									Driving school Name
+							<div class="col-md-9">
+								<h1 class="list-det-title colorfff uppercase">
+									{{$school->name}}
+								</h1>
+								<div style="margin-top:-10px; margin-bottom: 10px">
+									<div style="float:left; margin-right: 10px;" class="{{$school->id}}"></div>
+									<p style="float:left;" class="font12">{{Dic::getReviewStat($school->id)['average']}} based on {{Dic::getReviewStat($school->id)['count']}} reviews</p>
+									<div class="clearfix"></div>
 								</div>
-								<ul class="list-styles raitings-stars p-left10 inl-flex">
-									<li><i class="fa fa-star"></i></li>
-									<li><i class="fa fa-star"></i></li>
-									<li><i class="fa fa-star"></i></li>
-									<li><i class="fa fa-star"></i></li>
-									<li><i class="fa fa-star-o"></i></li>
-								</ul>
-								<div class="list-det-address"><i class="fa fa-map-marker"></i> 5108 Macarthur Blvd NW Unit B, Washington, DC 20016, USA</div>
+								<div class="list-det-address"><i class="fa fa-map-marker"></i> {{$school->contacts[0]->address?$school->contacts[0]->address:'No address has been set.'}}</div>
 								<div class="clearfix"></div>
 								<div class="">							
 									<div class="f-left p-right20">
 										<ul class="list-styles new-first-det start0 f-left">
-											<li><a href="#"><i class="fa fa-phone">&nbsp;</i>(602) 910-6249</a></li>
-											<li><a href="#"><i class="fa fa-envelope-o">&nbsp;</i>support@lamesad.com</a></li>
+											<li><i class="fa fa-phone">&nbsp;</i><b>{{$school->contacts[0]->phone?$school->contacts[0]->phone:'Not set yet'}}</b></li>
+											<li><i class="fa fa-envelope-o">&nbsp;</i><b>{{$school->contacts[0]->email?$school->contacts[0]->email:'Not set yet'}}</b></li>
 										</ul></div>
 									<div class="f-left">
 										<ul class="list-styles new-first-det start0 f-left">
-											<li><a href="#"><i class="fa fa-laptop">&nbsp;</i>www.lamesa.com</a></li>
-											<li><a href="#"><i class="fa fa-heart-o">&nbsp;</i>102 Favorites</a></li>
+											@if($school->website)
+												<li><a href="{{$school->website}}"><i class="fa fa-laptop"></i> Website</a></li>
+											@endif
+											@if($school->facebook)
+												<li><a href="{{$school->facebook}}"><i class="fa fa-facebook"></i> Facebook</a></li>
+											@endif
+
+											@if($school->twitter)
+												<li><a href="{{$school->twitter}}"><i class="fa fa-twitter"></i> Twitter</a></li>
+											@endif
 											<li><a href="#"><i class="fa fa-share-alt">&nbsp;</i>share</a></li>
 										</ul>
 									</div>
 								</div><div class="clearfix"></div>
 								
-							</div>
-							<div class="col-md-2">
-								<div class="perhour">
-									<p class="dollar"><span>$</span>60</p>
-									<p class="perhourtext">per hour</p>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -503,3 +505,22 @@
 	</div>
 			<br />
 @stop
+
+@section('footer')
+	@include('_partials.footer');
+@stop
+
+@push('scripts_stack')
+<script>
+    $(document).ready(function(){
+		$(".{{$school->id}}").starRating({
+            readOnly: true,
+            initialRating: {{Dic::getReviewStat($school->id)['average']}},
+            starSize: 25,
+            activeColor: 'orangered',
+            useGradient: false
+        });
+    });
+
+</script>
+@endpush
