@@ -65,6 +65,16 @@ class School extends Model
     }
 
     /**
+     * get services of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function serviceAreas()
+    {
+        return $this->hasMany('App\SchoolServiceArea');
+    }
+
+    /**
      * get reviews of this school
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

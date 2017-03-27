@@ -38,6 +38,5 @@ class InstructorDisplayController extends Controller
     public function getSingleSchool($school){
         $school = $this->school->findByName($school);
         return view('school_display.single_school', compact('school'));
-        dd($school);
     }
 }
