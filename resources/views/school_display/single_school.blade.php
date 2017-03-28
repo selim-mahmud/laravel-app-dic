@@ -32,14 +32,14 @@
 						<div  style="margin-top: 30px;" class="row">
 							<div class="col-md-3">
 								<div class="list-det-ico">
-									<img style="margin-top:-10px" src="{{$school->profile_photo_url?asset($school->profile_photo_url):asset(config('dic.default_learner_profile_photo'))}}" alt="{{$school->name}}" class="b-radius3">
+									<img width="100%" style="margin-top:-10px" src="{{$school->profile_photo_url?asset($school->profile_photo_url):asset(config('dic.default_learner_profile_photo'))}}" alt="{{$school->name}}" class="b-radius3">
 									<div class="clearfix"></div><br />
 								</div>
 							</div>
 							<div class="col-md-9">
 								<h1 class="list-det-title colorfff uppercase">{{$school->name}}</h1>
 								<div style="margin-top:-10px; margin-bottom: 10px">
-									<div style="float:left; margin-right: 10px;" class="{{$school->id}}"></div>
+									<div style="float:left; margin-right: 10px;" class="overall_score"></div>
 									<p style="float:left;" class="font12">{{Dic::getReviewStat($school->id)['average']}} based on {{Dic::getReviewStat($school->id)['count']}} reviews</p>
 									<div class="clearfix"></div>
 								</div>
@@ -92,15 +92,19 @@
 							<span class="bgfff">Servicing Suburbs</span>
 						</div>
 							<div class="row">
-								@foreach($school->serviceAreas as $serviceArea)
-									<div class="col-md-3 col-sm-3 col-xs-6">
-										<div class="nav-right-menu">
-											<ul class="start0 list-style top-menu">
-												<li style="text-align: center; padding-left: 0" class="menu-link">{{$serviceArea->postcode->suburb}}</li>
-											</ul>
+								@if(!$school->serviceAreas->isEmpty())
+									@foreach($school->serviceAreas as $serviceArea)
+										<div class="col-md-3 col-sm-3 col-xs-6">
+											<div class="nav-right-menu">
+												<ul class="start0 list-style top-menu">
+													<li style="text-align: center; padding-left: 0" class="menu-link">{{$serviceArea->postcode->suburb}}</li>
+												</ul>
+											</div>
 										</div>
-									</div>
-								@endforeach
+									@endforeach
+								@else
+									<h3>No service area has been set.</h3>
+								@endif
 							</div>
 						<div class="clearfix"></div>
 					</article>
@@ -109,15 +113,19 @@
 							<span class="bgfff">Available services</span>
 						</div>
 						<div class="row">
-							@foreach($school->services as $service)
-								<div class="col-md-3 col-sm-3 col-xs-6">
-									<div class="nav-right-menu">
-										<ul class="start0 list-style top-menu">
-											<li style="text-align: center; padding-left: 0" class="menu-link">{{$service->name}}</li>
-										</ul>
+							@if(!$school->services->isEmpty())
+								@foreach($school->services as $service)
+									<div class="col-md-3 col-sm-3 col-xs-6">
+										<div class="nav-right-menu">
+											<ul class="start0 list-style top-menu">
+												<li style="text-align: center; padding-left: 0" class="menu-link">{{$service->name}}</li>
+											</ul>
+										</div>
 									</div>
-								</div>
-							@endforeach
+								@endforeach
+							@else
+								<h3>No service has been set.</h3>
+							@endif
 						</div>
 						<div class="clearfix"></div>
 					</article>
@@ -126,7 +134,8 @@
 							<span class="bgfff">Images gallery</span>
 						</div>
 						<div class="images-gallery valign-table top40">
-							<div id="school-photo-gallery" class="carousel slide" data-ride="carousel">
+							@if(!$school->services->isEmpty())
+								<div id="school-photo-gallery" class="carousel slide" data-ride="carousel">
 							  <!-- Wrapper for slides -->
 							  <div class="carousel-inner" role="listbox">
 								  @foreach($school->medias as $key=>$media)
@@ -145,6 +154,9 @@
 							    <span class="sr-only">Next</span>
 							  </a>
 							</div>
+							@else
+								<h3>No image has been uploaded.</h3>
+							@endif
 						</div>
 						<div class="clearfix"></div>
 					</article>
@@ -175,30 +187,34 @@
 					</div>
 					<div class="raiting-review-sort top40">
 						<div class="blog-det-comments">
-							@foreach($school->reviews as $review)
-								<div class="blog-det-comment top40">
-									<table>
-										<tr>
-											<td>
-												<div class="inline-block blog-comment-photo">
-													<img width="100" src="{{asset($review->user->profile_photo_url)}}" alt="{{asset($review->user->display_name)}}">
-												</div>
-											</td>
-											<td>
-												<div class="inline-block">
-													<div class="font14 color333 l-h-1em"><b>{{$review->user->name}}</b></div>
-													<div class="comment-raiting font13 semibold color777">
-														<div class="rait-numb font13 colorfff"><b>{{$review->rating}}</b></div>
-															<div style="margin-top: 10px;" class="{{$review->id}}"></div>
+							@if(!$school->reviews->isEmpty())
+								@foreach($school->reviews as $review)
+									<div class="blog-det-comment top40">
+										<table>
+											<tr>
+												<td>
+													<div class="inline-block blog-comment-photo">
+														<img width="100" src="{{$review->user->profile_photo_url?asset($review->user->profile_photo_url):asset(config('dic.default_learner_profile_photo'))}}" alt="{{asset($review->user->display_name)}}">
 													</div>
-													<div class="clearfix"></div>
-													<div>{{$review->comment}}</div>
-												</div>
-											</td>
-										</tr>
-									</table>
-								</div>
-							@endforeach
+												</td>
+												<td>
+													<div class="inline-block">
+														<div class="font14 color333 l-h-1em"><b>{{$review->user->name}}</b></div>
+														<div class="comment-raiting font13 semibold color777">
+															<div class="rait-numb font13 colorfff"><b>{{$review->rating}}</b></div>
+																<div style="margin-top: 10px;" class="{{$review->id}}"></div>
+														</div>
+														<div class="clearfix"></div>
+														<div>{{$review->comment}}</div>
+													</div>
+												</td>
+											</tr>
+										</table>
+									</div>
+								@endforeach
+							@else
+								<h3>No review found.</h3>
+							@endif
 						</div>
 						<div class="clearfix"></div>
 					</div>	

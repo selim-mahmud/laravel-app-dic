@@ -41,10 +41,11 @@
 									{!! Form::close() !!}
 								</div>
 							</div>
-						</div><div class="clearfix"></div>
+							</div><div class="clearfix"></div>
+						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
 		</div>
 	</div>
@@ -56,7 +57,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="about-title extrabold uppercase color333 width100"><span class="bgfff">Driving Instructors - {{$state->name}}</span></h1>
+					<h1 class="about-title extrabold uppercase color333 width100"><span class="bgfff">Driving Instructors serving postcode : {{$postcode}}</span></h1>
 					<div class="row">
 
 						<div class="col-md-3 listing-details-left top60">
@@ -144,7 +145,7 @@
 									@endforeach
 								@else
 									<div>
-										<h3>No driving school found in our directory for {{$state->name}}.
+										<h3>No driving school found in our directory for {{$postcode}} postcode.
 										We are in process of building our database. Please come back again
 										to find any instructors in your area.</h3>
 									</div>

@@ -30,7 +30,7 @@
         <div class="container banner_text">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="font42 semibold uppercase text-center white">Search your nearest driving instructors</h2>
+                    <h1 class="semibold uppercase text-center white">Search your nearest driving instructors</h1>
                 </div>
 
             </div>
@@ -42,53 +42,17 @@
                 <div class="col-md-12">
                     <div class="make-reservation home-reservation">
                         <div class="reservation-dropdowns">
-                            <div class="col-sm-3 p-left0 p-right0">
+                            <div class="col-sm-4 p-left0 p-right0 col-sm-offset-3">
                                 <div class="btn-group width100">
-                                    <input class="dropdown-btn-list dropdown-btn1 dropdown-btn1-1 btn btn-lg dropdown-toggle"
-                                           type="text" placeholder="keywords" onclick="this.focus()">
+                                    {!! Form::open (['method'=>'GET', 'url'=> '/search-driving-schools']) !!}
+                                    {!! Form::text('postcode', null, ['class'=>'dropdown-btn-list dropdown-btn1 dropdown-btn1-1 btn btn-lg dropdown-toggle', 'placeholder'=>'Enter your postcode']) !!}
+                                    <span class="text-danger">{{$errors->first('postcode')}}</span>
                                 </div>
                             </div>
                             <div class="col-sm-2 p-left0 p-right0">
                                 <div class="btn-group width100">
-                                    <div class="custom-select select-type4 high location">
-                                        <select class="chosen-select">
-                                            <option value="1">- Choose State -</option>
-                                            <option value="2">NSW</option>
-                                            <option value="3">VIC</option>
-                                            <option value="4">SA</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-2 p-left0 p-right0">
-                                <div class="btn-group width100">
-                                    <div class="custom-select select-type4 high location">
-                                        <select class="chosen-select">
-                                            <option value="1">- Choose City -</option>
-                                            <option value="2">USA</option>
-                                            <option value="3">Ukraine</option>
-                                            <option value="4">France</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-2 p-left0 p-right0">
-                                <div class="btn-group width100">
-                                    <div class="custom-select select-type4 high location">
-                                        <select class="chosen-select">
-                                            <option value="1">- Choose Suburb -</option>
-                                            <option value="2">USA</option>
-                                            <option value="3">Ukraine</option>
-                                            <option value="4">France</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3 p-left0 p-right0">
-                                <div class="btn-group width100">
-                                    <a href="#">
-                                        <div class="find-btn">Search</div>
-                                    </a>
+                                    <button type="submit" class="find-btn">Search</button>
+                                    {!! Form::close() !!}
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -97,7 +61,6 @@
 
                 </div>
             </div>
-
         </div>
     </div><!-- end of .header-banner -->
     <!-- ========= end of header banner ========== -->

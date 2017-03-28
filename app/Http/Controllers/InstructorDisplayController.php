@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Postcode;
 use App\School;
-use App\SchoolContact;
 use App\SchoolServiceArea;
 use App\State;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class InstructorDisplayController extends Controller
@@ -14,12 +13,19 @@ class InstructorDisplayController extends Controller
     protected $state;
     protected $schoolServiceArea;
     protected $school;
+    protected $postcode;
 
-    public function __construct(State $state, SchoolServiceArea $schoolServiceArea, School $school)
+    public function __construct(
+        State $state,
+        SchoolServiceArea $schoolServiceArea,
+        School $school,
+        Postcode $postcode
+    )
     {
         $this->state = $state;
         $this->schoolServiceArea = $schoolServiceArea;
         $this->school = $school;
+        $this->postcode = $postcode;
     }
 
     /**
@@ -35,8 +41,25 @@ class InstructorDisplayController extends Controller
         return view('school_display.state_instructors', compact('schools', 'state'));
     }
 
-    public function getSingleSchool($school){
+    public function getSingleSchool($school)
+    {
         $school = $this->school->findByName($school);
         return view('school_display.single_school', compact('school'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function searchPostcode(Request $request)
+    {
+        $this->validate($request, [
+            'postcode' => 'required|regex:/\d{4}/',
+        ]);
+        $postcode = $request->input('postcode');
+        $postcodes = $this->postcode->findByPostcode($request->input('postcode'))->pluck('id');
+        $schoolServiceArea = $this->schoolServiceArea->whereIn('postcode_id', $postcodes)->get()->pluck('school_id')->unique();
+        $schools = $this->school->whereIn('id', $schoolServiceArea)->paginate(10);
+        return view('school_display.search_instructors', compact('schools', 'postcode'));
     }
 }

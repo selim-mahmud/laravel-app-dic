@@ -25,4 +25,9 @@ class Postcode extends Model
     {
         return $this->belongsTo('App\State');
     }
+
+    public function findByPostcode($postcode)
+    {
+        return $this->where('postcode', $postcode)->get();
+    }
 }
