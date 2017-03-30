@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
 use App\Mail\ContactUsFormSubmit;
+use App\Post;
+use App\School;
 use App\Subscribe;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -11,13 +13,35 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
 
+    /**
+     * @var Post
+     */
+    protected $post;
+
+    /**
+     * @var School
+     */
+    protected $school;
+
+    /**
+     * BlogController constructor.
+     * @param Post $post
+     */
+    public function __construct(Post $post, School $school)
+    {
+        $this->post = $post;
+        $this->school = $school;
+    }
+
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function home()
     {
-        return view('pages.home');
+        $publishedPosts = $this->post->published()->orderBy('created_at', 'DESC')->paginate(3);
+        $schools = $this->school->orderBy('created_at', 'DESC')->paginate(4);
+        return view('pages.home', compact('publishedPosts', 'schools'));
     }
 
 

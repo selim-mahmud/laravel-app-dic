@@ -38,7 +38,7 @@
 @stop
 
 @section('footer')
-    @include('_partials.footer');
+    @include('_partials.footer')
 @stop
 
 @push('scripts_stack')

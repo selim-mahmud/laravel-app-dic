@@ -19,6 +19,14 @@
 @stop
 
 @section('content')
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=258284101215362";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
     <div class="listing-details-main">
         <div class="container">
             <div class="row">
@@ -35,13 +43,15 @@
                                     <div class="font22 color333 extrabold uppercase top30">{{$publishedPost->title}}</div>
                                     <div class="f-left p-right20">
                                         <ul class="list-styles new-first-det start0 f-left top10">
-                                            <li><a href="#"><i class="fa fa-user">
-                                                        &nbsp;</i>{{$publishedPost->user->display_name}}</a></li>
+                                            <li><i class="fa fa-user">
+                                                        &nbsp;</i>{{$publishedPost->user->display_name}}</li>
                                         </ul>
                                     </div>
-                                    <div class="f-left">
+
+                                    <div class="f-left fb-share-button" data-href="{{url('blog', [$publishedPost->slug])}}"
+                                         data-layout="button_count" data-size="small" data-mobile-iframe="true">
                                         <ul class="list-styles new-first-det start0 f-left top10">
-                                            <li><a href="#"><i class="fa fa-share-alt">&nbsp;</i>share</a></li>
+                                            <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url('blog', [$publishedPost->slug])}}&src=sdkpreparse"><i class="fa fa-facebook">&nbsp;</i>share</a></li>
                                         </ul>
                                     </div>
                                     <div class="clearfix"></div>
@@ -78,7 +88,7 @@
 @stop
 
 @section('footer')
-    @include('_partials.footer');
+    @include('_partials.footer')
 @stop
 
 @push('scripts_stack')

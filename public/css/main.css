@@ -207,12 +207,12 @@ input[type=checkbox]:checked + label:before {
 .help-title{
 	font-size: 15px;
 	margin: auto;
-	max-width: 80%;
+	max-width: 96%;
 	padding-top: 30px;
 }
 .help-desc{
 	margin: auto;
-	max-width: 80%;
+	max-width: 96%;
 }
 
 .h-first-row {

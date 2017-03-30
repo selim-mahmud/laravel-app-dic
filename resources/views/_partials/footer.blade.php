@@ -29,7 +29,16 @@ Get registered for update from DIC
 								brain child of a person who faced lots of trouble when he decided to have a australian driving licence.
 							</div><br />
 							<a href="{{url('about-us')}}" class="button1-1 b-radius3 right30 button-blue top20">Read More</a>
-							<div class="clearfix"></div>
+							<div class="clearfix"></div><br /><br />
+							<script>(function(d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                    if (d.getElementById(id)) return;
+                                    js = d.createElement(s); js.id = id;
+                                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=258284101215362";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }(document, 'script', 'facebook-jssdk'));
+							</script>
+							<div class="fb-page" data-href="https://www.facebook.com/drivinginstructorscatalog" data-small-header="true" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/drivinginstructorscatalog" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/drivinginstructorscatalog">DIC - Driving Instructors Catalog</a></blockquote></div>
 						</div>
 
 						<div class="col-sm-4 f-2td top40" >
@@ -82,7 +91,7 @@ Get registered for update from DIC
 					</div>
 				</div>
 
-				<div class="row f-third-row footer2">
+				<div style="margin-top:-20px;" class="row f-third-row footer2">
 					<div class="m1170">
 						<div class="footer-relative">
 							<div class="col-sm-6 left-footer2">
