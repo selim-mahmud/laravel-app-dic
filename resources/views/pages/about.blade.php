@@ -30,7 +30,7 @@
                 <div class="m1170">
                     <div class="about-1-content top40">
                         <div class="col-sm-6 about-1-pict top20">
-                            <img src="{{asset('img/theme/about-1.jpg')}}" alt="about us" >
+                            <img src="{{asset('img/theme/about.jpg')}}" alt="about us" >
                         </div>
                         <div class="col-sm-6 about-1-content-txt top20">
                             <h5 class="f-left width100"><b class="color333 uppercase">ALL ABOUT Driving Instructors Catalog (DIC)</b></h5>
