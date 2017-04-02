@@ -113,6 +113,11 @@ Route::get('test', function(){
     }
 });
 
+// CMS Content "catch all" Route
+Route::get('{path1}/{path2?}', 'CmsController@index')
+    ->where('path1', '[A-Za-z0-9\-]+') // first component of path MUST only consist of one or more a-z A-Z 0-9 and "-"
+    ->name('cms-content');
+
 
 
 

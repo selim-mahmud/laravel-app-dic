@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <h1 style="font-size: 14px; font-weight: 600; margin:10px 0 0 0" class="text-uppercase hidden-xs">
+                    <h1 style="font-size: 12px; font-weight: 600; margin:13px 0 0 0" class="text-uppercase hidden-xs">
                         Welcome to Driving Instructors Catalog</h1>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -89,7 +89,7 @@
                             <ul class="nav navbar-nav navbar-main navbar-right">
                                 <li><a href="/">Home</a></li>
                                 <li class="dropdown">
-                                    <a href="03-category-1.html" class="dropdown-toggle" data-toggle="dropdown"
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                        role="button" aria-haspopup="true" aria-expanded="false">Driving Instructors <i
                                                 class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu">
@@ -104,7 +104,7 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="03-category-1.html" class="dropdown-toggle" data-toggle="dropdown"
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                        role="button" aria-haspopup="true" aria-expanded="false">How it works <i
                                                 class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu">
@@ -113,13 +113,13 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="03-category-1.html" class="dropdown-toggle" data-toggle="dropdown"
-                                       role="button" aria-haspopup="true" aria-expanded="false">Content Pages <i
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                       role="button" aria-haspopup="true" aria-expanded="false">Getting Licence <i
                                                 class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="03-category-1.html">Content Pages 1</a></li>
-                                        <li><a href="04-category-2.html">Content Pages 2</a></li>
-                                        <li><a href="05-category-3.html">Content Pages 3</a></li>
+                                        <li><a href="{{url('getting-car-driving-licence-in-new-south-wales')}}">Car driving licence in NSW</a></li>
+                                        <li><a href="{{url('getting-car-driving-licence-in-victoria')}}">Car licence driving in VIC</a></li>
+                                        <li><a href="{{url('getting-car-driving-licence-in-south-australia')}}">Car licence driving in SA</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="{{url('blog')}}">Blog</a></li>
