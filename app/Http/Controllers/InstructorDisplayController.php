@@ -59,7 +59,7 @@ class InstructorDisplayController extends Controller
         $postcode = $request->input('postcode');
         $postcodes = $this->postcode->findByPostcode($postcode)->pluck('id');
         $schoolServiceArea = $this->schoolServiceArea->whereIn('postcode_id', $postcodes)->get()->pluck('school_id')->unique();
-        $schools = $this->school->whereIn('id', $schoolServiceArea)->paginate(1);
+        $schools = $this->school->whereIn('id', $schoolServiceArea)->paginate(10);
         $schools->withPath('/search-driving-schools?postcode='.$postcode);
         return view('school_display.search_instructors', compact('schools', 'postcode'));
     }

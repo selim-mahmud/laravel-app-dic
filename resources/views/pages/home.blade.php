@@ -17,14 +17,9 @@
     use App\Helpers\Dic as Dic;
 @endphp
 @section('content')
-    <!-- Loader -->
     <div id="page-preloader"><span class="spinner"></span></div>
-    <!-- Loader end -->
-    <!-- ========= start of header banner ========== -->
     <div class="header-banner">
-        <!-- ========= banner image ========== -->
-        <img src="{{asset('img/theme/home_banner.jpg')}}" data-src="media/backgrounds/home2-bg.jpg" alt="Image"/>
-        <!-- ========= banner text ========== -->
+        <div style="height:100px"></div>
         <div class="container banner_text">
             <div class="row">
                 <div class="col-md-12">
@@ -33,7 +28,6 @@
 
             </div>
         </div>
-        <!-- ========= search bar ========== -->
         <div class="home-2-filter container pl-15 pr-15">
             <div class="row">
                 <div class="col-md-12">
@@ -44,9 +38,7 @@
                 </div>
             </div>
         </div>
-    </div><!-- end of .header-banner -->
-    <!-- ========= end of header banner ========== -->
-    <!-- ========= start of what you get section ========== -->
+    </div>
     <div class="featured-collection">
         <div class="container height100">
             <div class="row">

@@ -38,7 +38,7 @@ Get registered for update from DIC
                                     fjs.parentNode.insertBefore(js, fjs);
                                 }(document, 'script', 'facebook-jssdk'));
 							</script>
-							<div class="fb-page" data-href="https://www.facebook.com/drivinginstructorscatalog" data-small-header="true" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/drivinginstructorscatalog" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/drivinginstructorscatalog">DIC - Driving Instructors Catalog</a></blockquote></div>
+							<div style="margin-bottom: 15px" class="fb-page" data-href="https://www.facebook.com/drivinginstructorscatalog" data-small-header="true" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/drivinginstructorscatalog" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/drivinginstructorscatalog">DIC - Driving Instructors Catalog</a></blockquote></div>
 						</div>
 
 						<div class="col-sm-4 f-2td top40" >
@@ -91,7 +91,7 @@ Get registered for update from DIC
 					</div>
 				</div>
 
-				<div style="margin-top:-20px;" class="row f-third-row footer2">
+				<div class="row f-third-row footer2">
 					<div class="m1170">
 						<div class="footer-relative">
 							<div class="col-sm-6 left-footer2">
