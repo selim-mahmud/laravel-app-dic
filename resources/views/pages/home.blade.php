@@ -66,8 +66,8 @@
                                 Pick one with good ratings and feedback. After getting service, you will have
                                 option to rate an instructor. It is so simple and absolutely free.
                             </p>
-                            <br/>
-                            <div class="text-center">
+                            <p></p>
+                            <div style="margin-left: 10px" class="text-left">
                                 <a href="{{url('how-it-works-for-learners')}}" class="inline-block">
                                     <div class="grey-gradient-btn readmore-btn b-radius3 color777 uppercase">
                                         Read more
@@ -85,8 +85,8 @@
                                 What you need to do, is to get your school registered on our application, complete
                                 your profile, service, service area and you are good to go. Remember this service is absolutely free.
                             </p>
-                            <br/>
-                            <div class="text-center">
+                            <p></p>
+                            <div style="margin-left: 10px" class="text-left">
                                 <a href="{{url('how-it-works-for-schools')}}" class="inline-block">
                                     <div class="grey-gradient-btn readmore-btn b-radius3 color777 uppercase">
                                         Read more
@@ -106,8 +106,8 @@
                                 online. We have online rating and customer feedback system. The more you get good
                                 rating and feedback, the more you will grow.
                             </p>
-                            <br/>
-                            <div class="text-center">
+                            <p></p>
+                            <div style="margin-left: 10px" class="text-left">
                                 <a href="{{url('how-it-works-for-schools')}}" class="inline-block">
                                     <div class="grey-gradient-btn readmore-btn b-radius3 color777 uppercase">
                                         Read more
@@ -283,29 +283,27 @@
                 <div class="col-md-12">
                     <div class="row-we-help-under">
                         <div class="valign-table height100">
-                            <div class="valign-table-cell height100 text-center">
+                            <div class="valign-table-cell height100">
                                 <div class="row">
                                     @if(!$publishedPosts->isEmpty())
                                         @foreach($publishedPosts as $publishedPost)
                                             <div class="col-sm-4 top30">
                                                 <div class="memb-photo memb-photo1">
-                                                    <img height="180" width="260" src="{{asset($publishedPost->feature_image_thumbnail)}}"
+                                                    <img height="220" width="100%" src="{{asset($publishedPost->feature_image_thumbnail)}}"
                                                          alt="{{$publishedPost->title}}">
                                                 </div>
                                                 <h3 class="font15 extrabold uppercase color333 help-title">
-                                                    {{str_limit($publishedPost->title, 30)}}
+                                                    {{str_limit($publishedPost->title, 35)}}
                                                 </h3>
                                                 <p style="text-align: justify" class="font13 color777 top10 help-desc">
                                                     {{str_limit($publishedPost->excerpt, 180)}}
                                                 </p>
-                                                <br/>
-                                                <div class="text-center">
-                                                    <a href="{{url('blog', [$publishedPost->slug])}}" class="inline-block">
-                                                        <div class="grey-gradient-btn readmore-btn b-radius3 color777 uppercase">
-                                                            Read more
-                                                        </div>
-                                                    </a>
-                                                </div>
+                                                <p></p>
+                                                <a style="margin-left: 10px" href="{{url('blog', [$publishedPost->slug])}}" class="inline-block">
+                                                    <div class="grey-gradient-btn readmore-btn b-radius3 color777 uppercase">
+                                                        Read more
+                                                    </div>
+                                                </a>
                                             </div>
                                         @endforeach
                                     @else

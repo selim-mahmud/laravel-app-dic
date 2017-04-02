@@ -19,14 +19,6 @@
 @stop
 
 @section('content')
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=258284101215362";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
     <div class="listing-details-main">
         <div class="container">
             <div class="row">
@@ -36,22 +28,20 @@
                             <article>
                                 <div class="first-post">
                                     <div class="first-pict">
-                                        <img src="{{asset($publishedPost->feature_image)}}"
-                                             alt="{{$publishedPost->title}}">
+                                        <a href="{{url('blog', [$publishedPost->slug])}}"><img src="{{asset($publishedPost->feature_image)}}"
+                                                        alt="{{$publishedPost->title}}"></a>
                                         <div class="pict-data uppercase">{{$publishedPost->created_at}}</div>
                                     </div>
-                                    <div class="font22 color333 extrabold uppercase top30">{{$publishedPost->title}}</div>
+                                    <h2 class="font22 color333 extrabold uppercase top30"><a href="{{url('blog', [$publishedPost->slug])}}">{{$publishedPost->title}}</a></h2>
                                     <div class="f-left p-right20">
                                         <ul class="list-styles new-first-det start0 f-left top10">
                                             <li><i class="fa fa-user">
                                                         &nbsp;</i>{{$publishedPost->user->display_name}}</li>
                                         </ul>
                                     </div>
-
-                                    <div class="f-left fb-share-button" data-href="{{url('blog', [$publishedPost->slug])}}"
-                                         data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                                    <div class="f-left p-right20">
                                         <ul class="list-styles new-first-det start0 f-left top10">
-                                            <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url('blog', [$publishedPost->slug])}}&src=sdkpreparse"><i class="fa fa-facebook">&nbsp;</i>share</a></li>
+                                            <li><a href="{{url('blog/categories', [str_slug($publishedPost->category->name)])}}"><i class="fa fa-list"></i>{{$publishedPost->category->name}}</a> </li>
                                         </ul>
                                     </div>
                                     <div class="clearfix"></div>

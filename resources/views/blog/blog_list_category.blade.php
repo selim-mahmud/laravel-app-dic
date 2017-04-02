@@ -28,20 +28,20 @@
                             <article>
                                 <div class="first-post">
                                     <div class="first-pict">
-                                        <img src="{{asset($publishedPost->feature_image)}}"
-                                             alt="{{$publishedPost->title}}">
+                                        <a href="{{url('blog', [$publishedPost->slug])}}"><img src="{{asset($publishedPost->feature_image)}}"
+                                                                                               alt="{{$publishedPost->title}}"></a>
                                         <div class="pict-data uppercase">{{$publishedPost->created_at}}</div>
                                     </div>
-                                    <div class="font22 color333 extrabold uppercase top30">{{$publishedPost->title}}</div>
+                                    <h2 class="font22 color333 extrabold uppercase top30"><a href="{{url('blog', [$publishedPost->slug])}}">{{$publishedPost->title}}</a></h2>
                                     <div class="f-left p-right20">
                                         <ul class="list-styles new-first-det start0 f-left top10">
                                             <li><a href="#"><i class="fa fa-user">
                                                         &nbsp;</i>{{$publishedPost->user->display_name}}</a></li>
                                         </ul>
                                     </div>
-                                    <div class="f-left">
+                                    <div class="f-left p-right20">
                                         <ul class="list-styles new-first-det start0 f-left top10">
-                                            <li><a href="#"><i class="fa fa-share-alt">&nbsp;</i>share</a></li>
+                                            <li><a href="{{url('blog/categories', [str_slug($publishedPost->category->name)])}}"><i class="fa fa-list"></i>{{$publishedPost->category->name}}</a> </li>
                                         </ul>
                                     </div>
                                     <div class="clearfix"></div>

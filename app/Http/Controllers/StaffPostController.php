@@ -6,6 +6,7 @@ use App\Category;
 use App\Helpers\MediaHelper;
 use App\Http\Requests\PostRequest;
 use App\Post;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -132,7 +133,7 @@ class StaffPostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $post = $this->post->findOrFail(intval($id));
         $post->category_id = $request->category;

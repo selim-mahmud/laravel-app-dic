@@ -42,6 +42,11 @@
                                                 &nbsp;</i>{{$publishedPost->user->display_name}}</li>
                                 </ul>
                             </div>
+                            <div class="f-left p-right20">
+                                <ul class="list-styles new-first-det start0 f-left top10">
+                                    <li><a href="{{url('blog/categories', [str_slug($publishedPost->category->name)])}}"><i class="fa fa-list"></i>{{$publishedPost->category->name}}</a> </li>
+                                </ul>
+                            </div>
                             <div id="fb-root"></div>
                             <script>(function(d, s, id) {
                                     var js, fjs = d.getElementsByTagName(s)[0];
