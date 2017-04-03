@@ -65,11 +65,8 @@
     </div>
     <span id="sidebar_left_toggle" class="ad ad-lines navbar-nav navbar-left"></span>
     <ul class="topnav" id="myTopnav">
-        <li><a href="/">Home</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="{{url('logout')}}">Logout</a></li>
+        <li><a href="/">Go back to website</a></li>
+        <li style="float:right"><a href="{{url('logout')}}">Logout</a></li>
         <li class="icon">
             <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
         </li>

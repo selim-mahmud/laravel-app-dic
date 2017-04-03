@@ -87,7 +87,7 @@
                             </p>
                             <p></p>
                             <div style="margin-left: 10px" class="text-left">
-                                <a href="{{url('how-it-works-for-schools')}}" class="inline-block">
+                                <a href="{{url('how-it-works-for-instructors')}}" class="inline-block">
                                     <div class="grey-gradient-btn readmore-btn b-radius3 color777 uppercase">
                                         Read more
                                     </div>
@@ -108,7 +108,7 @@
                             </p>
                             <p></p>
                             <div style="margin-left: 10px" class="text-left">
-                                <a href="{{url('how-it-works-for-schools')}}" class="inline-block">
+                                <a href="{{url('how-it-works-for-instructors')}}" class="inline-block">
                                     <div class="grey-gradient-btn readmore-btn b-radius3 color777 uppercase">
                                         Read more
                                     </div>

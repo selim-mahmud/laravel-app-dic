@@ -108,8 +108,8 @@
                                        role="button" aria-haspopup="true" aria-expanded="false">How it works <i
                                                 class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/">For learners</a></li>
-                                        <li><a href="/">For instructors</a></li>
+                                        <li><a href="{{url('how-it-works-for-instructors')}}">For instructors</a></li>
+                                        <li><a href="{{url('how-it-works-for-learners')}}">For learners</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
