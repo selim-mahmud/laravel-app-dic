@@ -8,7 +8,7 @@
     </div>
     <div class="col-sm-2 p-left0 p-right0">
         <div class="btn-group width100">
-            <button type="submit" class="find-btn">Search</button>
+            <input style="border-width: 0;" type="submit" class="find-btn" value="Search" />
             {!! Form::close() !!}
         </div>
     </div>

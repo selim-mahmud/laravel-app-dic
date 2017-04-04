@@ -18,11 +18,11 @@ Get registered for update from DIC
 						<span class="text-danger">{{isset($errors)?$errors->first('signup_email'):''}}</span>
 					</div>
 				</div>
-				<div class="row f-second-row footer">
+				<div style="padding-bottom: 15px" class="row f-second-row footer">
 					<div class="m1170">
 						<div class="col-sm-4 f-1td top40">
 							<h5 class="uppercase colorfff footer-title"><b class="footer-title">About Us</b></h5>
-							<div class="footer-logo top30"><div class="no-wrap"><a class="footerLogo" href="/"><img src="{{asset('img/theme/dic_logo.png')}}" alt="Logo"></a></div></div>
+							<div class="footer-logo top30"><div class="no-wrap"><a class="footerLogo" href="/"><img class="img-responsive" src="{{asset('img/theme/dic_logo.png')}}" alt="Logo"></a></div></div>
 							<div class="footer-td1-txt coloraaa top30 p-right20">
                                 Getting a good driving instructor without reference from close mates or
 								community is really a difficult job. Driving Instructors Catalog (DIC) is a
@@ -38,7 +38,7 @@ Get registered for update from DIC
                                     fjs.parentNode.insertBefore(js, fjs);
                                 }(document, 'script', 'facebook-jssdk'));
 							</script>
-							<div style="margin-bottom: 15px" class="fb-page" data-href="https://www.facebook.com/drivinginstructorscatalog" data-small-header="true" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/drivinginstructorscatalog" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/drivinginstructorscatalog">DIC - Driving Instructors Catalog</a></blockquote></div>
+							<div class="fb-page" data-href="https://www.facebook.com/drivinginstructorscatalog" data-small-header="true" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/drivinginstructorscatalog" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/drivinginstructorscatalog">DIC - Driving Instructors Catalog</a></blockquote></div>
 						</div>
 
 						<div class="col-sm-4 f-2td top40" >

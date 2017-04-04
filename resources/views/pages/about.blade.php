@@ -22,10 +22,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 ">
-                    <div style="padding:30px 20px; color:#00BFF3; margin-bottom:30px; font-size: 20px;" class="about-1 text-center color333 top40 bgf7">
+                    <h3 style="padding:30px 20px; color:#00BFF3; margin-bottom:30px; font-size: 20px;" class="about-1 text-center color333 top40 bgf7">
                         Getting a good driving instructor without reference from close mates or community is really a difficult job. Driving Instructors Catalog (DIC) is a brain child of a person who faced lots of
                         trouble when he decided to have a australian driving licence.
-                    </div>
+                    </h3>
                 </div>
                 <div class="m1170">
                     <div class="about-1-content top40">
@@ -33,7 +33,7 @@
                             <img src="{{asset('img/theme/about.jpg')}}" alt="about us" >
                         </div>
                         <div class="col-sm-6 about-1-content-txt top20">
-                            <h5 class="f-left width100"><b class="color333 uppercase">ALL ABOUT Driving Instructors Catalog (DIC)</b></h5>
+                            <h2 class="color333 uppercase">ALL ABOUT Driving Instructors Catalog (DIC)</h2>
                             <div class="top30 font13 color777">
                                 Driving Instructors Catalog (DIC) is an online platform that brings driving instructors
                                 and learner drivers together under one umbrella. When we as a learner driver looks for an instructor,

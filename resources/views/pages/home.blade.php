@@ -128,16 +128,15 @@
             <div class="row navigation-row margin0">
                 <div style="height: 110px;" class="col-md-8 col-sm-8 about-nav-left">
                     <ul style="padding: 0 0 0 10px;" class="list-styles colorfff">
-                        <li style="padding-right:60px"><i class="fa fa-chevron-right" aria-hidden="true"></i>Promote your driving school</li>
-                        <li style="padding-right:60px"><i class="fa fa-chevron-right" aria-hidden="true"></i>Help learners find you</li>
+                        <li style="padding-right:60px"><i class="fa fa-chevron-right" aria-hidden="true"></i>Promote your school</li>
+                        <li style="padding-right:60px"><i class="fa fa-chevron-right" aria-hidden="true"></i>Help learner find you</li>
                         <li style="padding-right:60px"><i class="fa fa-chevron-right" aria-hidden="true"></i>Absolutely free</li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
                 <div class="col-md-4 col-sm-4 about-nav-right top-10">
                     <div class="nav-right-cont uppercase colorfff">
-                        <a href="{{url('register-as-school')}}"><h6><b><i class="font13 fa fa-angle-double-right"></i> Get your
-                                    driving school listed<i class="font13 fa fa-angle-double-left"></i></b></h6></a>
+                        <a href="{{url('register-as-school')}}"><h6><b><i class="font13 fa fa-angle-double-right"></i> Get your school listed<i class="font13 fa fa-angle-double-left"></i></b></h6></a>
                     </div>
                 </div>
             </div>
@@ -221,7 +220,7 @@
                         of them.
                     </p>
                     <div class="row">
-                        @if(!$schools->isEmpty())
+                        @if($schools->isEmpty())
                             @foreach($schools as $school)
                                 <div class="col-md-3 col-md-6">
                                     <div class="member-prof">
@@ -245,7 +244,12 @@
                                 </div>
                             @endforeach
                         @else
-                            <h3>No school recently added.</h3>
+                            <div class="text-center">
+                                <h3>No school recently added.</h3>
+                                <a href="{{url('register-as-school')}}" class="inline-block top10">
+                                    <div class="blue-gradient-btn readmore-btn b-radius3 uppercase">Add your school now</div>
+                                </a>
+                            </div>
                         @endif
                     </div>
                 </div>

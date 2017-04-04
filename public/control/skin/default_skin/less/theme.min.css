@@ -12088,7 +12088,7 @@ output {
 }
 
 .form-control:focus {
-    border-color: #F04D4E;
+    border-color: #18EAD7;
     outline: 0;
 }
 
@@ -26525,7 +26525,7 @@ body.sb-l-m .sidebar-menu > li > a > .sidebar-title {
 }
 
 body.sb-l-m .sidebar-menu > li.active > a > span.sb-menu-icon {
-    color: #F04D4E;
+    color: #00BFF3;
 }
 
 #sidebar_left.sidebar-light {
@@ -28940,7 +28940,7 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
     color: #fff;
-    background-color: #222;
+    background-color: #18EAD7;
     border-color: rgba(0, 0, 0, 0.05);
 }
 

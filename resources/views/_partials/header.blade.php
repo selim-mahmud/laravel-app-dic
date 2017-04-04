@@ -7,57 +7,55 @@
                         Welcome to Driving Instructors Catalog</h1>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div style="width: 284px;" class="h-login">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-4 col-xs-4 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
-                                @if(Auth::check())
-                                    <a href="{{url('logout')}}" class="btn btn-default dropdown-toggle"><i
-                                                style="margin-right:5px; font-size: 15px;"
-                                                class="fa fa-sign-out primary_color" aria-hidden="true"></i>Logout</a>
-                                @else
-                                    <a href="{{url('login')}}" class="btn btn-default dropdown-toggle"><i
-                                                style="margin-right:5px; font-size: 15px;"
-                                                class="fa fa-sign-in primary_color" aria-hidden="true"></i>Login</a>
-                                @endif
-
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                    @if(Auth::check())
-                                    &nbsp;&nbsp;&nbsp;<a href="
+                    <div class="pull-right">
+                        @if(Auth::check())
+                            &nbsp;&nbsp;&nbsp;<a href="
                                     @if(Auth::user()->can(config('dic.learner_permission_name1')))
-                                        {{'/learner'}}
-                                    @elseif(Auth::user()->can(config('dic.school_manager_permission_name2')))
-                                        {{'/school'}}
-                                    @elseif(Auth::user()->can(config('dic.staff_permission_name2')))
-                                        {{'/staff'}}
-                                    @endif
-                                " class="btn btn-default dropdown-toggle"><i
-                                style="margin-right:5px; font-size: 15px;"
-                                class="fa fa-user primary_color" aria-hidden="true"></i>Dashboard</a>
+                            {{'/learner'}}
+                            @elseif(Auth::user()->can(config('dic.school_manager_permission_name2')))
+                            {{'/school'}}
+                            @elseif(Auth::user()->can(config('dic.staff_permission_name2')))
+                            {{'/staff'}}
+                            @endif
+                                    " class="btn btn-default dropdown-toggle"><i
+                                        style="margin-right:5px; font-size: 15px;"
+                                        class="fa fa-user primary_color" aria-hidden="true"></i>Dashboard</a>
 
-                                    @else
-                                        <div class="dropdown">
-                                            <button class="btn btn-default dropdown-toggle" type="button" id="register"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                <i style="margin-right:5px; font-size: 15px;"
-                                                   class="fa fa-user primary_color" aria-hidden="true"></i>Register<i
-                                                        class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul style="margin-left: -108px;" class="dropdown-menu top_dropdown_menu"
-                                                aria-labelledby="register">
-                                                <li><a href="{{url('register-as-school')}}"><span
-                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                        Register your School</a></li>
-                                                <li><a href="{{url('register-as-learner')}}"><span
-                                                                class="glyphicon glyphicon-chevron-right primary_color"></span>
-                                                        Register as a Learner</a></li>
-                                            </ul>
-                                        </div>
-                                    @endif
+                        @else
+                            <div class="dropdown pull-right">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="register"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <i style="margin-right:5px; font-size: 15px;"
+                                       class="fa fa-user primary_color" aria-hidden="true"></i>Register<i
+                                            class="fa fa-angle-down"></i>
+                                </button>
+                                <ul style="margin-left: -108px;" class="dropdown-menu top_dropdown_menu"
+                                    aria-labelledby="register">
+                                    <li><a href="{{url('register-as-school')}}"><span
+                                                    class="glyphicon glyphicon-chevron-right primary_color"></span>
+                                            Register your School</a></li>
+                                    <li><a href="{{url('register-as-learner')}}"><span
+                                                    class="glyphicon glyphicon-chevron-right primary_color"></span>
+                                            Register as a Learner</a></li>
+                                </ul>
                             </div>
-                        </div>
-
+                        @endif
                     </div>
+
+                    <div style="margin-right:15px" class="pull-right">
+                        @if(Auth::check())
+                            <a href="{{url('logout')}}" class="btn btn-default dropdown-toggle"><i
+                                        style="font-size: 15px;"
+                                        class="fa fa-sign-out primary_color" aria-hidden="true"></i>Logout</a>
+                        @else
+                            <a href="{{url('login')}}" class="btn btn-default dropdown-toggle"><i
+                                        style="margin-right:5px; font-size: 15px;"
+                                        class="fa fa-sign-in primary_color" aria-hidden="true"></i>Login</a>
+                        @endif
+                    </div>
+
+
+
 
                 </div>
             </div><!-- end of row -->

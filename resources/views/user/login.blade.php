@@ -42,8 +42,8 @@
                         <div class="form-group">
                             {!! Form::submit('Login', ['class'=>'submit-btn button1-1 b-radius3 right30 button-blue top20']) !!}
                         </div>
-                        {!! Form::close() !!}<br />
-                        <a style="margin-top:20px;" href="{{url('password-reset')}}">Forgot password</a>
+                        {!! Form::close() !!}
+                        <a class="readmore-btn b-radius3 color777" href="{{url('password-reset')}}">Forgot password</a>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <h2 style="margin-top: 20px;" class="centerBlock form-header black333"><span
