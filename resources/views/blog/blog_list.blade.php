@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('meta')
-    <title>Australian Driving Instructors Directory</title>
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <title>Blog - Australian Driving Instructors Directory</title>
+    <meta name="description" content="driving licence in New South Wales, driving instructors, driving school, learner driver, driving lesson, blog">
+    <meta name="keywords" content="driving licence in New South Wales, driving instructors, driving school, learner driver, driving lesson">
 @stop
 
 @section('header')
@@ -19,6 +19,7 @@
 @stop
 
 @section('content')
+    {!! getRatingSchemaCodeInJson(5, 78) !!}
     <div class="listing-details-main">
         <div class="container">
             <div class="row">

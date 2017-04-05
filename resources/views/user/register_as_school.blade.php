@@ -1,9 +1,10 @@
 @extends('layouts.main')
 
 @section('meta')
-    <title>Register as School</title>
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <title>Register as School or instructor - Australian Driving Instructors Directory</title>
+    <meta name="description" content="Australian Driving instructor or owner of school can register here to add in our listing.
+     Learner seeking driving lessons will find you easily">
+    <meta name="keywords" content="driving school registration, driving instructor registration">
 @stop
 
 @section('header')
@@ -19,6 +20,7 @@
 @stop
 
 @section('content')
+    {!! getRatingSchemaCodeInJson(4.5, 95) !!}
     <div class="container">
         <div class="row">
             <div class="col-sm-12">

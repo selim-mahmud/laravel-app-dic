@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('meta')
-    <title>Australian Driving Instructors Directory</title>
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <title>Getting driving licence in New South Wales - Australian Driving Instructors Directory</title>
+    <meta name="description" content="Please go through the page to know the rules of getting licence in Victoria.">
+    <meta name="keywords" content="driving licence in New South Wales, driving instructors, driving school, learner driver, driving lesson">
 @stop
 
 @section('header')
@@ -18,6 +18,7 @@
     @include('_partials.flash_message')
 @stop
 @section('content')
+    {!! getRatingSchemaCodeInJson(5, 45) !!}
     <div class="container">
         <div class="row">
             <div class="col-md-12">

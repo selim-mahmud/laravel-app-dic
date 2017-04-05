@@ -1,9 +1,10 @@
 @extends('layouts.main')
 
 @section('meta')
-	<title>Australian Driving Instructors Directory</title>
-	<meta name="description" content="Free Web tutorials">
-	<meta name="keywords" content="HTML,CSS,XML,JavaScript">
+	<title>Australian Driving Instructors Directory for {{$state->name}}</title>
+	<meta name="description" content="find driving instructors or driving schools in {{$state->name}}.
+	Search for an instructor near your suburb">
+	<meta name="keywords" content="Driving instructors or schools in {{$state->name}},Australian driving instructors, australian driving schools">
 @stop
 
 @section('header')
@@ -18,7 +19,7 @@
 	@include('_partials.flash_message')
 @stop
 @section('content')
-
+	{!! getRatingSchemaCodeInJson(4.85, 320) !!}
 	<br />
 
 	<!-- ========= search bar ========== -->

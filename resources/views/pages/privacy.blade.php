@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('meta')
-    <title>Australian Driving Instructors Directory</title>
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <title>Privacy policy - Australian Driving Instructors Directory</title>
+    <meta name="description" content="privacy policy of driving instructors catalog">
+    <meta name="keywords" content="privacy policy of driving instructors catalog">
 @stop
 
 @section('header')

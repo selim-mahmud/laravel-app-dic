@@ -1,9 +1,9 @@
 @extends('layouts.main')
-
 @section('meta')
-    <title>Australian Driving Instructors Directory</title>
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <title>Login as driving instructor or learner - Australian Driving Instructors Directory</title>
+    <meta name="description" content="Login as driving instructor to setup your profile page or login as
+learner to view profile of australian driving instructor">
+    <meta name="keywords" content="australian driving instructors, find driving instructor, login">
 @stop
 
 @section('header')
@@ -17,12 +17,11 @@
 @section('flash_message')
     @include('_partials.flash_message')
 @stop
-
 @section('content')
+    {!! getRatingSchemaCodeInJson(5, 120) !!}
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <h2 class="form-header black333">LOG IN</h2>
@@ -65,5 +64,5 @@
 @stop
 
 @push('scripts_stack')
-{{-- <script src="js/head_script_example.js"></script> --}}
+
 @endpush

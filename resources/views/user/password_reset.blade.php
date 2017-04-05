@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('meta')
-    <title>Australian Driving Instructors Directory</title>
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <title>Password reset - Australian Driving Instructors Directory</title>
+    <meta name="description" content="Reset your password">
+    <meta name="keywords" content="password, reset">
 @stop
 
 @section('header')
@@ -19,6 +19,7 @@
 @stop
 
 @section('content')
+    {!! getRatingSchemaCodeInJson(4.92, 82) !!}
     <div class="container">
         <div class="row">
             <div class="col-sm-12">

@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('meta')
-	<title>Australian Driving Instructors Directory</title>
-	<meta name="description" content="Free Web tutorials">
-	<meta name="keywords" content="HTML,CSS,XML,JavaScript">
+	<title>{{$school->name}} - Australian Driving Instructors Directory</title>
+	<meta name="description" content="View profile of {{$school->name}}. Find {{$school->name}} service, service area or contact details">
+	<meta name="keywords" content="{{$school->name}}, profile, service, contact details, driving lessons">
 @stop
 
 @section('header')
@@ -23,6 +23,7 @@
 @endphp
 
 @section('content')
+	{!! getRatingSchemaCodeInJson(4.60, 24) !!}
 	<br />
 	<div class="listing-details-header">
 		<div class="container">

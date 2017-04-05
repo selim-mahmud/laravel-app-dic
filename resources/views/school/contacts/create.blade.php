@@ -2,8 +2,6 @@
 
 @section('meta')
     <title>Australian Driving Instructors Directory</title>
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
 @stop
 
 @push('styles_stack')

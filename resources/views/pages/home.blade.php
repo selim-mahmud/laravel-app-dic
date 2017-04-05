@@ -1,9 +1,10 @@
 @extends('layouts.main')
 
 @section('meta')
-    <title>Australian Driving Instructors Directory</title>
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <title>Home - Australian Driving Instructors Directory</title>
+    <meta name="description" content="Search instructors directory and find Australian
+    driving instructors or schools serving your suburb or postcode and contact to get driving lessons.">
+    <meta name="keywords" content="driving instructors, driving schools, learner driver, driving lessons">
 @stop
 
 @section('header')

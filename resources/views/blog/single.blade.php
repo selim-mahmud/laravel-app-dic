@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('meta')
-    <title>Australian Driving Instructors Directory</title>
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <title>{{$publishedPost->title}} - Australian Driving Instructors Directory</title>
+    <meta name="description" content="driving licence in New South Wales, driving instructors, driving school, learner driver, driving lesson, {{$publishedPost->title}}">
+    <meta name="keywords" content="driving licence in New South Wales, driving instructors, driving school, learner driver, driving lesson">
 
     <meta property="og:url"           content="{{url(request()->path())}}" />
     <meta property="og:type"          content="website" />
@@ -25,6 +25,7 @@
 @stop
 
 @section('content')
+    {!! getRatingSchemaCodeInJson(5, 65) !!}
     <div class="listing-details-main">
         <div class="container">
             <div class="row">
