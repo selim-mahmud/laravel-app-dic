@@ -16,6 +16,7 @@
     @include('_partials.browserhacks')
 </head>
 <body>
+@include('_partials.google_tracking_code')
 <div id="main">
     @yield('header')
     @yield('left_sidebar')

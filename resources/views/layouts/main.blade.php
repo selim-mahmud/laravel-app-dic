@@ -14,7 +14,7 @@
     @include('_partials.browserhacks')
 </head>
 <body>
-
+@include('_partials.google_tracking_code')
 @yield('header')
 
 <section>
