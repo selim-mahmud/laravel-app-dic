@@ -1,28 +1,27 @@
 @extends('layouts.main')
-
 @section('meta')
-    <title>Australian Driving Instructors Directory</title>
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <title>Login as driving instructor or learner - Australian Driving Instructors Directory</title>
+    <meta name="description" content="Login as driving instructor to setup your profile page or login as
+learner to view profile of australian driving instructor">
+    <meta name="keywords" content="australian driving instructors, find driving instructor, login">
 @stop
 
 @section('header')
-    @include('partials.header')
+    @include('_partials.header')
 @stop
 
 @section('breadcrumb')
-    @include('partials.breadcrumb')
+    @include('_partials.breadcrumb')
 @stop
 
 @section('flash_message')
-    @include('partials.flash_message')
+    @include('_partials.flash_message')
 @stop
-
 @section('content')
+    {!! getRatingSchemaCodeInJson(5, 120) !!}
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <h2 class="form-header black333">LOG IN</h2>
@@ -43,6 +42,7 @@
                             {!! Form::submit('Login', ['class'=>'submit-btn button1-1 b-radius3 right30 button-blue top20']) !!}
                         </div>
                         {!! Form::close() !!}
+                        <a class="readmore-btn b-radius3 color777" href="{{url('password-reset')}}">Forgot password</a>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <h2 style="margin-top: 20px;" class="centerBlock form-header black333"><span
@@ -60,9 +60,9 @@
 @stop
 
 @section('footer')
-    @include('partials.footer');
+    @include('_partials.footer')
 @stop
 
 @push('scripts_stack')
-{{-- <script src="js/head_script_example.js"></script> --}}
+
 @endpush

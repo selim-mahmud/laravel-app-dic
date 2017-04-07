@@ -15,7 +15,19 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(
-            'partials.breadcrumb', 'App\Http\ViewComposers\BreadCrumbComposer'
+            '_partials.breadcrumb', 'App\Http\ViewComposers\BreadCrumbComposer'
+        );
+
+        View::composer(
+            '_partials.breadcrumb_control', 'App\Http\ViewComposers\BreadCrumbControlComposer'
+        );
+
+        View::composer(
+            '_partials.post_categories', 'App\Http\ViewComposers\PostCategoriesComposer'
+        );
+
+        View::composer(
+            '_partials.state_links', 'App\Http\ViewComposers\StateLinksComposer'
         );
     }
 

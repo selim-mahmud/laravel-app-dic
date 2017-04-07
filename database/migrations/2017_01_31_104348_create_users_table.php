@@ -22,9 +22,11 @@ class CreateUsersTable extends Migration
             $table->string('display_name', 100)->default('');
             $table->string('email', 100)->unique()->default('');
             $table->string('user_type', 20)->default('');
+            $table->string('profile_photo_url')->default('');
             $table->string('pass_key')->default('');
             $table->string('status', 20)->default('inactive');
             $table->string('reset_key')->default('');
+            $table->string('activation_key')->default('');
             $table->rememberToken()->default('');
             $table->timestamps();
         });

@@ -18,6 +18,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class School extends Model
 {
@@ -32,4 +33,77 @@ class School extends Model
     {
         return $this->hasMany('App\User');
     }
+
+    /**
+     * get instructors of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function instructors()
+    {
+        return $this->hasMany('App\Instructor');
+    }
+
+    /**
+     * get contacts of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function contacts()
+    {
+        return $this->hasMany('App\SchoolContact');
+    }
+
+    /**
+     * get medias of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medias()
+    {
+        return $this->hasMany('App\SchoolMedias');
+    }
+
+    /**
+     * get services of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function serviceAreas()
+    {
+        return $this->hasMany('App\SchoolServiceArea');
+    }
+
+    /**
+     * get reviews of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reviews()
+    {
+        return $this->hasMany('App\Review');
+    }
+
+    /**
+     * services of this school
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function services()
+    {
+        return $this->belongsToMany('App\Service', 'school_has_services')->withTimestamps();
+    }
+
+    public function getApprovedReviews(){
+        return Review::where(['school_id' => $this->id, 'approved' => 1])->get();
+    }
+
+    /**
+     * @param $school
+     * @return mixed
+     */
+    public function findByName($school){
+        return $this->where('name', ucwords(str_replace('-', ' ', $school)))->firstOrfail();
+    }
+
 }

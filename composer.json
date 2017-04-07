@@ -11,7 +11,12 @@
     "php": ">=5.6.4",
     "laravel/framework": "5.4.*",
     "laravelcollective/html": "^5.3.0",
-    "laravel/socialite": "^3.0"
+    "laravel/socialite": "^3.0",
+    "guzzlehttp/guzzle": "^6.2",
+    "spatie/laravel-activitylog": "^1.12",
+    "spatie/laravel-permission": "^1.8",
+    "pusher/pusher-php-server": "^2.6",
+    "intervention/image": "^2.3"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.2",
@@ -31,7 +36,10 @@
   "autoload-dev": {
     "psr-4": {
       "Tests\\": "tests/"
-    }
+    },
+    "files": [
+      "app/helpers.php"
+    ]
   },
   "scripts": {
     "post-root-package-install": [

@@ -1,24 +1,25 @@
 @extends('layouts.main')
 
 @section('meta')
-    <title>Register as a learner - Driving Instructors Directory</title>
+    <title>Register as a learner - Australian Driving Instructors Directory</title>
     <meta name="description" content="Register yourself as a learner, search our database to find your nearest driving instructors and school. Get driving lesson and write a review for your instructors">
     <meta name="keywords" content="register, driving learner, nearest driving instructors">
 @stop
 
 @section('header')
-    @include('partials.header')
+    @include('_partials.header')
 @stop
 
 @section('breadcrumb')
-    @include('partials.breadcrumb')
+    @include('_partials.breadcrumb')
 @stop
 
 @section('flash_message')
-    @include('partials.flash_message')
+    @include('_partials.flash_message')
 @stop
 
 @section('content')
+    {!! getRatingSchemaCodeInJson(5, 123) !!}
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -71,7 +72,7 @@
 @stop
 
 @section('footer')
-    @include('partials.footer');
+    @include('_partials.footer')
 @stop
 
 @push('scripts_stack')

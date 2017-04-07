@@ -19,6 +19,7 @@ class CreateSchoolsTable extends Migration
             $table->string('name', 200)->default('');
             $table->string('short_desc')->default('');
             $table->text('long_desc')->nullable();
+            $table->string('profile_photo_url')->default('');
             $table->string('website')->default('');
             $table->string('facebook')->default('');
             $table->string('twitter')->default('');

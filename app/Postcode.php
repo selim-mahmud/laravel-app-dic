@@ -6,8 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Postcode extends Model
 {
-   	protected $table = 'postcode';
-    protected $primaryKey = 'postcode_id';
-    protected $fillable = ['country_id', 'state_id', 'city_id', 'postcode'];
+    /**
+     * get the country of this postcode
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
 
+    /**
+     * get the state of this postcode
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function state()
+    {
+        return $this->belongsTo('App\State');
+    }
+
+    public function findByPostcode($postcode)
+    {
+        return $this->where('postcode', $postcode)->get();
+    }
 }
