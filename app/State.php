@@ -6,9 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class State extends Model
 {
-   	protected $table = 'state';
-    protected $primaryKey = 'state_id';
+    /**
+     * get the postcodes of the state
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function postcodes()
+    {
+        return $this->hasMany('App\Postcode');
+    }
 
-    protected $fillable = ['country_id', 'name'];
-
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function findByName($name){
+        return $this->where('name', $name)->firstOrfail();
+    }
 }

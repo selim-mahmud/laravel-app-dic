@@ -6,9 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
-   	protected $table = 'country';
-    protected $primaryKey = 'country_id';
-
-    protected $fillable = ['name'];
+    /**
+     * get the postcodes of the country
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function postcodes()
+    {
+        return $this->hasMany('App\Postcode');
+    }
 
 }
