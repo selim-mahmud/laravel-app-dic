@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => 'selim.mahmud80@yahoo.com.au',
-        'name' => 'DIC',
+        'address' => 'contact@driving-instructors-catalog.com.au',
+        'name' => 'Driving Instructors Catalog',
     ],
 
     /*
