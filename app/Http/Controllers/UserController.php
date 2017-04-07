@@ -2,468 +2,410 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ActivationService;
-use App\Http\Requests\UserCreateRequest;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Contracts\ActivityLoggerContract;
+use App\Events\FacebookRegistered;
+use App\Helpers\Dic;
+use App\Http\Requests\LoginAsEmailRequest;
+use App\Http\Requests\RegistrationAsLearnerRequest;
+use App\Http\Requests\RegistrationAsSchoolRequest;
+use App\Services\LoginService;
+use App\Services\RegistrationService;
 use App\User;
-use App\Role;
-use App\ContactEmail;
-use App\Media;
-use App\School;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use Mockery\CountValidator\Exception;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
-use App\Helpers\General;
+use App\Events\UserRegistered;
+use Illuminate\Support\Facades\Event;
 
-class UserController extends Controller{
+class UserController extends Controller
+{
+    /**
+     * @var $registrationService RegistrationService
+     */
+    protected $registrationService;
 
-    protected $activationService;
+    /**
+     * @var $loginService LoginService
+     */
+    protected $loginService;
 
-    public function __construct(ActivationService $activationService){
-        //$this->middleware('guest', ['only' => ['registerAsSchool', 'registerAsLearner', 'login', 'facebookRegister', 'facebookCallback', 'findOrCreateUser']]);
-        $this->activationService = $activationService;
+    /**
+     * @var $dic Dic
+     */
+    protected $dic;
+
+    /**
+     * @var $user User
+     */
+    protected $user;
+
+    /**
+     * @var ActivityLoggerContract
+     */
+    protected $activityLogger;
+
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * UserController constructor.
+     * @param RegistrationService $registrationService
+     * @param LoginService $loginService
+     * @param Dic $dic
+     * @param User $user
+     * @param ActivityLoggerContract $activityLogger
+     */
+    public function __construct(RegistrationService $registrationService, LoginService $loginService,
+                                Dic $dic, User $user, ActivityLoggerContract $activityLogger,
+                                Request $request
+                )
+    {
+        $this->registrationService = $registrationService;
+        $this->loginService = $loginService;
+        $this->dic = $dic;
+        $this->user = $user;
+        $this->activityLogger = $activityLogger;
+        $this->request = $request;
+        $this->middleware('guest', ['only' => ['getLearnerRegistration', 'postLearnerRegistration',
+            'getSchoolRegistration', 'postSchoolRegistration', 'getLogin', 'postLogin']]);
+        $this->middleware('auth', ['only' => ['logout']]);
     }
 
     /**
-    /* function to display and process register as instructor form
-    /*
-    /* @param
-    /*
-    /* @return view
-    */
-    public function registerAsSchool(Request $request){
-        session()->put('previous_path', General::currentPath());
-    }
-
-    /**
-    /* function to display and process register as learner form
-    /*
-    /* @param
-    /*
-    /* @return view
-    */
-    public function registerAsLearner(){
-        session()->put('previous_path', General::currentPath());
+     * display learner's registration form
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getLearnerRegistration()
+    {
+        session()->put('previous_path', $this->dic->getUrlPath());
+        $this->activityLogger->basicActivitySave(
+            'learner_registration_page',
+            'Someone accessed learner registration form page.',
+            ['ip' => $this->request->ip()]
+            );
         return view('user.register_as_learner');
     }
 
     /**
-    /* function to display and process login form
-    /*
-    /* @return view
-    */
-    public function login(){
-        session()->put('previous_path', General::currentPath());
-        return view('user.login');
-    }
-
-    /**
-    /* function to display and process login form
-    /*
-    /* @return view
-     */
-
-    public function postLogin(Request $request){
-        $this->validate($request,[
-            'email'=>'required',
-            'password'=>'required',
-        ]);
-
-        if(User::isAvailable($request->email)){
-           return redirect()->back()->with('alert-danger', 'Invalid Email address. No account found with given email address.');
-        }
-
-        if(!User::isActive($request->email)){
-            auth()->logout();
-           return redirect()->back()->with('alert-warning', 'The account is not active. Click the link below to resend the activation link');
-        }
-
-
-        if(Auth::attempt(['email'=>$request->email, 'password' => $request->password, 'is_active' => 1])){
-            return "Logged in with email";
-        }else{
-            return "Sorry Can't Logged In";
-        }
-
-    }
-
-    /**
-     * method to logout.
+     * process learner registration form
      *
-     * @return view
+     * @param RegistrationAsLearnerRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function logout(){
-        Auth::logout();
-        return redirect('login')->with('alert-success', 'You have successfully Logged out.');
-    }
-
-    /**
-    /* function to register using fb
-    /*
-    /* @param $user_type string
-    /*
-    /* @return
-    */
-    public function facebookRegister(){
-        return Socialite::driver('facebook')->redirect();
-    }
-
-    /**
-    /* function to login using fb
-    /*
-    /* @return
-    */
-    public function facebookLogin()
+    public function postLearnerRegistration(RegistrationAsLearnerRequest $request)
     {
-        return Socialite::driver('facebook')->redirect();
-    }
-
-    /**
-    /* function to login using fb
-    /*
-    /* @return
-    */
-    public function facebookCallback(){
-
-         try {
-
-            $facebook_User = \Socialite::driver('facebook')->user();
-            $previous_path = session()->get('previous_path');
-
-            if(trim($previous_path[0]) == 'register-as-learner'){ // register as learner
-
-                $facebook_User->user_role = 'learner';
-                $authUser = $this->findOrCreateUser($facebook_User);
-
-                if($authUser){
-                    return redirect('login')->with('alert-success', 'You have successfully registered. Please use facebook to login now.');
-                }else{
-                    return redirect('register-as-learner')->with('alert-warning', 'Something went wrong. Please try again later.');
-                }
-
-            }else if(trim($previous_path[0]) == 'register-as-school'){ //register as school
-
-                $facebook_User->user_role = 'manager';
-                $authUser = $this->findOrCreateUser($facebook_User);
-                if($authUser){
-                    return redirect('login')->with('alert-success', 'You have successfully registered. Please use facebook to login now.');
-                }else{
-                    return redirect('register-as-school')->with('alert-warning', 'Something went wrong. Please try again later.');
-                }
-
-            }else if(trim($previous_path[0]) == 'login'){ //login
-
-                $authUser = $this->findOrCreateUser($facebook_User);
-
-                if($authUser == 'not_registered'){
-                    return redirect('login')->with('alert-warning', 'Please register using facebook before you login.');
-                }
-
-                Auth::login($authUser, true);
-                $user = Auth::user();
-
-                if($user){
-                    if($user->school_id){
-                        return redirect()->route('school_profile', $user->school_id);
-                    }else{
-                        return redirect()->route('learner_profile', $user->user_id);
-                    }
-                }else{
-                    dd('Something went wrong. Try again later.');
-                }
-
-            }else{
-                dd('Something went wrong. Try again later.');
-            }
-        } catch (Exception $e) {
-            dd('Something went wrong. Try again later.');
+        $inputs = $request->all();
+        $user = $this->registrationService->registerAsLearner($inputs);
+        if ($user) {
+            $user->assignRole(config('dic.default_learner_role_name'));
+            //send welcome and activation email
+            Event::fire(new UserRegistered($user->id));
+            $this->activityLogger->basicActivitySave(
+                'learner_registration_success',
+                config('dic-message.registration_success'),
+                ['ip' => $this->request->ip()]
+            );
+            return redirect('login')->with('alert-success', config('dic-message.registration_success'));
         }
-
+        $this->activityLogger->basicActivitySave(
+            'learner_registration_fail',
+            config('dic-message.general_fail'),
+            ['ip' => $this->request->ip()]
+        );
+        return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
     }
 
     /**
-     * Display a listing of the resource.
+     * display school's registration form
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function getSchoolRegistration()
     {
-        //
-
-    }
-
-    /**
-     * Show the form for register as school
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        session()->put('previous_path', $this->dic->getUrlPath());
+        $this->activityLogger->basicActivitySave(
+            'school_registration_page',
+            'Someone accessed school registration form page.',
+            ['ip' => $this->request->ip()]
+        );
         return view('user.register_as_school');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * process school registration form
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param RegistrationAsLearnerRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UserCreateRequest $request)
+    public function postSchoolRegistration(RegistrationAsSchoolRequest $request)
     {
+        $inputs = $request->all();
+        $user = $this->registrationService->registerAsSchool($inputs);
+        if ($user) {
+            $user->assignRole(config('dic.default_school_role_name'));
+            //send welcome and activation email
+            Event::fire(new UserRegistered($user->id));
+            $this->activityLogger->basicActivitySave(
+                'school_registration_success',
+                config('dic-message.registration_success'),
+                ['ip' => $this->request->ip()]
+            );
+            return redirect('login')->with('alert-success', config('dic-message.registration_success'));
+        }
+        $this->activityLogger->basicActivitySave(
+            'school_registration_fail',
+            config('dic-message.general_fail'),
+            ['ip' => $this->request->ip()]
+        );
+        return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
+    }
 
-        //
-        try{
-            /*
-             * registration_type = 1 means register as school
-             */
-            if($request->registration_type == 1){
-                DB::beginTransaction();
-                $new_user =([
-                    'role_id' => 2,
-                    'name' => $request->name,
-                    'display_name' => General::getDisplayName($request->name),
-                    'facebook_id' => 0,
-                    'email' => $request->email,
-                    'pass_key' => bcrypt($request->password),
-                    'is_active' => 0,
-                ]);
+    public function getLogin()
+    {
+        session()->put('previous_path', $this->dic->getUrlPath());
+        return view('user.login');
+    }
 
-                $new_school = School::create([
-                    'name' => $request->school_name,
-                ]);
-
-                $user=User::create($new_user);
-                $user->update(['school_id'=> $new_school->school_id]);
-
-                $contact_email=ContactEmail::create([
-                    'email'=>$user->email,
-                    'owner_id'=>$user->user_id,
-                ]);
-
-                $this->activationService->sendActivationMail($user);
-
-                DB::commit();
-
-                $display_message='Hello ' . $user->display_name . ' , your school account has been created. Activation link is send to your email.';
-                return redirect('/login')->with('alert-success',$display_message );
+    /**
+     * logged in user using email
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|string
+     */
+    public function postLogin(LoginAsEmailRequest $request)
+    {
+        $inputs = $request->all();
+        list($response, $userType) = $this->loginService->loginByEmail($inputs);
+        if ($response) {
+            if ($userType === config('dic.learner_user_type_name')) {
+                $this->activityLogger->basicActivitySave(
+                    'learner_email_login_success',
+                    'successfully logged in by learner',
+                    ['ip' => $this->request->ip()]
+                );
+                return redirect('learner')->with('alert-success', config('dic-message.login_success'));
             }
-            /*
-             * registration_type == 2 means register as learner
-             */
-            elseif($request->registration_type == 2){
-
-                DB::beginTransaction();
-                $new_user =([
-                    'role_id' => 4,
-                    'name' => $request->name,
-                    'display_name' => General::getDisplayName($request->name),
-                    'facebook_id' => 0,
-                    'school_id'=>0,
-                    'email' => $request->email,
-                    'pass_key' => bcrypt($request->password),
-                    'is_active' => 0,
-                ]);
-
-                $user=User::create($new_user);
-
-                $contact_email=ContactEmail::create([
-                    'email'=>$user->email,
-                    'owner_id'=>$user->user_id,
-                ]);
-
-                $this->activationService->sendActivationMail($user);
-
-                DB::commit();
-
-                $display_message='Hello ' . $user->display_name . ' , your account has been created. Activation link is send to your email.';
-                return redirect('/login')->with('alert-success',$display_message );
+            if ($userType === config('dic.school_user_type_name')) {
+                $this->activityLogger->basicActivitySave(
+                    'school_email_login_success',
+                    'successfully logged in by school',
+                    ['ip' => $this->request->ip()]
+                );
+                return redirect('school')->with('alert-success', config('dic-message.login_success'));
             }
 
-        }catch(Exception $e){
-            DB::rollback();
-            return redirect('register-as-school')->with('alert-warning', 'Something went wrong. Please try again later.' .'<br>' . $e);
+            if ($userType === config('dic.staff_user_type_name')) {
+                $this->activityLogger->basicActivitySave(
+                    'staff_email_login_success',
+                    'successfully logged in by staff',
+                    ['ip' => $this->request->ip()]
+                );
+                return redirect('staff')->with('alert-success', config('dic-message.login_success'));
+            }
+        }
+        $this->activityLogger->basicActivitySave(
+            'email_login_fail',
+            config('dic-message.email_login_fail'),
+            ['ip' => $this->request->ip()]
+        );
+        return redirect()->back()->with('alert-danger', config('dic-message.email_login_fail'));
+    }
+
+    /**
+     * logout user
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('login')->with('alert-success', config('dic-message.logout_success'));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function facebookAuth()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function facebookCallback()
+    {
+        $facebook_User = Socialite::driver('facebook')->user();
+        $previousPath = session()->get('previous_path');
+        if (trim($previousPath[0]) == 'register-as-learner') { // register as learner
+            $facebook_User->user_role = config('dic.learner_user_type_name');
+            $authUser = $this->registrationService->findOrCreateUser($facebook_User);
+            if ($authUser) {
+                $authUser->assignRole(config('dic.default_learner_role_name'));
+                Event::fire(new FacebookRegistered($authUser->id));
+                return redirect('login')->with('alert-success', config('dic-message.facebook_registration_success'));
+            } else {
+                return redirect('register-as-learner')->with('alert-warning', config('dic-message.general_fail'));
+            }
+        } else if (trim($previousPath[0]) == 'register-as-school') { //register as school
+            $facebook_User->user_role = config('dic.school_user_type_name');
+            $authUser = $this->registrationService->findOrCreateUser($facebook_User);
+            if ($authUser) {
+                $authUser->assignRole(config('dic.default_school_role_name'));
+                Event::fire(new FacebookRegistered($authUser->id));
+                return redirect('login')->with('alert-success', config('dic-message.facebook_registration_success'));
+            } else {
+                return redirect('register-as-school')->with('alert-warning', config('dic-message.general_fail'));
+            }
+        } else if (trim($previousPath[0]) == 'login') { //login
+            $authUser = $this->registrationService->findOrCreateUser($facebook_User);
+            if ($authUser == 'not_registered') {
+                return redirect('login')->with('alert-warning', config('dic-message.facebook_login_not_found'));
+            }
+            Auth::login($authUser, true);
+            $user = Auth::user();
+            if ($user) {
+                if ($user->user_type == config('dic.school_user_type_name')) {
+                    return redirect('school')->with('alert-success', config('dic-message.login_success'));
+                } else if($user->user_type == config('dic.learner_user_type_name')) {
+                    return redirect('learner')->with('alert-success', config('dic-message.login_success'));
+                }else{
+                    return redirect('staff')->with('alert-success', config('dic-message.login_success'));
+                }
+            } else {
+                return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
+            }
+        } else {
+            return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
         }
     }
 
     /**
-     * Display the specified resource.
+     * display reset link send form
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function getPasswordReset()
     {
-        //
+        return view('user.password_reset');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * process reset link form
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit($id)
+    public function postPasswordReset(User $user)
     {
-        //
+        $this->validate($this->request, [
+            'email' => 'required|email',
+        ]);
+
+        $email = $this->request->get('email');
+        if ($user->isEmailExists($email)) {
+            if ($this->loginService->sendPasswordResetLink($email)) {
+                return redirect()->back()->with('alert-success', config('dic-message.reset_link_success'));
+            }
+            return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
+        }
+        return redirect()->back()->with('alert-danger', config('dic-message.reset_link_fail'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * display set new password form
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $key
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function getNewPassword($key){
+        $customBreadcrumb = '<ol class="breadcrumb"><li><a href="/">Home</a></li><li>New Password</li></ol>';
+        return view('user.new_password', compact('key', 'customBreadcrumb'));
     }
 
     /**
-     * Remove the specified resource from storage.
+     * process set new password form
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
-    {
-        //
+    public function postNewPassword(){
+        $this->validate($this->request, [
+            'password' => 'required|between:6,15|regex:/^[ A-Za-z0-9!@#$%&_-]*$/',
+            'confirm_password' => 'required|same:password',
+        ]);
+        if($user = $this->user->getResetKeyUser($this->request->get('key'))){
+            $user = $user->firstOrFail();
+            $user->pass_key = Hash::make($this->request->get('password'));
+            if($user->save()){
+                $user->reset_key = '';
+                $user->save();
+                $this->activityLogger->basicActivitySave(
+                    'password_reset_success',
+                    config('dic-message.password_reset_success'),
+                    ['ip' => $this->request->ip()]
+                );
+                return redirect('login')->with('alert-success', config('dic-message.password_reset_success'));
+            }
+        }
+        $this->activityLogger->basicActivitySave(
+            'password_reset_fail',
+            config('dic-message.general_fail'),
+            ['ip' => $this->request->ip()]
+        );
+        return redirect()->back()->with('alert-danger', config('dic-message.general_fail'));
     }
 
     /**
-     * Return user if exists; create and return if doesn't
+     * account activation page
      *
-     * @param $facebookUser
-     * @return User
+     * @param $key
+     * @return \Illuminate\Http\RedirectResponse
      */
-    private function findOrCreateUser($facebookUser)
-    {
-        $authUser = User::where('facebook_id', $facebookUser->id)->first();
- 
-        if ($authUser){
-            return $authUser;
+    public function getAccountActivate($key){
+        if($user = $this->user->getActivationKeyUser($key)){
+            $user = $user->firstOrFail();
+            $user->status = 'active';
+            $user->activation_key = '';
+            if($user->save()){
+                $this->activityLogger->basicActivitySave(
+                    'account_activation_success',
+                    config('dic-message.account_activation_success'),
+                    ['ip' => $this->request->ip()]
+                );
+                return redirect('login')->with('alert-success', config('dic-message.account_activation_success'));
+            }
         }
-
-        if(isset($facebookUser->user_role)){
-            $user_role = Role::where('role_title', $facebookUser->user_role)->first();
-        }else{
-
-            return 'not_registered';
-            
-        }
-
-        if($facebookUser->user_role == 'learner'){ // register as learner
-            DB::beginTransaction();
-            // insert into user table
-            $authUser = User::create([
-                'role_id' => $user_role->role_id,
-                'name' => $facebookUser->name,
-                'display_name' => $facebookUser->name,
-                'email' => $facebookUser->email,
-                'facebook_id' => $facebookUser->id,
-                'is_active' => 0
-            ]);
-
-            // insert into contact_email tabel
-            ContactEmail::create([
-                'owner_type' => 'learner',
-                'owner_id' => $authUser->user_id,
-                'email' => $facebookUser->email
-            ]);
-
-            // insert into media table
-            Media::create([
-                'owner_type' => 'learner',
-                'media_type' => 'image',
-                'image_type' => 'avatar',
-                'owner_id' => $authUser->user_id,
-                'url' => $facebookUser->avatar
-            ]);
-
-            DB::commit();
-        }
-
-        if($facebookUser->user_role == 'manager'){ // register as school
-
-            DB::beginTransaction();
-
-            // insert into user table
-            $authUser = User::create([
-                'role_id' => $user_role->role_id,
-                'name' => $facebookUser->name,
-                'display_name' => $facebookUser->name,
-                'email' => $facebookUser->email,
-                'facebook_id' => $facebookUser->id,
-                'is_active' => 0
-            ]);
-
-            // insert into contact_email tabel
-            ContactEmail::create([
-                'owner_type' => 'school',
-                'owner_id' => $authUser->user_id,
-                'email' => $facebookUser->email
-            ]);
-
-            // insert into media table
-            Media::create([
-                'owner_type' => 'school',
-                'media_type' => 'image',
-                'image_type' => 'avatar',
-                'owner_id' => $authUser->user_id,
-                'url' => $facebookUser->avatar
-            ]);
-
-            // insert into school table
-            $school = School::create([
-                'name' => $facebookUser->name,
-                'display_name' => $facebookUser->nickname
-            ]);
-
-            //update user table with school_id
-            $user = User::find($authUser->user_id);
-            $user->school_id = $school->school_id;
-            $user->save();
-
-            DB::commit();
-        }
- 
-        if ($authUser){
-            return $authUser;
-        }else{
-            return false;
-        }
-
-
-
-
+        $this->activityLogger->basicActivitySave(
+            'account_activation_fail',
+            config('dic-message.general_fail'),
+            ['ip' => $this->request->ip()]
+        );
+        return redirect('login')->with('alert-danger', config('dic-message.general_fail'));
     }
 
-    public function activateUser($token)
+    /**
+     * display learner profile page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getLearnerDashboard()
     {
-        if ($user = $this->activationService->activateUser($token)) {
-            auth()->logout();
-
-            $display_message='Hello ' . $user->display_name . ' , account activation was successful. Please login to continue.';
-            return redirect('/login')->with('alert-success',$display_message );
-        }else{
-            $display_message='Invalid Activation Link';
-            return redirect('/login')->with('alert-warning',$display_message );
-        }
+        return view('learner.learner_dashboard');
     }
 
-    public function authenticated(Request $request, $user)
+    /**
+     * display school profile page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getSchoolProfile()
     {
-        if (!$user->activated) {
-            $this->activationService->sendActivationMail($user);
-            auth()->logout();
-
-            return back()->with('alert-warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
-        }
-        return redirect()->intended($this->redirectPath());
+        return view('school.school_profile');
     }
 }

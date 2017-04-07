@@ -1,97 +1,117 @@
 <?php
 
+/*
++----------------+---------------------+------+-----+----------+----------------
+| Field          | Type                | Null | Key | Default  | Extra
++----------------+---------------------+------+-----+----------+----------------
+| id             | int(10) unsigned    | NO   | PRI | NULL     | auto_increment
+| school_id      | int(10) unsigned    | NO   | MUL | 0        |
+| facebook_id    | bigint(20) unsigned | NO   | MUL | 0        |
+| name           | varchar(100)        | NO   |     | NULL     |
+| display_name   | varchar(100)        | NO   |     |          |
+| user_type      | varchar(20)         | NO   |     |          |
+| email          | varchar(100)        | NO   | UNI |          |
+| profile_photo_url| varchar(255)        | NO   |     |          |
+| pass_key       | varchar(255)        | NO   |     |          |
+| status         | varchar(20)         | NO   |     | inactive |
+| reset_key      | varchar(255)        | NO   |     |          |
+| activation_key | varchar(100)        | YES  |     |          |
+| remember_token | varchar(100)        | YES  |     |          |
+| created_at     | timestamp           | YES  |     | NULL     |
+| updated_at     | timestamp           | YES  |     | NULL     |
++----------------+---------------------+------+-----+----------+----------------
+*/
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Auth;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable{
-    
-    protected $table = 'user';
-    protected $primaryKey = 'user_id';
-    protected $fillable = ['role_id', 'school_id', 'facebook_id', 'name', 'display_name', 'email', 'pass_key', 'is_active','reset_key'];
+class User extends Authenticatable
+{
+    use HasRoles;
+
+    protected $fillable = ['school_id', 'facebook_id', 'name', 'display_name',
+        'email', 'user_type', 'pass_key', 'status', 'reset_key', 'activation_key', 'remember_token'];
     protected $hidden = ['pass_key', 'reset_key'];
 
-    public function getAuthPassword() {
-        return $this->attributes['pass_key'];
-    }
-    
-    public function role(){
-        return $this->belongsTo('App\Role', 'role_id', 'role_id');
+    /**
+     * set custom password field name
+     *
+     * @return mixed
+     */
+    public function getAuthPassword()
+    {
+        return $this->pass_key;
     }
 
-    public function school(){
+    /**
+     * get the school that has this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function school()
+    {
         return $this->belongsTo('App\School');
     }
 
-    public function medias(){
-        return $this->hasMany('App\Media', 'owner_id', 'user_id');
+    /**
+     * get reviews of this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function reviews()
+    {
+        return $this->hasMany('App\Review');
     }
 
-    public function emails(){
-        return $this->hasMany('App\ContactEmail', 'owner_id', 'user_id');
+    /**
+     * check if an email exists in user table
+     *
+     * @param string $email
+     * @return bool
+     */
+    public function isEmailExists(string $email) : bool
+    {
+        return ($this::where('email', $email)->count())===1?true:false;
     }
 
-    public function phones(){
-        return $this->hasMany('App\ContactNumber', 'owner_id', 'user_id');
-    }
-
-    public function addresses(){
-        return $this->hasMany('App\ContactAddress', 'owner_id', 'user_id');
-    }
-
-    public static function isAuthAdmin(){
-        $auth_user = User::find(Auth::user()->user_id);
-        if($auth_user->role()->first()->role_title == 'manager'){
-            return true;
+    /**
+     * check if reset key exists in user table
+     *
+     * @param string $key
+     * @return object|bool
+     */
+    public function getResetKeyUser(string $key)
+    {
+        $user = $this::where('reset_key', $key);
+        if($user->count() === 1){
+            return $user;
         }
         return false;
     }
 
-    public static function isAuthManager(){
-        $auth_user = User::find(Auth::user()->user_id);
-        if($auth_user->role()->first()->role_title == 'manager'){
-            return true;
+    /**
+     * check if activation key exists in user table
+     *
+     * @param string $key
+     * @return object|bool
+     */
+    public function getActivationKeyUser(string $key)
+    {
+        $user = $this::where('activation_key', $key);
+        if($user->count() === 1){
+            return $user;
         }
         return false;
     }
 
-    public static function isAuthLearner(){
-        $auth_user = User::find(Auth::user()->user_id);
-        if($auth_user->role()->first()->role_title == 'learner'){
-            return true;
-        }
-        return false;
+    /**
+     * get posts of this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
     }
-
-    public static function isAuthInstructor(){
-        $auth_user = User::find(Auth::user()->user_id);
-        if($auth_user->role()->first()->role_title == 'instructor'){
-            return true;
-        }
-        return false;
-    }
-
-    public static function isActive($email){
-        $user = User::where('email', '=', $email)->get();
-
-        if($user[0]->is_active>=1){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public static function isAvailable($email){
-        $user = User::where('email', '=', $email)->get();
-
-        if(count($user)==0){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
 }
