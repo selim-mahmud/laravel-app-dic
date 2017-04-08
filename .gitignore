@@ -1,7 +1,9 @@
 /node_modules
 /storage
+/bootstrap
 /vendor
 /.idea
+/public/user-contents
 Homestead.json
 Homestead.yaml
 .env
