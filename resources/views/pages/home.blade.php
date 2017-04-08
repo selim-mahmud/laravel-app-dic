@@ -221,7 +221,7 @@
                         of them.
                     </p>
                     <div class="row">
-                        @if($schools->isEmpty())
+                        @if(!$schools->isEmpty())
                             @foreach($schools as $school)
                                 <div class="col-md-3 col-md-6">
                                     <div class="member-prof">
