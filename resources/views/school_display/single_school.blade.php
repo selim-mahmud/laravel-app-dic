@@ -64,7 +64,6 @@
 											@if($school->twitter)
 												<li><a href="{{$school->twitter}}"><i class="fa fa-twitter"></i> Twitter</a></li>
 											@endif
-											<li><a href="#"><i class="fa fa-share-alt">&nbsp;</i>share</a></li>
 										</ul>
 									</div>
 								</div><div class="clearfix"></div>
