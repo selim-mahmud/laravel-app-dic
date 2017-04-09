@@ -10,7 +10,7 @@
 <body>
 <h1 style="color:RGB(0,190,243);">Account activation Link</h1>
 Hi {{$user->name}},
-<p>Please click below link to reset your password. <br>
+<p>Please click below link to activate your account. <br>
 <a href="{{$activationLink}}" style="color:RGB(0,190,243);" >Click here</a> to activate the account.</p>
 
 <br>
