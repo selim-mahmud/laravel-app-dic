@@ -44,13 +44,13 @@
 									<p style="float:left;" class="font12">{{Dic::getReviewStat($school->id)['average']}} based on {{Dic::getReviewStat($school->id)['count']}} reviews</p>
 									<div class="clearfix"></div>
 								</div>
-								<div class="list-det-address"><i class="fa fa-map-marker"></i> {{$school->contacts[0]->address?$school->contacts[0]->address:'No address has been set.'}}</div>
+								<div class="list-det-address"><i class="fa fa-map-marker"></i> {{!$school->contacts->isEmpty()?$school->contacts[0]->address:'No address has been set.'}}</div>
 								<div class="clearfix"></div>
 								<div class="">							
 									<div class="f-left p-right20">
 										<ul class="list-styles new-first-det start0 f-left">
-											<li><i class="fa fa-phone">&nbsp;</i><b>{{$school->contacts[0]->phone?$school->contacts[0]->phone:'Not set yet'}}</b></li>
-											<li><i class="fa fa-envelope-o">&nbsp;</i><b>{{$school->contacts[0]->email?$school->contacts[0]->email:'Not set yet'}}</b></li>
+											<li><i class="fa fa-phone">&nbsp;</i><b>{{!$school->contacts->isEmpty()?$school->contacts[0]->phone:'Not set yet'}}</b></li>
+											<li><i class="fa fa-envelope-o">&nbsp;</i><b>{{!$school->contacts->isEmpty()?$school->contacts[0]->email:'Not set yet'}}</b></li>
 										</ul></div>
 									<div class="f-left">
 										<ul class="list-styles new-first-det start0 f-left">
