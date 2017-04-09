@@ -9,7 +9,7 @@
 namespace App\Services;
 
 use App\Contracts\LoginContract;
-use App\Mail\passwordReset;
+use App\Mail\PasswordReset;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
