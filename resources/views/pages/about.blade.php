@@ -35,7 +35,7 @@
                             <img src="{{asset('img/theme/about.jpg')}}" alt="about us" >
                         </div>
                         <div class="col-sm-6 about-1-content-txt top20">
-                            <h2 class="color333 uppercase">ALL ABOUT Driving Instructors Catalog (DIC)</h2>
+                            <h2 class="color333 uppercase">ALL ABOUT Driving Instructors Catalog</h2>
                             <div class="top30 font13 color777">
                                 Driving Instructors Catalog (DIC) is an online platform that brings driving instructors
                                 and learner drivers together under one umbrella. When we as a learner driver looks for an instructor,
