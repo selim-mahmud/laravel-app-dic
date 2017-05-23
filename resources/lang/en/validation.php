@@ -109,6 +109,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+         'g-recaptcha-response' => 'reCAPTCHA',
+    ],
 
 ];

@@ -29,6 +29,7 @@ class RegistrationAsSchoolRequest extends FormRequest
             'email' => 'required|email|unique:users,email' ,
             'password' => 'required|between:6,15|regex:/^[ A-Za-z0-9!@#$%&_-]*$/',
             'confirm_password' => 'required|same:password',
+            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 
