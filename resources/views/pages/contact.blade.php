@@ -49,6 +49,10 @@
                                 {!! Form::textarea('message', null, ['class' => 'border1 borderddd form-1-style2 border1 b-radius3', 'placeholder' => 'Your message *'])!!}
                                 <span class="text-danger">{{$errors->first('message')}}</span>
                             </div>
+                            <div class="col-sm-12 top20">
+                                {!! app('captcha')->display() !!}
+                                <span class="text-danger">{{$errors->first('g-recaptcha-response')}}</span>
+                            </div>
                             <div class="col-sm-12">
                                 {!! Form::submit('SUBMIT', ['class'=>'submit-btn button1-1 b-radius3 right30 button-blue top20']) !!}
                             </div>

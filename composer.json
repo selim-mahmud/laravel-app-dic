@@ -16,7 +16,8 @@
     "spatie/laravel-activitylog": "^1.12",
     "spatie/laravel-permission": "^1.8",
     "pusher/pusher-php-server": "^2.6",
-    "intervention/image": "^2.3"
+    "intervention/image": "^2.3",
+    "buzz/laravel-google-captcha": "^1.4"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.2",
