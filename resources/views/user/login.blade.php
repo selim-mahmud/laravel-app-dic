@@ -45,10 +45,8 @@ learner to view profile of australian driving instructor">
                         <a class="readmore-btn b-radius3 color777" href="{{url('password-reset')}}">Forgot password</a>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <h2 style="margin-top: 20px;" class="centerBlock form-header black333"><span
-                                    class="primary_color">OR</span> login using your facebook</h2>
-                        <a class="b-radius3 btn-social btn-fb centerBlock button-blue"
-                           href="{{url('facebook-auth')}}"><span class="fa fa-facebook"></span> Login with Facebook</a>
+                        <h2 class="form-header black333">&nbsp;</h2>
+                        <img class="img-responsive" src="{{asset('img/theme/how-it-works.jpg')}}" alt="user login">
                         <br/>
                         <br/>
                     </div>

@@ -232,8 +232,8 @@
                                         <div class="memb-txt">
                                             <b class="font14 color333 uppercase"> <a href="{{url('driving-schools/'.strtolower(str_replace(' ', '-', $school->name)))}}">{{ str_limit($school->name, 26)}}</a></b><br/>
                                             <div class="{{$school->id}}"></div>
-                                            <p class="font12 color777">{{$school->contacts[0]->address?$school->contacts[0]->address:'No address has been set.'}}</p>
-                                            <div class="font12 color777 top10"><i class="fa fa-phone"></i> <b>{{$school->contacts[0]->phone?$school->contacts[0]->phone:'Not set yet'}}</b></div>
+                                            <p class="font12 color777">{{!$school->contacts->isEmpty()?$school->contacts[0]->address:'No address has been set.'}}</p>
+                                            <div class="font12 color777 top10"><i class="fa fa-phone"></i> <b>{{!$school->contacts->isEmpty()?$school->contacts[0]->phone:'Not set yet'}}</b></div>
 
                                             <a href="{{url('driving-schools/'.strtolower(str_replace(' ', '-', $school->name)))}}" class="inline-block top10">
                                                 <div class="blue-gradient-btn readmore-btn b-radius3 uppercase">View

@@ -22,6 +22,6 @@ return [
     'instructor_avatar_path' => 'user-contents/images/school/instructor',
     'school_media_path' => 'user-contents/images/school/media',
     'post_feature_image_path' => 'user-contents/images/post',
-    'contact_form_email_recipient' => 'selim.mahmud80@yahoo.com.au',
+    'contact_form_email_recipient' => 'contact@driving-instructors-catalog.com.au',
     'google_map_api_key' => 'AIzaSyCZdV_g1jBOA3yb3fGAwfIKQiAe-LqlEqA',
 ];

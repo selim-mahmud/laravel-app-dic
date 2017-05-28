@@ -25,10 +25,11 @@ class RegistrationAsSchoolRequest extends FormRequest
     {
         return [
             'name' => 'required|between:3,50',
-            'school_name' => 'required|between:2,150',
+            'school_name' => 'required|between:2,150|unique:schools,name',
             'email' => 'required|email|unique:users,email' ,
             'password' => 'required|between:6,15|regex:/^[ A-Za-z0-9!@#$%&_-]*$/',
             'confirm_password' => 'required|same:password',
+            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 

@@ -49,17 +49,18 @@
                             <span class="text-danger">{{$errors->has('confirm_password')?$errors->first('confirm_password'):''}}</span>
                         </div>
                         <div class="top20">
+                            {!! app('captcha')->display() !!}
+                            <span class="text-danger">{{$errors->first('g-recaptcha-response')}}</span>
+                        </div>
+                        <div>
                             {!! Form::submit('REGISTER', ['class'=>'submit-btn button1-1 b-radius3 right30 button-blue top20']) !!}
                         </div>
                         {!! Form::close() !!}
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <h2 style="margin-top: 20px;" class="centerBlock form-header black333"><span
-                                    class="primary_color">OR</span> register using your facebook</h2>
-
-                        <a class="b-radius3 btn-social btn-fb centerBlock button-blue"
-                           href="{{url('facebook-auth')}}"><span class="fa fa-facebook"></span> Register with
-                            Facebook</a>
+                        <h2 class="form-header black333">&nbsp;</h2>
+                        <img class="img-responsive" src="{{asset('img/theme/school-registration.jpg')}}"
+                             alt="school registration">
                         <br/>
                         <br/>
                     </div>

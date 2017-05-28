@@ -58,7 +58,7 @@
 											<div class="col-sm-3 bs-photo p-left0">
 												<div class="bs-photo-container memb-photo memb-photo1">
 													<a href="{{url('driving-schools/'.strtolower(str_replace(' ', '-', $school->name)))}}">
-														<img src="{{$school->profile_photo_url?asset($school->profile_photo_url):asset(config('dic.default_learner_profile_photo'))}}" alt="{{$school->name}}" class="b-radius3">
+														<img class="img-responsive" src="{{$school->profile_photo_url?asset($school->profile_photo_url):asset(config('dic.default_learner_profile_photo'))}}" alt="{{$school->name}}" class="b-radius3">
 													</a>
 													<div style="padding:10px;">
 														<div class="{{$school->id}}"></div>
@@ -74,16 +74,16 @@
 													<div class="col-md-8">
 														<div class="font14 color777">
 													<span class="p-right20">
-														{{$school->contacts[0]->address?$school->contacts[0]->address:'No address has been set.'}}
+														{{!$school->contacts->isEmpty()?$school->contacts[0]->address:'No address has been set.'}}
 													</span>
 														</div>
 														<div class="font14 color777"><span class="wordwrap font14 color777">
 														<i class="fa fa-phone orange"></i>
-														<b>{{$school->contacts[0]->phone?$school->contacts[0]->phone:'Not set yet'}}</b>
+														<b>{{!$school->contacts->isEmpty()?$school->contacts[0]->phone:'Not set yet'}}</b>
 													</span></div>
 														<div class="font14 color777"><span class="wordwrap font12 color777">
 														<i class="fa fa-envelope orange"></i>
-														<b>{{$school->contacts[0]->email?$school->contacts[0]->email:'Not set yet'}}</b></span>
+														<b>{{!$school->contacts->isEmpty()?$school->contacts[0]->email:'Not set yet'}}</b></span>
 														</div>
 														<div class="font14 color777">
 													<span class="wordwrap font14 color777">

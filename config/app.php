@@ -182,6 +182,11 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         App\Providers\ValidationServiceProvider::class,
+
+        /*
+        * For google recaptcha
+        */
+        Buzz\LaravelGoogleCaptcha\CaptchaServiceProvider::class,
     ],
 
     /*
