@@ -48,6 +48,10 @@
                             {!! Form::password('confirm_password', ['class'=>'border1 borderddd form-1-style2 b-radius3', 'placeholder'=>'Confirm password']) !!}
                             <span class="text-danger">{{$errors->has('confirm_password')?$errors->first('confirm_password'):''}}</span>
                         </div>
+                        <div class="top20">
+                            {!! app('captcha')->display() !!}
+                            <span class="text-danger">{{$errors->first('g-recaptcha-response')}}</span>
+                        </div>
                         <div>
                             {!! Form::submit('REGISTER', ['class'=>'submit-btn button1-1 b-radius3 right30 button-blue top20']) !!}
                         </div>

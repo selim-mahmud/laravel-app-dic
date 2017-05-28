@@ -29,6 +29,7 @@ class ContactRequest extends FormRequest
             'contact_number' => 'nullable|digits_between:8,14',
             'subject' => 'required|string|max:255',
             'message' => 'required|string|max:2048',
+            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 }
